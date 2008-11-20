@@ -1,0 +1,12 @@
+<tr>
+	<td><div id="feature_<?php echo $this->id; ?>" class="edit"><?php echo $this->feature; ?></div></td>
+	<td><?php echo $this->tmid; ?></td>
+	<td><div id="task_<?php echo $this->id; ?>" class="edit"><?php echo $this->task; ?></div></td>
+	<td align="center"><?php echo $this->priority; ?></td>
+	<td align="right"><?php echo $this->origEst; ?></td>
+	<td align="right"><div id="currEst_<?php echo $this->id; ?>"><?php echo $this->currEst; ?></div></td>
+	<td align="right"><div id="elapsed_<?php echo $this->id; ?>" class="edit"><?php echo $this->elapsed; ?></div></td>
+	<td align="right"><div id="estRemain_<?php echo $this->id; ?>"><?php echo $this->estRemain; ?></div></td>
+	<td align="center"><div id="completed_<?php echo $this->id; ?>"><?php echo ($this->completed ? 'Yes' : 'No'); ?></div></td>
+	<td><div id="completedBy_<?php echo $this->id; ?>" class="edit"><?php echo ( empty($this->completedBy) ? '-' : $this->completedBy); ?></div></td>
+</tr>

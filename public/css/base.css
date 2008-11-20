@@ -1,0 +1,274 @@
+/* ========================================================================= */
+/*                                   Tags                                    */
+/* ========================================================================= */
+body {
+	background: #335511;
+	height:		100%;
+	margin:		0;
+	color:		#333333;
+}
+
+form {
+	margin:	5px;
+}
+
+h1, h2, h3 {
+	border-bottom:	1px solid #a4c2c2;
+	color:			#336666;
+	font-size:		18pt;
+	font-weight:	bold;
+	margin-top:    5px;
+}
+
+h2 {
+	font-size:     14pt;
+}
+
+h3 {
+	font-size:		12pt;
+}
+
+html {
+	height:	100%;
+	margin:	0;
+}
+
+input, select {
+	border:		1px solid #a3a3a3;
+}
+
+input {
+	padding: 3px;
+}
+
+input:hover, select:hover {
+	background-color:	#c3d3e3;
+}
+
+label {
+	font-weight:	bold;
+}
+
+p {
+	margin:		5px;
+}
+
+td, th {
+	padding:	5px;
+
+}
+
+th {
+	background-color:	#f3f3f3;
+	text-transform:	uppercase;
+	font-weight:	bold;
+	text-align:		center;
+}
+
+/* ========================================================================= */
+/*                              IDs                                          */
+/* ========================================================================= */
+#bd {
+	background:	white;
+	height:		auto;
+}
+
+#content {
+	padding:	5px;
+}
+
+#doc3 {
+	height:			100%;
+	margin-left:	0px;
+	margin-right:	0px;
+	min-height:		100%;
+}
+
+#ft, #mainNavigation, #nav {
+	background-color:	#999966;
+	border:				1px solid white;
+	padding:			5px;
+	vertical-align:		middle;
+}
+
+#ft {
+	border-top:	1px solid #999966;
+	height:		15px;
+	padding:	5px;
+	text-align:	right;
+
+}
+
+#mainNavigation {
+	height:	15px;
+}
+
+#nav {
+	border-top:			1px solid #A4C2C2;
+	vertical-align:		top;
+	height:				auto;
+	min-height:			100%;
+	padding:			0px;
+}
+
+/* ========================================================================= */
+/*                             Classes                                       */
+/* ========================================================================= */
+.clear {
+	clear:	both;
+}
+
+.center {
+	text-align:	center;
+}
+
+.errorDialog {
+	display:				none;
+	cursor:					default;
+	background:				#fff6bf url('/images/exclamation.png') center no-repeat;
+	background-position:	15px;
+	text-align:				left;
+	padding:				5px 20px 5px 45px;
+	border-top:				2px solid #ffd324;
+	border-bottom:			2px solid #ffd324;
+}
+
+.infoDialog {
+	display:				none;
+	cursor:					default;
+	background:				#f8fafc url('/images/information.png') center no-repeat;
+	background-position:	15px;
+	text-align:				left;
+	padding:				5px 20px 5px 45px;
+	border-top:				2px solid #b5d4fe;
+	border-bottom:			2px solid #b5d4fe;
+}
+
+.infoDialog table {
+	border:	1px solid gray;
+	width:	90%;
+}
+
+.infoDialog tr {
+	border: 1px solid gray;
+}
+
+.left {
+	float:	left;
+}
+
+.logoff {
+	float:			right;
+	font-size:		12px;
+	font-weight:	bold;
+	color:			white;
+}
+
+.logoff a{
+	color:			white;
+	text-decoration:	none;
+}
+
+.logoff a:hover{
+	text-decoration:	underline;
+	color:			red;
+}
+
+.rowHeading {
+	font-weight:	bold;
+}
+
+/* ========================================================================= */
+/*                               Mixed                                       */
+/* ========================================================================= */
+#hd h1 {
+	border-bottom:	0px;
+	color:			White;
+	font-size:		16pt;
+	font-weight:	bold;
+	font:			20px Georgia;
+}
+
+#mainNavigation a, #mainNavigation a:visited {
+	color:				White;
+	font-weight:		12px Arial;
+	font-weight:		bold;
+	height:				15px;
+	letter-spacing:		.1 em;
+	text-decoration:	none;
+	text-transform:		uppercase;
+}
+
+#mainNavigation a:hover {
+	text-decoration:	underline;
+}
+
+#nav a, #nav a:visited {
+	color:				White;
+	font-weight:		12px Arial;
+	font-weight:		bold;
+	letter-spacing:		.1 em;
+	text-decoration:	none;
+}
+
+#nav ul {
+	list-style:	none;
+}
+
+#nav li a {
+	height: 			32px;
+  	voice-family:		"\"}\"";
+  	voice-family: 		inherit;
+  	height: 			24px;
+	text-decoration:	none;
+}
+
+#nav li a:link, #nav li a:visited {
+	display: 		block;
+	background: 	url('/biffpm/public/images/nav.gif');
+	padding: 		8px 0 0 10px;
+}
+
+#nav li a:hover {
+	color: 			Blue;
+	background: 	url('/biffpm/public/images/nav.gif') 0 -32px;
+	padding:		8px 0 0 10px;
+}
+
+#hoverTable th {
+	padding:	4px;
+	border:		1px solid #b3b3b3;
+}
+
+#quoteTable td{
+	border:		1px solid #b3b3b3;
+}
+
+#quoteTable thead tr .header {
+	background-image:		url('/biffpm/public/images/bg.gif');
+	background-repeat:		no-repeat;
+	background-position:	center right;
+	cursor:					pointer;
+	padding:				4px;
+	text-align:				left;
+}
+
+#quoteTable thead tr .headerSortDown {
+	background-image:	url('/biffpm/public/images/desc.gif');
+}
+
+#quoteTable thead tr .headerSortUp {
+	background-image:	url('/biffpm/public/images/asc.gif');
+}
+
+td.hover, tr.hover {
+	background-color:	#c3d3e3;
+}
+
+table.border {
+	border:		1px solid #b3b3b3;
+}
+
+tr.evenRow {
+	background-color:	#F0F0F6;
+}

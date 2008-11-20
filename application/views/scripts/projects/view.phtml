@@ -1,0 +1,99 @@
+<?php
+$baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
+$this->headTitle('View Project');
+$this->headScript()->captureStart();
+?>
+
+$(document).ready(function() {
+	$('.zebraStripe tr:even').addClass('evenRow');
+
+	$.blockUI.defaults.applyPlatformOpacityRules = false;
+
+	$('#taskList').tableHover();
+
+	$('#addTaskButton').click(function() {
+		$.blockUI({message: $('#addTaskDialog')});
+	});
+
+	$('#addTaskSubmit').click(function() {
+		$.ajax({
+			cache:	false,
+			data:	{'feature':	$('#feature').val(),
+					 'tmid': $('#tmid').val(),
+					 'task': $('#task').val(),
+					 'priority': $('#priority').val(),
+					 'origEst': $('#origEst').val(),
+					 'projectId': $('#projectId').val()},
+			success: function() {
+				window.location = '<?php echo $baseUrl; ?>/projects/view/project/' + $('#projectId').val();
+			},
+			type: 'POST',
+			url: '<?php echo $baseUrl; ?>/projects/addtask/'
+		});
+
+		return false;
+	});
+
+	$('#addTaskCancel').click(function() {
+		$.unblockUI();
+		return false;
+	});
+
+	$('.edit').editable('<?php echo $baseUrl; ?>/projects/edittask', {
+		indicator: 'Saving...',
+		tooltip: 'Click to edit...',
+		callback: function(value, settings) {
+			var origElement = this.id.split('_');
+			var column = origElement[0];
+			var row = origElement[1];
+			switch(column) {
+				case 'elapsed':
+					$('#estRemain_' + row).html( $('#currEst_' + row).html() - $('#elapsed_' + row).html() );
+					break;
+				case 'completedBy':
+					if(value != '' || value != '-') {
+						$('#completed_' + row).html('Yes');
+					} else {
+						$('#completed_' + row).html('No');
+					}
+					break;
+			}
+		}
+	});
+});
+
+<?php
+$this->headScript()->captureEnd();
+?>
+<h1>Tasks</h1>
+
+<input type="hidden" id="projectId" value="<?php echo $this->projectId ?>">
+
+<table id="taskList" class="zebraStripe">
+	<thead>
+		<tr>
+			<th>Feature</th>
+			<th>Matrix ID</th>
+			<th>Task</th>
+			<th>Priority</th>
+			<th>Orig. Estimate</th>
+			<th>Current Estimate</th>
+			<th>Elapsed</th>
+			<th>Remaining</th>
+			<th>Completed?</th>
+			<th>Completed By</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php echo $this->partialLoop('_partials/projects/taskRow.phtml', $this->tasks); ?>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="11" align="right"><button id="addTaskButton">Add New task</button></td>
+		</tr>
+	</tfoot>
+</table>
+
+<div id="addTaskDialog" style="display: none">
+	<?php echo $this->addTaskForm; ?>
+</div>
