@@ -1,1 +1,22 @@
-<h1>It Works!</h1>
+<script type="text/javascript">
+	dojo.require('dojo.parser');
+	dojo.require('dijit.form.Button');
+	dojo.require('dijit.form.TextBox');
+	dojo.require('dijit.form.Textarea');
+	dojo.require('dijit.Dialog');
+</script>
+
+<h1>Current Projects</h1>
+
+<button dojoType="dijit.form.Button" onClick="dijit.byId('addProject').show();">Add Project</button>
+
+<div id="addProject" title="Add New Project" dojoType="dijit.Dialog" style="text-align: left">
+	<dl>
+		<dt>Project Name:</dt>
+			<dd><input dojoType="dijit.form.TextBox" id="projectName"></dd>
+		<dt>Project Description:</dt>
+			<dd><textarea dojoType="dijit.form.Textarea" id="projectDescription" style="width: 300px; height: 100px"></textarea></dd>
+	</dl>
+	
+	<button dojoType="dijit.form.Button" onClick="alert('Submitted');" style="float: right">Save Project</button>
+</div>
