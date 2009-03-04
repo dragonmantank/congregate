@@ -3,17 +3,21 @@
 <html>
 <head>
 	<title>Biff ProjectManager</title>
-	<link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css">
+	
 	<link rel="stylesheet" href="/js/dojo-release-1.2.3/dijit/themes/tundra/tundra.css" type="text/css">
 	<link rel="stylesheet" href="/js/dojo-release-1.2.3/dojo/resources/dojo.css" type="text/css">
+	<link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css">
+	<link rel="stylesheet" href="/css/layout/color.css" type="text/css">
+	<link rel="stylesheet" href="/css/layout/layout.css" type="text/css">
+	<link rel="stylesheet" href="/css/layout/type.css" type="text/css">
 	
 	<script type="text/javascript" src="/js/dojo-release-1.2.3/dojo/dojo.js" djConfig="parseOnLoad: true"></script>
 </head>
 <body class="tundra">
 <div id="doc3" class="yui-t7">
-	<div id="hd"><h1><a href="/">BPM</a></h1></div>
+	<div id="hd"><h1><a href="/">Biff ProjectManager</a></h1></div>
 	<div id="bd">
-		<div class="yui-g">
+		<div class="yui-g" id="content">
 			<!-- YOUR DATA GOES HERE -->
 			<?php echo $this->layout()->content; ?>
 		</div>

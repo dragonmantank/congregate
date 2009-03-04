@@ -1,0 +1,13 @@
+@CHARSET "ISO-8859-1";
+
+#hd, #ft {
+	background-color:	#0C91B2;
+}
+
+#hd h1 a, #ft a {
+	color:	White;
+}
+
+#ft {
+	color:	white;
+}

@@ -1,0 +1,30 @@
+@CHARSET "ISO-8859-1";
+
+h1 {
+	font-size:		1.5em;
+	font-weight:	bold;
+}
+
+#hd h1 {
+	font-weight:	bold;
+	line-height:	40px;
+	font-size:		14pt;
+}
+
+#hd h1 a, #ft a {
+	text-decoration:	none;
+}
+
+#hd h1 a:hover, #ft a:hover {
+	text-decoration:	underline;
+}
+
+#ft p {
+	text-align:		right;
+	font-size:		8pt;
+	line-height:	15px;
+}
+
+#ft a {
+	font-weight:	bold;
+}

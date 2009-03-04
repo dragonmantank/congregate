@@ -1,0 +1,15 @@
+@CHARSET "ISO-8859-1";
+
+#hd {
+	height:		40px;
+	padding:	5px;
+}
+
+#ft {
+	height:		15px;
+	padding:	5px;
+}
+
+#content {
+	padding:	5px;
+}
