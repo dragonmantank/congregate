@@ -5,6 +5,16 @@ h1 {
 	font-weight:	bold;
 }
 
+h2 {
+	font-size:		1.1667em;
+	font-weight:	bold;
+}
+
+h3 {
+	font-size:		1em;
+	font-weight:	bold;
+}
+
 #hd h1 {
 	font-weight:	bold;
 	line-height:	40px;
