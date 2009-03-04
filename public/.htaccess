@@ -1,0 +1,11 @@
+# Rewrite rules for Zend Framework
+RewriteEngine	on
+RewriteCond		%{REQUEST_FILENAME} !-f
+RewriteCond		%{REQUEST_FILENAME} !-d
+RewriteRule		(.*) index.php/$1 [L]
+
+# Security: Don't allow browsing of directories
+Options			-Indexes
+
+# PHP Settings
+php_flag		short_open_tag	on

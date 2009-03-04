@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configdata>
+	<production>
+		<database>
+			<adapter>MYSQLI</adapter>
+			<params>
+				<host>localhost</host>
+				<dbname>biffpm</dbname>
+				<username>root</username>
+				<password></password>
+			</params>
+		</database>
+	</production>
+	<development extends="production">
+		<database>
+			<params>
+				<host>localhost</host>
+				<dbname>biffpm</dbname>
+				<username>root</username>
+				<password></password>
+			</params>
+		</database>
+	</development>
+</configdata>
