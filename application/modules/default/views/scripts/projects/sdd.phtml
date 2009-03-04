@@ -1,7 +1,40 @@
 <script type="text/javascript">
+	var sigCount = 0;
+	
 	dojo.require('dojo.parser');
 	dojo.require('dijit.InlineEditBox');
 	dojo.require('dijit.Editor');
+	dojo.require('dijit.form.Button');
+	dojo.require('dijit.form.TextBox');
+	loadSignatures();
+	
+	function addSignature() {
+		dojo.xhrPost({
+			url:		'/projects/addsddsignature/',
+			handleAs:	'json',
+			error: function(data, ioArgs) {
+				alert('There was an error adding the signature');
+			},
+			load: function(data, ioArgs) {
+				loadSignatures();
+				dojo.byId('newSig').value = '';
+			},
+			content: {
+				name: dojo.byId('newSig').value,
+				projectId:	<?php echo $this->projectId; ?>
+			}
+		});
+	}
+	
+	function loadSignatures() {
+		dojo.xhrGet({
+			url:	'/projects/generatesddsignatures/project/<?php echo $this->projectId; ?>',
+			load:	function(data, ioArgs) {
+				dojo.byId('signatures').innerHTML = data;
+			}
+		});
+		
+	}
 	
 	function saveSection(section, text) {
 		dojo.xhrPost({
@@ -55,3 +88,13 @@
 <p id="additionalMaterial" dojoType="dijit.InlineEditBox" editor="dijit.Editor" renderAsHTML="true" buttonSave="Save" onChange="saveSection('additionalMaterial', arguments[0]);" autosave="false">
 	<?php echo ($this->additionalMaterial == '' ? 'No Text Supplied' : $this->additionalMaterial); ?>
 </p>
+
+<h2>Signatures</h2>
+<div id="signatures">
+</div>
+
+<div id="addSig">
+<label for="newSig">Name:</label><input type="text" name="newSig" id="newSig" dojoType="dijit.form.TextBox">
+<button dojoType="dijit.form.Button" onClick="addSignature();">Add Signature</button>
+</div>
+
