@@ -4,19 +4,47 @@
 	dojo.require('dijit.form.TextBox');
 	dojo.require('dijit.form.Textarea');
 	dojo.require('dijit.Dialog');
+	dojo.require('dijit.TitlePane');
 </script>
 
 <h1>Current Projects</h1>
 
-<button dojoType="dijit.form.Button" onClick="dijit.byId('addProject').show();">Add Project</button>
+<ul>
+	<?php foreach($this->projects as $project): ?>
+		<li dojoType="dijit.TitlePane" open="false" title="<?php echo $project->name; ?>"><?php echo $project->description; ?></li>
+	<?php endforeach; ?> 
+</ul>
+
+<button dojoType="dijit.form.Button" onClick="dijit.byId('addProject').show();" style="float: right">Add Project</button>
 
 <div id="addProject" title="Add New Project" dojoType="dijit.Dialog" style="text-align: left">
+	<form method="POST" id="addProjectForm">
 	<dl>
 		<dt>Project Name:</dt>
-			<dd><input dojoType="dijit.form.TextBox" id="projectName"></dd>
+			<dd><input dojoType="dijit.form.TextBox" id="projectName" name="projectName"></dd>
 		<dt>Project Description:</dt>
-			<dd><textarea dojoType="dijit.form.Textarea" id="projectDescription" style="width: 300px; height: 100px"></textarea></dd>
+			<dd><textarea dojoType="dijit.form.Textarea" id="projectDescription" name="projectDescription" style="width: 300px; height: 100px"></textarea></dd>
 	</dl>
 	
-	<button dojoType="dijit.form.Button" onClick="alert('Submitted');" style="float: right">Save Project</button>
+	<button dojoType="dijit.form.Button" style="float: right">
+		Save Project
+		<script type="dojo/method" event="onClick">
+			dojo.xhrPost({
+				url: '/projects/add/',
+				handleAs: 'json',
+				load: function(data, ioArgs) {
+					alert(data.message);
+
+					if(data.status == 1) {
+						window.location = "/";
+					}
+				},
+				error: function(data, ioArgs) {
+					alert('There was an error');
+				},
+				form: 'addProjectForm'
+			});
+		</script>
+	</button>
+		</form>
 </div>
