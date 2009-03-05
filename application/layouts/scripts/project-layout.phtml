@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+ "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<title>Biff ProjectManager</title>
+	
+	<link rel="stylesheet" href="/js/dojo-release-1.2.3/dijit/themes/tundra/tundra.css" type="text/css">
+	<link rel="stylesheet" href="/js/dojo-release-1.2.3/dojo/resources/dojo.css" type="text/css">
+	<link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css">
+	<link rel="stylesheet" href="/css/layout/color.css" type="text/css">
+	<link rel="stylesheet" href="/css/layout/layout.css" type="text/css">
+	<link rel="stylesheet" href="/css/layout/type.css" type="text/css">
+	
+	<script type="text/javascript" src="/js/dojo-release-1.2.3/dojo/dojo.js" djConfig="parseOnLoad: true"></script>
+</head>
+<body class="tundra">
+<div id="doc3" class="yui-t2">
+	<div id="hd"><h1><a href="/">Biff ProjectManager</a></h1></div>
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+				<div class="yui-g" id="content">
+					<!-- YOUR DATA GOES HERE -->
+					<?php echo $this->layout()->content; ?>
+				</div>
+			</div>
+		</div>
+		<div class="yui-b" id="navigation">
+			<!-- Navigation -->
+			<ul>
+				<li><a href="/projects/sdd/project/<?php echo $this->layout()->projectId; ?>">Software Design</a></li>
+				<li><a href="/projects/design/project/<?php echo $this->layout()->projectId; ?>">Design</a></li>
+				<li><a href="/projects/implementation/project/<?php echo $this->layout()->projectId; ?>">Implementation</a></li>
+				<li><a href="/projects/debugging/project/<?php echo $this->layout()->projectId; ?>">Debugging</a></li>
+				<li><a href="/projects/installation/project/<?php echo $this->layout()->projectId; ?>">Installation</a></li>
+				<li><a href="/projects/maintenance/project/<?php echo $this->layout()->projectId; ?>">Maintenance</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="ft"><p>Copyright 2009 <a href="http://www.tankersleywebsolutions.com">Chris Tankersley</a></p></div>
+</div>
+</body>
+</html>

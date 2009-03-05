@@ -1,5 +1,10 @@
 @CHARSET "ISO-8859-1";
 
+blockquote {
+	margin-left:	20px;
+	border:			none;
+}
+
 #hd {
 	height:		40px;
 	padding:	5px;
@@ -12,4 +17,26 @@
 
 #content {
 	padding:	5px;
+}
+
+ol li, ul li {
+	margin-left:			20px;
+	list-style-position:	inside;
+}
+
+ol li {
+	list-style-type:	circle;
+}
+
+#navigation {
+	padding:	5px;
+}
+
+#navigation ul li {
+	margin:			0px;
+	padding:	10px 5px 10px 5px;
+}
+
+#navigation {
+	padding:	0px;
 }

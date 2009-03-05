@@ -2,6 +2,13 @@
 
 class ProjectsController extends Zend_Controller_Action
 {
+	public function init()
+	{
+		$this->_helper->layout->setLayout('project-layout');
+		$layout	= Zend_Layout::getMvcInstance();
+		
+		$layout->projectId	= $this->_request->getParam('project');
+	}
 	public function addAction()
 	{
 		$this->_helper->layout->disableLayout();

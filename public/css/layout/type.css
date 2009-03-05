@@ -38,3 +38,13 @@ h3 {
 #ft a {
 	font-weight:	bold;
 }
+
+#navigation a {
+	font-color:			white;
+	font-weight:		bold;
+	text-decoration:	none;
+}
+
+#navigation a:hover {
+	text-decoration:	underline;
+}

@@ -53,41 +53,60 @@
 </script>
 <h1>Software Design Description for '<?php echo $this->projectName; ?>'</h1>
 
-<h2>Introduction</h2>
-<h3>Design Overview</h3>
-<p id="designOverview" dojoType="dijit.InlineEditBox" editor="dijit.Editor" renderAsHTML="true" buttonSave="Save" onChange="saveSection('designOverview', arguments[0]);" autosave="false">
-	<?php echo ($this->designOverview == '' ? 'No Text Supplied' : $this->designOverview); ?>
-</p>
+<h2>1. Introduction</h2>
+	<blockquote>
+		<h3>1. Design Overview</h3>
+		<blockquote>
+			<p id="designOverview" dojoType="dijit.InlineEditBox" editor="dijit.Editor" renderAsHTML="true" buttonSave="Save" onChange="saveSection('designOverview', arguments[0]);" autosave="false">
+				<?php echo ($this->designOverview == '' ? 'No Text Supplied' : $this->designOverview); ?>
+			</p>
+		</blockquote>
+	</blockquote>
 
-<h2>System Architecture Design</h2>
-<h3>Chosen System Architecture</h3>
-<p id="chosenArchitecture" dojoType="dijit.InlineEditBox" editor="dijit.Editor" renderAsHTML="true" buttonSave="Save" onChange="saveSection('chosenArchitecture', arguments[0]);" autosave="false">
-	<?php echo ($this->chosenArchitecture == '' ? 'No Text Supplied' : $this->chosenArchitecture); ?>
-</p>
+<h2>2. System Architecture Design</h2>
+	<blockquote>
+		<h3>1. Chosen System Architecture</h3>
+		<blockquote>
+			<p id="chosenArchitecture" dojoType="dijit.InlineEditBox" editor="dijit.Editor" renderAsHTML="true" buttonSave="Save" onChange="saveSection('chosenArchitecture', arguments[0]);" autosave="false">
+				<?php echo ($this->chosenArchitecture == '' ? 'No Text Supplied' : $this->chosenArchitecture); ?>
+			</p>
+		</blockquote>
 
-<h3>Discussion of Alternate Designs</h3>
-<p id="alternateDesigns" dojoType="dijit.InlineEditBox" editor="dijit.Editor" renderAsHTML="true" buttonSave="Save" onChange="saveSection('alternateDesigns', arguments[0]);" autosave="false">
-	<?php echo ($this->alternateDesigns == '' ? 'No Text Supplied' : $this->alternateDesigns); ?>
-</p>
+		<h3>2. Discussion of Alternate Designs</h3>
+		<blockquote>
+			<p id="alternateDesigns" dojoType="dijit.InlineEditBox" editor="dijit.Editor" renderAsHTML="true" buttonSave="Save" onChange="saveSection('alternateDesigns', arguments[0]);" autosave="false">
+				<?php echo ($this->alternateDesigns == '' ? 'No Text Supplied' : $this->alternateDesigns); ?>
+			</p>
+		</blockquote>
 
-<h3>System Interface Description</h3>
-<p id="systemInterfaceDescription" dojoType="dijit.InlineEditBox" editor="dijit.Editor" renderAsHTML="true" buttonSave="Save" onChange="saveSection('systemInterfaceDescription', arguments[0]);" autosave="false">
-	<?php echo ($this->systemInterfaceDescription == '' ? 'No Text Supplied' : $this->systemInterfaceDescription); ?>
-</p>
+		<h3>3. System Interface Description</h3>
+		<blockquote>
+			<p id="systemInterfaceDescription" dojoType="dijit.InlineEditBox" editor="dijit.Editor" renderAsHTML="true" buttonSave="Save" onChange="saveSection('systemInterfaceDescription', arguments[0]);" autosave="false">
+				<?php echo ($this->systemInterfaceDescription == '' ? 'No Text Supplied' : $this->systemInterfaceDescription); ?>
+			</p>
+		</blockquote>
+	</blockquote>
 
-<h2>Detailed Description of Components</h2>
-<h3>Coming Soon</h3>
+<h2>3. Detailed Description of Components</h2>
+	<blockquote>
+		<h3>Coming Soon</h3>
+	</blockquote>
 
-<h2>User Interface Design</h2>
-<h3>Description of User Interface</h3>
-<p id="userInterfaceDescription" dojoType="dijit.InlineEditBox" editor="dijit.Editor" renderAsHTML="true" buttonSave="Save" onChange="saveSection('userInterfaceDescription', arguments[0]);" autosave="false">
-	<?php echo ($this->userInterfaceDescription == '' ? 'No Text Supplied' : $this->userInterfaceDescription); ?>
-</p>
+<h2>4. User Interface Design</h2>
+	<blockquote>
+		<h3>1. Description of User Interface</h3>
+		<p id="userInterfaceDescription" dojoType="dijit.InlineEditBox" editor="dijit.Editor" renderAsHTML="true" buttonSave="Save" onChange="saveSection('userInterfaceDescription', arguments[0]);" autosave="false">
+			<?php echo ($this->userInterfaceDescription == '' ? 'No Text Supplied' : $this->userInterfaceDescription); ?>
+		</p>
+	</blockquote>
 
-<h2>Additional Material</h2>
-<p id="additionalMaterial" dojoType="dijit.InlineEditBox" editor="dijit.Editor" renderAsHTML="true" buttonSave="Save" onChange="saveSection('additionalMaterial', arguments[0]);" autosave="false">
-	<?php echo ($this->additionalMaterial == '' ? 'No Text Supplied' : $this->additionalMaterial); ?>
-</p>
+<h2>5. Additional Material</h2>
+	<blockquote>
+		<p id="additionalMaterial" dojoType="dijit.InlineEditBox" editor="dijit.Editor" renderAsHTML="true" buttonSave="Save" onChange="saveSection('additionalMaterial', arguments[0]);" autosave="false">
+			<?php echo ($this->additionalMaterial == '' ? 'No Text Supplied' : $this->additionalMaterial); ?>
+		</p>
+	</blockquote>
+	
 
 <h2>Signatures</h2>
 <div id="signatures">

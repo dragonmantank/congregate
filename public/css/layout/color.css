@@ -11,3 +11,19 @@
 #ft {
 	color:	white;
 }
+
+#navigation ul li {
+	background-color:	#0C91B2;
+	border-top:			1px solid #d3d3d3;
+	border-left:		1px solid #d3d3d3;
+	border-right:		1px solid black;
+	border-bottom:		1px solid black;
+}
+
+#navigation ul li:hover {
+	background-color:	#0FB0D9;
+}
+
+#navigation a {
+	color:	white;
+}
