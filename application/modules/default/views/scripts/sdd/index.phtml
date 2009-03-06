@@ -10,7 +10,7 @@
 	
 	function addSignature() {
 		dojo.xhrPost({
-			url:		'/projects/addsddsignature/',
+			url:		'/signatures/add/',
 			handleAs:	'json',
 			error: function(data, ioArgs) {
 				alert('There was an error adding the signature');
@@ -20,15 +20,15 @@
 				dojo.byId('newSig').value = '';
 			},
 			content: {
-				name: dojo.byId('newSig').value,
-				projectId:	<?php echo $this->projectId; ?>
+				name: 	dojo.byId('newSig').value,
+				type:	'sdd'
 			}
 		});
 	}
 	
 	function loadSignatures() {
 		dojo.xhrGet({
-			url:	'/projects/generatesddsignatures/project/<?php echo $this->projectId; ?>',
+			url:	'/signatures/generate/type/sdd',
 			load:	function(data, ioArgs) {
 				dojo.byId('signatures').innerHTML = data;
 			}
@@ -38,15 +38,14 @@
 	
 	function saveSection(section, text) {
 		dojo.xhrPost({
-				url: '/projects/sddsave/',
+				url: '/sdd/save/',
 				handleAs: 'json',
 				error: function(data, ioArgs) {
 					alert('There was an error');
 				},
 				content: {
 					'section': section,
-					'text': text,
-					'project': <?php echo $this->projectId; ?>
+					'text': text
 				}
 			});
 	}

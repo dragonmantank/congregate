@@ -13,7 +13,7 @@
 	<?php foreach($this->projects as $project): ?>
 		<li dojoType="dijit.TitlePane" open="false" title="<?php echo $project->name; ?>">
 			<?php echo $project->description; ?>
-			<a style="text-align: right; clear: both;" href="/projects/sdd/project/<?php echo $project->id; ?>">View</a>
+			<a style="text-align: right; clear: both;" href="/projects/load/project/<?php echo $project->id; ?>">View</a>
 		</li>
 	<?php endforeach; ?> 
 </ul>
