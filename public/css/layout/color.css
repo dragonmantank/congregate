@@ -1,5 +1,10 @@
 @CHARSET "ISO-8859-1";
 
+th {
+	background-image:	url('/images/layout/th-heading.png');
+	height:				22px;
+}
+
 #hd, #ft {
 	background-color:	#0C91B2;
 }

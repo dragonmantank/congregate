@@ -1,5 +1,14 @@
 @CHARSET "ISO-8859-1";
 
+td, th {
+	padding:	5px;
+}
+
+th {
+	background-position:	bottom center;
+	text-align:				center;
+}
+
 blockquote {
 	margin-left:	20px;
 	border:			none;

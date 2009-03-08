@@ -1,0 +1,75 @@
+<script type="text/javascript">
+	dojo.require('dojo.parser');
+	dojo.require('dijit.form.Button');
+	dojo.require('dijit.form.TextBox');
+	dojo.require('dijit.form.Textarea');
+	dojo.require('dijit.Dialog');
+</script>
+
+<h1>Tasks for Implementation</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Feature</th>
+			<th>Priority</th>
+			<th>Task</th>
+			<th>Original Estimate</th>
+			<th>Current Estimate</th>
+			<th>Elapsed</th>
+			<th>Remaining</th>
+			<th>Status</th>
+			<th>Completed By</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php if(count($this->tasks)): ?>
+			<?php echo $this->partialLoop('implementation/_partials/task.phtml', $this->tasks); ?>
+		<?php else: ?>
+			<tr>
+				<td colspan="9" align="center"><b>There are no tasks for this project.</b></td>
+			</tr>
+		<?php endif; ?>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="9" align="right"><button dojoType="dijit.form.Button" onClick="dijit.byId('addTask').show();" style="float: right">Add Task</button></td>
+		</tr>
+	</tfoot>
+</table>
+
+<div id="addTask" title="Add New Task" dojoType="dijit.Dialog" style="text-align: left">
+	<form method="POST" id="addTaskForm">
+	<dl>
+		<dt>Feature:</dt>
+			<dd><input dojoType="dijit.form.TextBox" id="feature" name="feature"></dd>
+		<dt>Priority:</dt>
+			<dd><input dojoType="dijit.form.TextBox" id="priority" name="priority"></dd>
+		<dt>Original Estimate:</dt>
+			<dd><input dojoType="dijit.form.TextBox" id="estimateOrig" name="estimateOrig"></dd>
+		<dt>Task:</dt>
+			<dd><textarea dojoType="dijit.form.Textarea" id="task" name="task" style="width: 300px; height: 100px"></textarea></dd>
+	</dl>
+	
+	<button dojoType="dijit.form.Button" style="float: right">
+		Save Task
+		<script type="dojo/method" event="onClick">
+			dojo.xhrPost({
+				url: '/implementation/addtask/',
+				handleAs: 'json',
+				load: function(data, ioArgs) {
+					alert(data.message);
+
+					if(data.status == 1) {
+						window.location = "/implementation/";
+					}
+				},
+				error: function(data, ioArgs) {
+					alert('There was an error');
+				},
+				form: 'addTaskForm'
+			});
+		</script>
+	</button>
+		</form>
+</div>

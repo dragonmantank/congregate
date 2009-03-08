@@ -1,0 +1,11 @@
+<tr>
+	<td valign="top"><?php echo $this->feature; ?></td>
+	<td valign="top" align="center"><?php echo $this->priority; ?></td>
+	<td valign="top"><?php echo $this->task; ?></td>
+	<td valign="top" align="center"><?php echo $this->estimateOrig; ?></td>
+	<td valign="top" align="center"><?php echo $this->estimateCurrent; ?></td>
+	<td valign="top" align="center"><?php echo $this->elapsed; ?></td>
+	<td valign="top" align="center"><?php echo $this->remaining; ?></td>
+	<td valign="top" align="center"><?php echo ($this->status ? 'Complete' : 'Incomplete'); ?></td>
+	<td valign="top"><?php echo ($this->completedBy == '' ? '-' : $this->completedBy); ?></td>
+</tr>
