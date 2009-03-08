@@ -40,5 +40,29 @@ class ImplementationController extends Zend_Controller_Action
 	public function init()
 	{
 		$this->_helper->layout->setLayout('project-layout');
+		if(!array_key_exists('projectId', $_SESSION)) {
+			$this->_redirect('/');
+		}
+	}
+	
+	public function updatecellAction()
+	{
+		$this->_helper->layout->disableLayout();
+		$this->_helper->viewRenderer->setNoRender(true);
+		
+		if($_POST) {
+			$section	= $this->_request->getParam('section');
+			$id			= $this->_request->getParam('id');
+			$text		= $this->_request->getParam('text');
+
+			$tasks		= new Tasks();
+			$task		= $tasks->fetchRow($tasks->select()->where('id = ?', $id));
+			
+			$task->{$section}	= $text;
+			if($section == 'completedBy') {
+				$task->status	= 1;
+			}
+			$task->save();
+		}
 	}
 }

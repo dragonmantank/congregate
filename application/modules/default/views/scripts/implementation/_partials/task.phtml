@@ -1,11 +1,39 @@
 <tr>
-	<td valign="top"><?php echo $this->feature; ?></td>
-	<td valign="top" align="center"><?php echo $this->priority; ?></td>
-	<td valign="top"><?php echo $this->task; ?></td>
+	<td valign="top">
+		<div  dojoType="dijit.InlineEditBox" onChange="saveSection('feature', '<?php echo $this->id; ?>', arguments[0]);">
+			<?php echo $this->feature; ?>
+		</div>
+	</td>
+	<td valign="top" align="center">
+		<div dojoType="dijit.InlineEditBox" onChange="saveSection('priority', '<?php echo $this->id; ?>', arguments[0]);">
+			<?php echo $this->priority; ?>
+		</div>
+	</td>
+	<td valign="top">
+		<div dojoType="dijit.InlineEditBox" editor="dijit.form.Textarea" onChange="saveSection('task', '<?php echo $this->id; ?>', arguments[0]);">
+			<?php echo $this->task; ?>
+		</div>
+	</td>
 	<td valign="top" align="center"><?php echo $this->estimateOrig; ?></td>
-	<td valign="top" align="center"><?php echo $this->estimateCurrent; ?></td>
-	<td valign="top" align="center"><?php echo $this->elapsed; ?></td>
+	<td valign="top" align="center">
+		<div dojoType="dijit.InlineEditBox" onChange="saveSection('estimateCurrent', '<?php echo $this->id; ?>', arguments[0]);">
+			<?php echo $this->estimateCurrent; ?>
+		</div>
+	</td>
+	<td valign="top" align="center">
+		<div dojoType="dijit.InlineEditBox" onChange="saveSection('elapsed', '<?php echo $this->id; ?>', arguments[0]);">
+			<?php echo $this->elapsed; ?>
+		</div>
+	</td>
 	<td valign="top" align="center"><?php echo $this->remaining; ?></td>
-	<td valign="top" align="center"><?php echo ($this->status ? 'Complete' : 'Incomplete'); ?></td>
-	<td valign="top"><?php echo ($this->completedBy == '' ? '-' : $this->completedBy); ?></td>
+	<td valign="top" align="center">
+		<div id="status_<?php echo $this->id; ?>">
+			<?php echo ($this->status ? 'Complete' : 'Incomplete'); ?>
+		</div>
+	</td>
+	<td valign="top">
+		<div dojoType="dijit.InlineEditBox" onChange="saveSection('completedBy', '<?php echo $this->id; ?>', arguments[0]);">
+			<?php echo ($this->completedBy == '' ? '-' : $this->completedBy); ?>
+		</div>
+	</td>
 </tr>

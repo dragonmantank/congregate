@@ -4,6 +4,27 @@
 	dojo.require('dijit.form.TextBox');
 	dojo.require('dijit.form.Textarea');
 	dojo.require('dijit.Dialog');
+	dojo.require('dijit.InlineEditBox');
+	
+	function saveSection(section, id, text) {
+		dojo.xhrPost({
+				url: '/implementation/updatecell/',
+				handleAs: 'json',
+				load: function(data, ioArgs) {
+					if(section == 'completedBy') {
+						dojo.byId('status_' + id).innerHTML = 'Complete';
+					}
+				},
+				error: function(data, ioArgs) {
+					alert('There was an error');
+				},
+				content: {
+					'section': section,
+					'id': id,
+					'text': text
+				}
+			});
+	}
 </script>
 
 <h1>Tasks for Implementation</h1>
