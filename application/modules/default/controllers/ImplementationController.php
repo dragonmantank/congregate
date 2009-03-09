@@ -34,7 +34,8 @@ class ImplementationController extends Zend_Controller_Action
 	{
 		$projectId	= $_SESSION['projectId'];
 		$tasks		= new Tasks();
-		$this->view->tasks	= $tasks->fetchAll('projectId = ' . $projectId);
+		$select		= $tasks->select()->where('projectId = ?', $projectId)->order(array('priority ASC', 'task ASC'));
+		$this->view->tasks	= $tasks->fetchAll($select);
 	}
 	
 	public function init()
@@ -59,8 +60,14 @@ class ImplementationController extends Zend_Controller_Action
 			$task		= $tasks->fetchRow($tasks->select()->where('id = ?', $id));
 			
 			$task->{$section}	= $text;
-			if($section == 'completedBy') {
-				$task->status	= 1;
+			switch($section) {
+				case 'completedBy';
+					$task->status = ($text == '' ? 0 : 1);
+					break;
+				case 'estimateCurrent':
+				case 'elapsed':
+					$task->remaining = $task->estimateCurrent - $task->elapsed;
+					break;
 			}
 			$task->save();
 		}

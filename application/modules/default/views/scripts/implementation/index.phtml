@@ -11,8 +11,16 @@
 				url: '/implementation/updatecell/',
 				handleAs: 'json',
 				load: function(data, ioArgs) {
-					if(section == 'completedBy') {
-						dojo.byId('status_' + id).innerHTML = 'Complete';
+					switch(section) {
+						case 'completedBy':
+							dojo.byId('status_' + id).innerHTML = (text == '' ? 'Incomplete' : 'Complete');
+							break;
+						case 'estimateCurrent':
+						case 'elapsed':
+							var est = dojo.byId('estimateCurrent_' + id).innerHTML;
+							var elap = dojo.byId('elapsed_' + id).innerHTML;
+							dojo.byId('remaining_' + id).innerHTML = est - elap;
+							break;
 					}
 				},
 				error: function(data, ioArgs) {
