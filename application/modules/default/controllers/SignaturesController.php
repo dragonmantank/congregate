@@ -29,6 +29,11 @@ class SignaturesController extends Zend_Controller_Action
 			$project->status = 3;
 			$project->save();
 		}
+		
+		if($project->status == 3 && $type == 'implementation') {
+			$project->status = 4;
+			$project->save();
+		}
 	}
 
 	public function generateAction()

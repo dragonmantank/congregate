@@ -5,6 +5,35 @@
 	dojo.require('dijit.form.Textarea');
 	dojo.require('dijit.Dialog');
 	dojo.require('dijit.InlineEditBox');
+	loadSignatures();
+	
+	function addSignature() {
+		dojo.xhrPost({
+			url:		'/signatures/add/',
+			handleAs:	'json',
+			error: function(data, ioArgs) {
+				alert('There was an error adding the signature');
+			},
+			load: function(data, ioArgs) {
+				loadSignatures();
+				dojo.byId('newSig').value = '';
+			},
+			content: {
+				name: 	dojo.byId('newSig').value,
+				type:	'implementation'
+			}
+		});
+	}
+	
+	function loadSignatures() {
+		dojo.xhrGet({
+			url:	'/signatures/generate/type/implementation',
+			load:	function(data, ioArgs) {
+				dojo.byId('signatures').innerHTML = data;
+			}
+		});
+		
+	}
 	
 	function saveSection(section, id, text) {
 		dojo.xhrPost({
@@ -66,6 +95,15 @@
 		</tr>
 	</tfoot>
 </table>
+
+<h2>Signatures</h2>
+<div id="signatures">
+</div>
+
+<div id="addSig">
+<label for="newSig">Name:</label><input type="text" name="newSig" id="newSig" dojoType="dijit.form.TextBox">
+<button dojoType="dijit.form.Button" onClick="addSignature();">Add Signature</button>
+</div>
 
 <div id="addTask" title="Add New Task" dojoType="dijit.Dialog" style="text-align: left">
 	<form method="POST" id="addTaskForm">
