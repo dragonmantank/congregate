@@ -10,7 +10,7 @@
 	
 	function addSignature() {
 		dojo.xhrPost({
-			url:		'/signatures/add/',
+			url:		'<?php echo $this->baseUrl(); ?>/signatures/add/',
 			handleAs:	'json',
 			error: function(data, ioArgs) {
 				alert('There was an error adding the signature');
@@ -28,7 +28,7 @@
 	
 	function loadSignatures() {
 		dojo.xhrGet({
-			url:	'/signatures/generate/type/sdd',
+			url:	'<?php echo $this->baseUrl(); ?>/signatures/generate/type/sdd',
 			load:	function(data, ioArgs) {
 				dojo.byId('signatures').innerHTML = data;
 			}
@@ -38,7 +38,7 @@
 	
 	function saveSection(section, text) {
 		dojo.xhrPost({
-				url: '/sdd/save/',
+				url: '<?php echo $this->baseUrl(); ?>/sdd/save/',
 				handleAs: 'json',
 				error: function(data, ioArgs) {
 					alert('There was an error');

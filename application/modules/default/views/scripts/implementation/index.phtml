@@ -9,7 +9,7 @@
 	
 	function addSignature() {
 		dojo.xhrPost({
-			url:		'/signatures/add/',
+			url:		'<?php echo $this->baseUrl(); ?>/signatures/add/',
 			handleAs:	'json',
 			error: function(data, ioArgs) {
 				alert('There was an error adding the signature');
@@ -27,7 +27,7 @@
 	
 	function loadSignatures() {
 		dojo.xhrGet({
-			url:	'/signatures/generate/type/implementation',
+			url:	'<?php echo $this->baseUrl(); ?>/signatures/generate/type/implementation',
 			load:	function(data, ioArgs) {
 				dojo.byId('signatures').innerHTML = data;
 			}
@@ -37,7 +37,7 @@
 	
 	function saveSection(section, id, text) {
 		dojo.xhrPost({
-				url: '/implementation/updatecell/',
+				url: '<?php echo $this->baseUrl(); ?>/implementation/updatecell/',
 				handleAs: 'json',
 				load: function(data, ioArgs) {
 					switch(section) {
@@ -122,13 +122,13 @@
 		Save Task
 		<script type="dojo/method" event="onClick">
 			dojo.xhrPost({
-				url: '/implementation/addtask/',
+				url: '<?php echo $this->baseUrl(); ?>/implementation/addtask/',
 				handleAs: 'json',
 				load: function(data, ioArgs) {
 					alert(data.message);
 
 					if(data.status == 1) {
-						window.location = "/implementation/";
+						window.location = "<?php echo $this->baseUrl(); ?>/implementation/";
 					}
 				},
 				error: function(data, ioArgs) {

@@ -51,9 +51,9 @@ $bootstrap->setParam('useDefaultControllerAlways', true);
 Zend_Layout::startMvc( array('layoutPath'	=> '../application/layouts/scripts') );
 
 // Add View Helpers
-//$viewRenderer	= Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
-//$viewRenderer->initView();
-//$viewRenderer->view->addHelperPath('Zng/View/Helper', 'Zng_View_Helper');
+$viewRenderer	= Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
+$viewRenderer->initView();
+$viewRenderer->view->addHelperPath('Tws/View/Helper', 'Tws_View_Helper');
 
 // Add some routes
 //$bootstrap->addRoute('game', new Zend_Controller_Router_Route('/game/:game', array('controller'=>'games', 'action'=>'play')));

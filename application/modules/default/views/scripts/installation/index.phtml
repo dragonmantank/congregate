@@ -5,7 +5,7 @@
 	
 	function addSignature() {
 		dojo.xhrPost({
-			url:		'/signatures/add/',
+			url:		'<?php echo $this->baseUrl(); ?>/signatures/add/',
 			handleAs:	'json',
 			error: function(data, ioArgs) {
 				alert('There was an error adding the signature');
@@ -23,7 +23,7 @@
 	
 	function loadSignatures() {
 		dojo.xhrGet({
-			url:	'/signatures/generate/type/installation',
+			url:	'<?php echo $this->baseUrl(); ?>/signatures/generate/type/installation',
 			load:	function(data, ioArgs) {
 				dojo.byId('signatures').innerHTML = data;
 			}

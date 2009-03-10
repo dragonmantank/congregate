@@ -13,7 +13,7 @@
 	<?php foreach($this->projects as $project): ?>
 		<li dojoType="dijit.TitlePane" open="false" title="<?php echo $project->name; ?>">
 			<?php echo $project->description; ?>
-			<a style="text-align: right; clear: both;" href="/projects/load/project/<?php echo $project->id; ?>">View</a>
+			<a style="text-align: right; clear: both;" href="<?php echo $this->baseUrl(); ?>/projects/load/project/<?php echo $project->id; ?>">View</a>
 		</li>
 	<?php endforeach; ?> 
 </ul>
@@ -33,13 +33,13 @@
 		Save Project
 		<script type="dojo/method" event="onClick">
 			dojo.xhrPost({
-				url: '/projects/add/',
+				url: '<?php echo $this->baseUrl(); ?>/projects/add/',
 				handleAs: 'json',
 				load: function(data, ioArgs) {
 					alert(data.message);
 
 					if(data.status == 1) {
-						window.location = "/";
+						window.location = "<?php echo $this->baseUrl(); ?>/";
 					}
 				},
 				error: function(data, ioArgs) {
