@@ -1,18 +1,25 @@
 @CHARSET "ISO-8859-1";
 
+p {
+	padding:	5px;
+}
+
 h1 {
 	font-size:		1.5em;
 	font-weight:	bold;
+	line-height:	1.75em;
 }
 
 h2 {
 	font-size:		1.1667em;
 	font-weight:	bold;
+	line-height:	1.5em;
 }
 
 h3 {
 	font-size:		1em;
 	font-weight:	bold;
+	line-height:	1.25em;
 }
 
 th {
@@ -51,4 +58,8 @@ th {
 
 #navigation a:hover {
 	text-decoration:	underline;
+}
+
+blockquote {
+	line-height:		1.5em;
 }
