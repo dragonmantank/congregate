@@ -32,11 +32,15 @@ th {
 	font-size:		14pt;
 }
 
-#hd h1 a, #ft a {
+#hd a {
+	font-weight:	bold;
+}
+
+#hd a, #ft a {
 	text-decoration:	none;
 }
 
-#hd h1 a:hover, #ft a:hover {
+#hd a:hover, #ft a:hover {
 	text-decoration:	underline;
 }
 
@@ -62,4 +66,9 @@ th {
 
 blockquote {
 	line-height:		1.5em;
+}
+
+#authMessage {
+	font-weight:	bold;
+	text-align:		center;
 }

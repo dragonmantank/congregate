@@ -7,13 +7,13 @@ define("INSTALL_PATH", dirname(dirname(__FILE__)));
 
 // Directory setup and class loading
 set_include_path(
-	'.' . 
-	PATH_SEPARATOR . INSTALL_PATH . '/application' . 
-	PATH_SEPARATOR . INSTALL_PATH . '/library/' . 
-	PATH_SEPARATOR . INSTALL_PATH . '/application/models' . 
+	'.' .
+	PATH_SEPARATOR . INSTALL_PATH . '/application' .
+	PATH_SEPARATOR . INSTALL_PATH . '/library/' .
+	PATH_SEPARATOR . INSTALL_PATH . '/application/models' .
 	PATH_SEPARATOR . INSTALL_PATH . '/application/forms' .
 	PATH_SEPARATOR . get_include_path() );
-	
+
 include 'Zend/Loader.php';
 include 'Tws/Bootstrap.php';
 
@@ -41,6 +41,7 @@ Zend_Registry::set('db', $db);
 $bootstrap->throwExceptions(true);
 $bootstrap->registerPlugin('Zend_Controller_Plugin_ErrorHandler');
 $bootstrap->setControllerDirectory(array(
+	'auth'			=> '../application/modules/auth/controllers',
 	'default'		=> '../application/modules/default/controllers',
 ));
 $bootstrap->setParam('useDefaultControllerAlways', true);
@@ -49,6 +50,9 @@ $bootstrap->setParam('useDefaultControllerAlways', true);
 
 // Load our layout paths
 Zend_Layout::startMvc( array('layoutPath'	=> '../application/layouts/scripts') );
+
+// Add FrontController Helpers
+$bootstrap->registerPlugin('Tws_Controller_Plugin_Auth');
 
 // Add View Helpers
 $viewRenderer	= Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');

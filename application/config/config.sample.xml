@@ -5,20 +5,12 @@
 			<adapter>MYSQLI</adapter>
 			<params>
 				<host>localhost</host>
-				<dbname>biffpm</dbname>
+				<dbname>biffpm-dev</dbname>
 				<username>root</username>
 				<password></password>
 			</params>
 		</database>
 	</production>
 	<development extends="production">
-		<database>
-			<params>
-				<host>localhost</host>
-				<dbname>biffpm</dbname>
-				<username>root</username>
-				<password></password>
-			</params>
-		</database>
 	</development>
 </configdata>

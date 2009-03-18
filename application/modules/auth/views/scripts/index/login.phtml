@@ -1,0 +1,59 @@
+<?php
+$this->headTitle('Please Log In');
+?>
+
+<script type="text/javascript">
+	dojo.require('dojo.parser');
+	dojo.require('dijit.form.TextBox');
+	dojo.require('dijit.form.Button');
+	dojo.require('dijit.Dialog');
+	dojo.require('dijit.ProgressBar');
+
+	function authenticateUser() {
+		dijit.byId('authWaiting').show();
+		dojo.byId('authMessage').innerHTML = '';
+		dojo.xhrPost({
+			url: '<?php echo $this->baseUrl(); ?>/auth/index/process/',
+			handleAs: 'json',
+			load: function(data, ioArgs) {
+				if(data.status == 1) {
+					window.location = "<?php echo $this->baseUrl(); ?>/";
+				} else {
+					dijit.byId('authWaiting').hide();
+					dojo.byId('authMessage').innerHTML = 'Error - ' + data.message;
+				}
+			},
+			error: function(data, ioArgs) {
+				alert('There was an error');
+			},
+			form: 'authForm'
+		});
+
+		return false;
+	}
+</script>
+
+<h1>User Authentication</h1>
+
+<div id="authMessage">
+	<?php echo $this->message; ?>
+</div>
+
+
+<div style="width: 200px; margin-left: auto; margin-right: auto;">
+	<form id="authForm" method="post">
+	<dl class="form">
+		<dt>Username:</dt>
+			<dd><input type="text" id="username" name="username" dojoType="dijit.form.TextBox" trim="true"></dd>
+		<dt>Password:</dt>
+			<dd><input type="password" id="password" name="password" dojoType="dijit.form.TextBox" trim="true"></dd>
+		<dt></dt>
+			<dd><button dojoType="dijit.form.Button" style="float: right" onClick="authenticateUser()"  id="submit" name="submit">Log In</button></dd>
+	</dl>
+	</form>
+</div>
+
+<div id="authWaiting" dojoType="dijit.Dialog" title="Working...">
+	Please wait while we log you in...
+	<div id="authProcessBar" dojoType="dijit.ProgressBar" style="width: 300px" jsId="jsProgress" indeterminate="true"></div>
+</div>
