@@ -72,3 +72,7 @@ blockquote {
 	font-weight:	bold;
 	text-align:		center;
 }
+
+dt {
+	font-weight:	bold;
+}

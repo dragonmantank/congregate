@@ -1,0 +1,44 @@
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#authWaiting').dialog({
+		bgiframe:	true,
+		autoOpen:	false,
+		modal:		true,
+		width:		400
+	});
+
+	$('#registerUser').click(function() {
+		$('#authWaiting').dialog('open');
+	});
+});
+</script>
+
+<h1>Register New User</h1>
+
+<div id="authMessage">
+	<?php echo $this->message; ?>
+</div>
+
+<div style="margin-left: auto; margin-right: auto; width: 200px;" class="panel">
+	<dl class="form">
+		<dt>Username:</dt>
+			<dd><input type="text" value="<?php echo $this->username; ?>" READONLY></dd>
+		<dt>E-mail Address:</dt>
+			<dd><input type="text" value="<?php echo $this->email; ?>" READONLY></dd>
+		<dt>Name:</dt>
+			<dd><input type="text" value="<?php echo $this->name; ?>"></dd>
+		<dt>Password:</dt>
+			<dd><input type="password" name="password" id="password"></dd>
+		<dt>Confirm Password:</dt>
+			<dd><input type="password" name="confPassword" id="confPassword"></dd>
+	</dl>
+
+	<button align="right" id="registerUser">Register New User</button>
+</div>
+
+<div id="authWaiting" title="Working...">
+	Please wait while we finish registering your user...
+
+	<p>
+	<img src="<?php echo $this->baseUrl(); ?>/images/ajax-loader.gif">
+</div>

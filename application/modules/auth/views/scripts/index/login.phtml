@@ -3,34 +3,75 @@ $this->headTitle('Please Log In');
 ?>
 
 <script type="text/javascript">
-	dojo.require('dojo.parser');
-	dojo.require('dijit.form.TextBox');
-	dojo.require('dijit.form.Button');
-	dojo.require('dijit.Dialog');
-	dojo.require('dijit.ProgressBar');
+function authenticateUser() {
+	$('#authWaiting').dialog('open');
+	$.ajax({
+		data:		{
+			username:	$('#username').val(),
+			password:	$('#password').val()
+		},
+		dataType:	'json',
+		error:		function(rq, status, error) {
+			alert('There was a problem searching for the user: ' + error);
+		},
+		success:	function(rsp, status) {
+			if(rsp.status == 1) {
+				window.location = "<?php echo $this->baseUrl(); ?>/";
+			} else {
+				$('#authWaiting').dialog('close');
+				$('#authMessage').html('Error - ' + rsp.message);
+			}
+		},
+		type:		'POST',
+		url:		'<?php echo $this->baseUrl(); ?>/auth/index/process/'
+	});
+}
 
-	function authenticateUser() {
-		dijit.byId('authWaiting').show();
-		dojo.byId('authMessage').innerHTML = '';
-		dojo.xhrPost({
-			url: '<?php echo $this->baseUrl(); ?>/auth/index/process/',
-			handleAs: 'json',
-			load: function(data, ioArgs) {
-				if(data.status == 1) {
-					window.location = "<?php echo $this->baseUrl(); ?>/";
-				} else {
-					dijit.byId('authWaiting').hide();
-					dojo.byId('authMessage').innerHTML = 'Error - ' + data.message;
-				}
-			},
-			error: function(data, ioArgs) {
-				alert('There was an error');
-			},
-			form: 'authForm'
-		});
+$(document).ready(function() {
+	$('#authWaiting').dialog({
+		bgiframe:	true,
+		autoOpen:	false,
+		modal:		true,
+		width:		400
+	});
 
-		return false;
-	}
+	$('#registerConf').dialog({
+		bgiframe:	true,
+		autoOpen:	false,
+		modal:		true,
+		width:		400,
+		buttons:	{
+			'Register User' : function() {
+				$.ajax({
+					data:		{
+						email:	$('#email').val(),
+						conf:	$('#conf').val()
+					},
+					dataType:	'json',
+					error:		function(rq, status, error) {
+						alert('There was a looking up the registration: ' + error);
+					},
+					success:	function(rsp, status) {
+						if(rsp.status == 1) {
+							window.location = "<?php echo $this->baseUrl(); ?>/auth/newuser/";
+						} else {
+							$('#registerConf').dialog('close');
+							$('#email').val("");
+							$('#conf').val("");
+							$('#authMessage').html('Error - ' + rsp.message);
+						}
+					},
+					type:		'POST',
+					url:		'<?php echo $this->baseUrl(); ?>/auth/newuser/confirm/'
+				});
+			}
+		}
+	});
+
+	$('#registerNewUser').click(function() {
+		$('#registerConf').dialog('open');
+	});
+});
 </script>
 
 <h1>User Authentication</h1>
@@ -40,20 +81,34 @@ $this->headTitle('Please Log In');
 </div>
 
 
-<div style="width: 200px; margin-left: auto; margin-right: auto;">
-	<form id="authForm" method="post">
+<div style="width: 200px; margin-left: auto; margin-right: auto;" class="panel">
 	<dl class="form">
 		<dt>Username:</dt>
-			<dd><input type="text" id="username" name="username" dojoType="dijit.form.TextBox" trim="true"></dd>
+			<dd><input type="text" id="username" name="username" style="width: 200px"></dd>
 		<dt>Password:</dt>
-			<dd><input type="password" id="password" name="password" dojoType="dijit.form.TextBox" trim="true"></dd>
+			<dd><input type="password" id="password" name="password" style="width: 200px"></dd>
 		<dt></dt>
-			<dd><button dojoType="dijit.form.Button" style="float: right" onClick="authenticateUser()"  id="submit" name="submit">Log In</button></dd>
+			<dd><button onClick="authenticateUser()"  id="submit" name="submit">Log In</button></dd>
 	</dl>
-	</form>
+
+	<p>
+	<a href="#" id="registerNewUser">Register New User</a>
 </div>
 
-<div id="authWaiting" dojoType="dijit.Dialog" title="Working...">
+<div id="authWaiting" title="Working...">
 	Please wait while we log you in...
-	<div id="authProcessBar" dojoType="dijit.ProgressBar" style="width: 300px" jsId="jsProgress" indeterminate="true"></div>
+
+	<p>
+	<img src="<?php echo $this->baseUrl(); ?>/images/ajax-loader.gif">
+</div>
+
+<div id="registerConf" title="User Information">
+	Please enter your e-mail address and confirmation code
+
+	<dl class="form">
+		<dt>E-mail Address:</dt>
+			<dd><input type="text" id="email" name="email" style="width: 200px"></dd>
+		<dt>Confirmation:</dt>
+			<dd><input type="text" id="conf" name="conf" style="width: 200px"></dd>
+	</dl>
 </div>

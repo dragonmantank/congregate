@@ -23,6 +23,25 @@ class Users extends Zend_Db_Table_Abstract
 		return $uid;
 	}
 
+	public function fetchByEmail($email)
+	{
+		$select	= $this->select()->where('status = -1')
+								 ->where('email = ?', $email);
+
+		return $this->fetchRow($select);
+	}
+
+	public function isValidConfirmation($email, $conf)
+	{
+		$select	= $this->select()->where('status = -1')
+								 ->where('email = ?', $email)
+								 ->where('challenge = ?', $conf);
+
+		$result	= $this->fetchAll($select);
+
+		return (count($result) ? true : false);
+	}
+
 	public function sendRegistration($email, $name, $challenge)
 	{
 		$mail	= new Zend_Mail();

@@ -2,6 +2,18 @@
 
 class Auth_IndexController extends Zend_Controller_Action
 {
+	public function checkcodeAction()
+	{
+		$u	= new Users();
+		if($u->unregisteredUser($this->_request->getParam('challenge'))) {
+			$status	= 1;
+		} else {
+			$status = 0;
+		}
+
+		echo json_encode(array('status' => $status));
+	}
+
 	public function indexAction()
 	{
 		$this->_forward('login', 'index', 'auth');
