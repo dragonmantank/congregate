@@ -1,66 +1,63 @@
 <script type="text/javascript">
-	dojo.require('dojo.parser');
-	dojo.require('dijit.form.Button');
-	dojo.require('dijit.form.TextBox');
-	dojo.require('dijit.form.Textarea');
-	dojo.require('dijit.Dialog');
 
-	function addNewTeamMember() {
-		dojo.xhrPost({
-			url: '<?php echo $this->baseUrl(); ?>/teams/add/',
-			handleAs: 'json',
-			load: function(data, ioArgs) {
-				if(data.status == 1) {
-					dijit.byId('tmName').setValue('');
-					dojo.byId('existingId').setValue('');
-				}
-			},
-			error: function(data, ioArgs) {
-				alert('There was an error' + data);
-			},
-			content: {
-				email:	dijit.byId('tmEmail').value,
-				name:	dijit.byId('tmName').value,
-				exists:	dojo.byId('existingId').value
-			}
-		});
-	}
-
-	function searchUsers() {
+$(document).ready(function() {
+	$('#newEmail').change(function() {
 		$.ajax({
-			cache:		false,
-			data: 		{ email:	$('#tmEmail').val() },
+			data:		{ email: $('#newEmail').val() },
 			dataType:	'json',
 			error:		function(rq, status, error) {
-				alert(error);
+				alert('There was a problem searching for the user: ' + error);
 			},
 			success:	function(rsp, status) {
-				alert(rsp.name);
-				if(rsp.stats == 1) {
-					dijit.byId('tmName').setValue(rsp.name);
-				}
+				$('#newName').val(rsp.name);
+				$('#existingId').val(rsp.id);
 			},
 			type:		'POST',
 			url:		'<?php echo $this->baseUrl(); ?>/teams/search/'
 		});
+	});
 
-		dojo.xhrPost({
-			url: '<?php echo $this->baseUrl(); ?>/teams/search/',
-			handleAs: 'json',
-			load: function(data, ioArgs) {
-				if(data.status == 1) {
-					dijit.byId('tmName').setValue(data.name);
-					dojo.byId('existingId').setValue(data.id);
-				}
-			},
-			error: function(data, ioArgs) {
-				alert('There was an error' + data);
-			},
-			content: {
-				email:	dijit.byId('tmEmail').value
+	$('#addTeamMemberButton').click(function() {
+		$('#addNewTeamMemberDialog').dialog('open');
+	});
+
+	$('#addNewTeamMemberDialog').dialog({
+		bgiframe:	true,
+		autoOpen:	false,
+		modal:		true,
+		buttons:	{
+			'Add Team Member': function() {
+				$.ajax({
+					data:		{
+						email:	$('#newEmail').val(),
+						name:	$('#newName').val(),
+						id:	 	$('#existingId').val()
+					},
+					dataType:	'json',
+					error:		function(rq, status, error) {
+						alert('There was a problem searching for the user: ' + error);
+					},
+					success:	function(rsp, status) {
+						if(rsp.status == 1) {
+							$('#addNewTeamMemberDialog').dialog('close');
+							alert('New Team Member Added');
+							$('#newName').val("");
+							$('#existingId').val("");
+							$('#newEmail').val("");
+						} else if(rsp.status == -1) {
+							alert('This user is already a member of this project.');
+						} else {
+							alert('There was a problem adding the member to the team.');
+						}
+					},
+					type:		'POST',
+					url:		'<?php echo $this->baseUrl(); ?>/teams/add/'
+				});
 			}
-		});
-	}
+		}
+	});
+});
+
 </script>
 
 <h1>Project Configuration</h1>
@@ -69,9 +66,9 @@
 <form method="post" action="<?php echo $this->baseUrl(); ?>/configuration/save">
 <dl>
 	<dt>Project Name:</dt>
-		<dd><input type="text" name="name" id="name" value="<?php echo $this->name; ?>" dojoType="dijit.form.TextBox" style="width: 300px"></dd>
+		<dd><input type="text" name="name" id="name" value="<?php echo $this->name; ?>" style="width: 300px"></dd>
 	<dt>Project Description:</dt>
-		<dd><textarea name="description" id="description" dojoType="dijit.form.Textarea" style="width: 300px; height: 200px;"><?php echo $this->description; ?></textarea></dd>
+		<dd><textarea name="description" id="description" style="width: 300px; height: 200px;"><?php echo $this->description; ?></textarea></dd>
 </dl>
 </form>
 
@@ -95,21 +92,21 @@
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="3" class="right"><button id="addTeamMember" name="addTeamMember" dojoType="dijit.form.Button" onClick="dijit.byId('addTeamMemberDialog').show();">New Team Member</button></td>
+			<td colspan="3" class="right"><button id="addTeamMemberButton" name="addTeamMemberButton">New Team Member</button></td>
 		</tr>
 	</tfoot>
 </table>
 
-<div id="addTeamMemberDialog" title="Add New Team Member" dojoType="dijit.Dialog" style="text-align: left">
-	<form method="POST" id="addTeamMemberForm">
-		<dl>
-			<dt>E-mail Address:</dt>
-				<dd><input dojoType="dijit.form.TextBox" id="tmEmail" name="tmEmail" onChange="searchUsers();"></dd>
-			<dt>Name:</dt>
-				<dd><input dojoType="dijit.form.TextBox" id="tmName" name="tmName"></dd>
-		</dl>
-
-		<input type="hidden" name="existingId" id="existingId" value="" />
-		<button dojoType="dijit.form.Button" style="float: right" onClick="addNewTeamMember()">Add Team Member</button>
+<div id="addNewTeamMemberDialog" title="Add New Team Member" class="left">
+	<form>
+		<fieldset>
+			<dl>
+				<dt>E-mail Address:</dt>
+					<dd><input type="text" name="newEmail" id="newEmail" class="text ui-widget ui-corner-all" /></dd>
+				<dt>Name:</dt>
+					<dd><input type="text" name="newName" id="newName" class="text ui-widget ui-corner-all" /></dd>
+			</dl>
+			<input type="hidden" name="existingId" id="existingId" value="" />
+		</fieldset>
 	</form>
 </div>
