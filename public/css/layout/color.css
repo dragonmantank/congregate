@@ -2,11 +2,17 @@
 
 th {
 	background-image:	url('/images/layout/th-heading.png');
+	background-color:	#356AA0;
 	height:				22px;
+	color:				white;
+}
+
+table {
+	border:	1px solid #356AA0;
 }
 
 #hd, #ft {
-	background-color:	#0C91B2;
+	background-color:	#356AA0;
 }
 
 #hd a, #ft a {
@@ -18,7 +24,7 @@ th {
 }
 
 #navigation ul li {
-	background-color:	#0C91B2;
+	background-color:	#356AA0;
 	border-top:			1px solid #d3d3d3;
 	border-left:		1px solid #d3d3d3;
 	border-right:		1px solid black;
@@ -26,7 +32,7 @@ th {
 }
 
 #navigation ul li:hover {
-	background-color:	#0FB0D9;
+	background-color:	#4096EE;
 }
 
 #navigation a {

@@ -9,6 +9,10 @@ class Projects extends Zend_Db_Table_Abstract
 		$identity		= Zend_Auth::getInstance()->getIdentity();
 		$data['author']	= $identity->id;
 
-		$this->insert($data);
+		if( $this->insert($data) ) {
+			$projectId = $this->getAdapter()->lastInsertId();
+			$up			= new UserProjects();
+			$up->insert(array('userId' => $identity->id, 'projectId' => $projectId));
+		}
 	}
 }
