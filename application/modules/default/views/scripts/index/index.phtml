@@ -1,53 +1,64 @@
 <script type="text/javascript">
-	dojo.require('dojo.parser');
-	dojo.require('dijit.form.Button');
-	dojo.require('dijit.form.TextBox');
-	dojo.require('dijit.form.Textarea');
-	dojo.require('dijit.Dialog');
-	dojo.require('dijit.TitlePane');
+$(document).ready(function() {
+    $('.message_head').click(function() {
+        $(this).next('.message_body').slideToggle(500);
+        return false;
+    });
+
+    $('#newProjectButton').click(function() {
+        $('#newProjectDialog').dialog('open');
+    });
+
+    $('#newProjectDialog').dialog({
+        bgiframe:   true,
+        autoOpen:   false,
+        modal:      true,
+        width:      350,
+        buttons:    {
+            'Add Project':  function() {
+                $.ajax({
+                    data:   {
+                        projectName:        $('#projectName').val(),
+                        projectDescription: $('#projectDescription').val()
+                    },
+                    dataType:   'json',
+                    success:    function(rsp, status) {
+                        if(rsp.status == 1) {
+                            window.location = '<?php echo $this->baseUrl(); ?>';
+                        } else {
+                            alert('There was a problem adding the project. Please contact tech support.');
+                        }
+                    },
+                    type:       'POST',
+                    url:        '<?php echo $this->baseUrl();?>/projects/add'
+                });
+            }
+        }
+    });
+});
 </script>
 
 <h1>Current Projects</h1>
 
-<ul>
-	<?php foreach($this->projects as $project): ?>
-		<li dojoType="dijit.TitlePane" open="false" title="<?php echo $project->name; ?>">
-			<?php echo $project->description; ?>
-			<a style="text-align: right; clear: both;" href="<?php echo $this->baseUrl(); ?>/projects/load/project/<?php echo $project->id; ?>">View</a>
+<ul class="message_list">
+    <?php foreach($this->projects as $project): ?>
+		<li>
+            <p class="message_head"><?php echo $project->name; ?></p>
+            <p class="message_body">
+    			<?php echo $project->description; ?>
+	    		<a style="text-align: right; clear: both;" href="<?php echo $this->baseUrl(); ?>/projects/load/project/<?php echo $project->id; ?>">View</a>
+            </p>
 		</li>
 	<?php endforeach; ?> 
 </ul>
 
-<button dojoType="dijit.form.Button" onClick="dijit.byId('addProject').show();" style="float: right">Add Project</button>
+<button id="newProjectButton" style="float: right">Add Project</button>
 
-<div id="addProject" title="Add New Project" dojoType="dijit.Dialog" style="text-align: left">
-	<form method="POST" id="addProjectForm">
-	<dl>
-		<dt>Project Name:</dt>
-			<dd><input dojoType="dijit.form.TextBox" id="projectName" name="projectName"></dd>
-		<dt>Project Description:</dt>
-			<dd><textarea dojoType="dijit.form.Textarea" id="projectDescription" name="projectDescription" style="width: 300px; height: 100px"></textarea></dd>
-	</dl>
-	
-	<button dojoType="dijit.form.Button" style="float: right">
-		Save Project
-		<script type="dojo/method" event="onClick">
-			dojo.xhrPost({
-				url: '<?php echo $this->baseUrl(); ?>/projects/add/',
-				handleAs: 'json',
-				load: function(data, ioArgs) {
-					alert(data.message);
-
-					if(data.status == 1) {
-						window.location = "<?php echo $this->baseUrl(); ?>/";
-					}
-				},
-				error: function(data, ioArgs) {
-					alert('There was an error');
-				},
-				form: 'addProjectForm'
-			});
-		</script>
-	</button>
-		</form>
+<div id="newProjectDialog" title="Add New Project" class="left">
+    <dl>
+        <dt>Project Name:</dt>
+            <dd><input type="text" name="projectName" id="projectName"></dd>
+        <dt>Project Description:</dt>
+            <dd><textarea style="height: 200px; width: 300px" name="projectDescription" id="projectDescription"></textarea>
+    </dl>
 </div>

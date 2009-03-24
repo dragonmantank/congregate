@@ -48,3 +48,14 @@ table {
 	border:				1px solid #E6E6E6;
 	padding:			20px;
 }
+
+ul p.message_head {
+    border:             1px solid #e6e6e6;
+    background-color:   #e6e6e6;
+    margin:             0px;
+}
+
+ul p.message_body {
+    border:             1px solid #e6e6e6;
+    background-color:   #F9F9F9;
+}

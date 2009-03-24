@@ -76,3 +76,7 @@ blockquote {
 dt {
 	font-weight:	bold;
 }
+
+ul p.message_head {
+    font-weight:    bold;
+}

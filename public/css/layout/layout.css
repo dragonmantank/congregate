@@ -65,3 +65,15 @@ ol li {
 .left {
 	text-align:	left;
 }
+
+ul.message_list p.message_body {
+    display:    none;
+}
+
+ul p.message_head {
+    cursor: pointer;
+}
+
+ul.message_list li {
+    margin: 5px;
+}
