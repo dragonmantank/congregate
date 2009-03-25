@@ -42,6 +42,16 @@ class Users extends Zend_Db_Table_Abstract
 		return (count($result) ? true : false);
 	}
 
+	public function register($id, $name, $password)
+	{
+		$data['name']			= $name;
+		$data['password']		= md5($password);
+		$data['status']			= 1;
+		$data['dateActivated']	= date('Y-m-d h:i:s', time());
+
+		return $this->update($data, 'id = ' . $id . ' AND status = -1');
+	}
+
 	public function sendRegistration($email, $name, $challenge)
 	{
 		$mail	= new Zend_Mail();

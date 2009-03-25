@@ -9,6 +9,39 @@ $(document).ready(function() {
 
 	$('#registerUser').click(function() {
 		$('#authWaiting').dialog('open');
+		var password	= $('#password').val();
+		var confPassword	= $('#confPassword').val();
+
+		if( (password != "") && (confPassword != "") ) {
+			if(password == confPassword) {
+				$.ajax({
+					data:		{
+						name:			$('#name').val(),
+						'password':		password,
+					},
+					dataType:	'json',
+					error:		function(rq, status, error) {
+						alert('There was a problem adding you as a user: ' + error);
+					},
+					success:	function(rsp, status) {
+						if(rsp.status == 1) {
+							window.location = "<?php echo $this->baseUrl(); ?>/";
+						} else {
+							$('#authWaiting').dialog('close');
+							$('#authMessage').html('Error - ' + rsp.message);
+						}
+					},
+					type:		'POST',
+					url:		'<?php echo $this->baseUrl(); ?>/auth/newuser/finalize'
+				});
+			} else {
+				$('#authMessage').html('The password and confirmation password do not match.');
+				$('$confPassword').val("");
+			}
+		} else {
+			$('#authMessage').html('Please enter both a password and a confirmation password.');
+		}
+		$('#authWaiting').dialog('close');
 	});
 });
 </script>
@@ -26,7 +59,7 @@ $(document).ready(function() {
 		<dt>E-mail Address:</dt>
 			<dd><input type="text" value="<?php echo $this->email; ?>" READONLY></dd>
 		<dt>Name:</dt>
-			<dd><input type="text" value="<?php echo $this->name; ?>"></dd>
+			<dd><input type="text" id="name" name="name" value="<?php echo $this->name; ?>"></dd>
 		<dt>Password:</dt>
 			<dd><input type="password" name="password" id="password"></dd>
 		<dt>Confirm Password:</dt>
