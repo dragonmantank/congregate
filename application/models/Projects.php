@@ -15,4 +15,11 @@ class Projects extends Zend_Db_Table_Abstract
 			$up->insert(array('userId' => $identity->id, 'projectId' => $projectId));
 		}
 	}
+
+	public function fetchAllByUser($uid)
+	{
+		$up	= new UserProjects();
+
+		return $up->fetchUserProjects($uid);
+	}
 }

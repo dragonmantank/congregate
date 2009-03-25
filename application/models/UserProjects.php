@@ -9,6 +9,16 @@ class UserProjects extends Zend_Db_Table_Abstract
 		return $this->insert(array('userId' => $uid, 'projectId' => $pid));
 	}
 
+	public function fetchUserProjects($uid)
+	{
+		$select	= $this->select()->from(array('up' => $this->_name), array('userId'))
+								 ->where('up.userId = ?', $uid)
+								 ->join(array('p' => 'p_Projects'), 'p.id = up.projectId')
+								 ->setIntegrityCheck(false);
+
+		return $this->fetchAll($select);
+	}
+
 	public function getMembers($projectId)
 	{
 		$select	= $this->select()->from(array('up' => $this->_name))
