@@ -59,3 +59,7 @@ ul p.message_body {
     border:             1px solid #e6e6e6;
     background-color:   #F9F9F9;
 }
+
+tr.evenRow {
+	background-color:   #F6F6F6;
+}

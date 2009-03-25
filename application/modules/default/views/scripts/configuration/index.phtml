@@ -1,6 +1,28 @@
+<script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/bpm/bpm.jquery.zebra-stripe.js"></script>
+
 <script type="text/javascript">
+function removeTeamMember(id) {
+	$.ajax({
+		data:		{ uid: id },
+		dataType:	'json',
+		error:		function(rq, status, error) {
+			alert('There was a problem removing the user: ' + error);
+		},
+		success:	function(rsp, status) {
+			if(rsp.status == 1) {
+				window.location	= '<?php echo $this->baseUrl(); ?>/configuration';
+			} else {
+				alert('User was not removed: ' + rsp.message);
+			}
+		},
+		type:		'POST',
+		url:		'<?php echo $this->baseUrl(); ?>/teams/remove/'
+	});
+}
 
 $(document).ready(function() {
+	$('#teamMembers').bpm_stripe();
+
 	$('#newEmail').change(function() {
 		$.ajax({
 			data:		{ email: $('#newEmail').val() },
@@ -41,9 +63,8 @@ $(document).ready(function() {
 						if(rsp.status == 1) {
 							$('#addNewTeamMemberDialog').dialog('close');
 							alert('New Team Member Added');
-							$('#newName').val("");
-							$('#existingId').val("");
-							$('#newEmail').val("");
+
+							window.location	= '<?php echo $this->baseUrl(); ?>/configuration';
 						} else if(rsp.status == -1) {
 							alert('This user is already a member of this project.');
 						} else {
@@ -73,7 +94,7 @@ $(document).ready(function() {
 </form>
 
 <h2>Team Members</h2>
-<table>
+<table class="stripe" id="teamMembers">
 	<thead>
 		<tr>
 			<th>Name</th>
@@ -86,7 +107,7 @@ $(document).ready(function() {
 			<tr>
 				<td><a href="mailto:<?php echo $member->email; ?>"><?php echo $member->name; ?></a></td>
 				<td><a href="mailto:<?php echo $member->email; ?>"><?php echo $member->email; ?></a></td>
-				<td class="center"><a href="#" onClick="removeTeamMember(<?php $member->id ?>)">X</a></td>
+				<td class="center"><a href="#" onClick="removeTeamMember(<?php echo $member->id ?>)"><img src="<?php echo $this->baseUrl(); ?>/images/famfamfam_silk/delete.png"></a></td>
 			</tr>
 		<?php endforeach; ?>
 	</tbody>

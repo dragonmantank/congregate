@@ -33,6 +33,32 @@ class TeamsController extends Zend_Controller_Action
 		echo json_encode(array('status' => $status, 'message' => $message));
 	}
 
+	public function removeAction()
+	{
+		$this->_helper->layout->disableLayout();
+		$this->_helper->viewRenderer->setNoRender(true);
+
+		$up		= new UserProjects();
+		$p		= new Projects();
+		$uid	= $this->_request->getParam('uid');
+		$pid	= $_SESSION['projectId'];
+
+		if( !($p->fetchOwner($pid) == $uid) ) {
+			if( $up->removeProject($uid, $pid) ) {
+				$status		= 1;
+				$message	= 'User was removed from the project';
+			} else {
+				$status		= 0;
+				$message	= 'User was not removed from the project';
+			}
+		} else {
+			$status		= -1;
+			$message	= 'User is the project author. Cannot remove user from project';
+		}
+
+		echo json_encode(array('status' => $status, 'message' => $message));
+	}
+
 	public function searchAction()
 	{
 		$this->_helper->layout->disableLayout();

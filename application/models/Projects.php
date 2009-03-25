@@ -22,4 +22,13 @@ class Projects extends Zend_Db_Table_Abstract
 
 		return $up->fetchUserProjects($uid);
 	}
+
+	public function fetchOwner($pid)
+	{
+		$select	= $this->select()->from($this, 'author')
+								 ->where('id = ?', $pid);
+
+		$row	= $this->fetchRow($select);
+		return $row->author;
+	}
 }

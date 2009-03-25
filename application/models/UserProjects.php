@@ -40,4 +40,12 @@ class UserProjects extends Zend_Db_Table_Abstract
 
 		return (count($result) ? true : false);
 	}
+
+	public function removeProject($uid, $pid)
+	{
+		$where[]	= $this->getAdapter()->quoteInto('userId = ?', $uid);
+		$where[]	= $this->getAdapter()->quoteInto('projectId = ?', $pid);
+
+		return $this->delete($where);
+	}
 }
