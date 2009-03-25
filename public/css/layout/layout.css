@@ -77,3 +77,11 @@ ul p.message_head {
 ul.message_list li {
     margin: 5px;
 }
+
+ul li div.noteTitle {
+	padding:	5px;
+}
+
+ul.expandable li {
+	margin:	5px;
+}

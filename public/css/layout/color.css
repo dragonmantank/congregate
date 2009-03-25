@@ -63,3 +63,8 @@ ul p.message_body {
 tr.evenRow {
 	background-color:   #F6F6F6;
 }
+
+ul li div.noteTitle {
+	background-color:	#E6E6E6;
+}
+

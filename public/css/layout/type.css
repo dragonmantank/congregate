@@ -80,3 +80,7 @@ dt {
 ul p.message_head {
     font-weight:    bold;
 }
+
+ul li div.noteTitle {
+	font-weight:	bold;
+}
