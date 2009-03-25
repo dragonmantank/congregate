@@ -1,64 +1,109 @@
+<script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/jquery/jquery.jeditable-1.6.0.min.js"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/bpm/bpm.jquery.tinymce-editable.js"></script>
+
 <script type="text/javascript">
-	var sigCount = 0;
-	
-	dojo.require('dojo.parser');
-	dojo.require('dijit.InlineEditBox');
-	dojo.require('dijit.Editor');
-	dojo.require('dijit.form.Button');
-	dojo.require('dijit.form.TextBox');
-	loadSignatures();
-	
-	function addSignature() {
-		dojo.xhrPost({
-			url:		'<?php echo $this->baseUrl(); ?>/signatures/add/',
-			handleAs:	'json',
-			error: function(data, ioArgs) {
-				alert('There was an error adding the signature');
-			},
-			load: function(data, ioArgs) {
-				loadSignatures();
-				dojo.byId('newSig').value = '';
-			},
-			content: {
-				name: 	dojo.byId('newSig').value,
-				type:	'sdd'
-			}
-		});
-	}
-	
-	function loadSignatures() {
-		dojo.xhrGet({
-			url:	'<?php echo $this->baseUrl(); ?>/signatures/generate/type/sdd',
-			load:	function(data, ioArgs) {
-				dojo.byId('signatures').innerHTML = data;
-			}
-		});
-		
-	}
-	
-	function saveSection(section, text) {
-		dojo.xhrPost({
-				url: '<?php echo $this->baseUrl(); ?>/sdd/save/',
-				handleAs: 'json',
-				error: function(data, ioArgs) {
-					alert('There was an error');
-				},
-				content: {
-					'section': section,
-					'text': text
-				}
-			});
-	}
+function addSignature(section) {
+	$.ajax({
+		data:   { name:	$('#newSig').val() },
+		dataType:   'json',
+		success:    function(rsp, status) {
+			loadSignatures('sdd');
+			$('#newSig').val("");
+		},
+		type:       'POST',
+		url:        '<?php echo $this->baseUrl(); ?>/signatures/add/type/' + section
+	});
+}
+
+function loadSignatures(section) {
+	$('#signatures').load('<?php echo $this->baseUrl(); ?>/signatures/generate/type/' + section);
+}
+
+$(document).ready(function() {
+	loadSignatures('sdd');
+
+	$('#designOverview').editable('<?php echo $this->baseUrl(); ?>/sdd/save/section/designOverview/', {
+		type:		'mce',
+		submit:		'Save',
+		cancel:		'Cancel',
+		indicator:	'Saving...',
+		tooltip:	'Click to Edit...',
+		width:		'500px',
+		height:		'300px'
+	});
+
+	$('#chosenArchitecture').editable('<?php echo $this->baseUrl(); ?>/sdd/save/section/chosenArchitecture/', {
+		type:		'mce',
+		submit:		'Save',
+		cancel:		'Cancel',
+		indicator:	'Saving...',
+		tooltip:	'Click to Edit...',
+		width:		'500px',
+		height:		'300px'
+	});
+
+	$('#alternateDesigns').editable('<?php echo $this->baseUrl(); ?>/sdd/save/section/alternateDesigns/', {
+		type:		'mce',
+		submit:		'Save',
+		cancel:		'Cancel',
+		indicator:	'Saving...',
+		tooltip:	'Click to Edit...',
+		width:		'500px',
+		height:		'300px'
+	});
+
+	$('#systemInterfaceDescription').editable('<?php echo $this->baseUrl(); ?>/sdd/save/section/systemInterfaceDescription/', {
+		type:		'mce',
+		submit:		'Save',
+		cancel:		'Cancel',
+		indicator:	'Saving...',
+		tooltip:	'Click to Edit...',
+		width:		'500px',
+		height:		'300px'
+	});
+
+	$('#componentDescription').editable('<?php echo $this->baseUrl(); ?>/sdd/save/section/componentDescription/', {
+		type:		'mce',
+		submit:		'Save',
+		cancel:		'Cancel',
+		indicator:	'Saving...',
+		tooltip:	'Click to Edit...',
+		width:		'500px',
+		height:		'300px'
+	});
+
+	$('#userInterfaceDescription').editable('<?php echo $this->baseUrl(); ?>/sdd/save/section/userInterfaceDescription/', {
+		type:		'mce',
+		submit:		'Save',
+		cancel:		'Cancel',
+		indicator:	'Saving...',
+		tooltip:	'Click to Edit...',
+		width:		'500px',
+		height:		'300px'
+	});
+
+	$('#additionalMaterial').editable('<?php echo $this->baseUrl(); ?>/sdd/save/section/additionalMaterial/', {
+		type:		'mce',
+		submit:		'Save',
+		cancel:		'Cancel',
+		indicator:	'Saving...',
+		tooltip:	'Click to Edit...',
+		width:		'500px',
+		height:		'300px'
+	});
+});
 </script>
+
 <h1>Software Design Description for '<?php echo $this->projectName; ?>'</h1>
 
 <h2>1. Introduction</h2>
 	<blockquote>
 		<h3>1. Design Overview</h3>
 		<blockquote>
-			<p id="designOverview" dojoType="dijit.InlineEditBox" editor="dijit.Editor" renderAsHTML="true" buttonSave="Save" onChange="saveSection('designOverview', arguments[0]);" autosave="false">
+			<div id="designOverview">
 				<?php echo ($this->designOverview == '' ? 'No Text Supplied' : $this->designOverview); ?>
-			</p>
+			</div>
 		</blockquote>
 	</blockquote>
 
@@ -66,53 +111,55 @@
 	<blockquote>
 		<h3>1. Chosen System Architecture</h3>
 		<blockquote>
-			<p id="chosenArchitecture" dojoType="dijit.InlineEditBox" editor="dijit.Editor" renderAsHTML="true" buttonSave="Save" onChange="saveSection('chosenArchitecture', arguments[0]);" autosave="false">
+			<div id="chosenArchitecture">
 				<?php echo ($this->chosenArchitecture == '' ? 'No Text Supplied' : $this->chosenArchitecture); ?>
-			</p>
+			</div>
 		</blockquote>
 
 		<h3>2. Discussion of Alternate Designs</h3>
 		<blockquote>
-			<p id="alternateDesigns" dojoType="dijit.InlineEditBox" editor="dijit.Editor" renderAsHTML="true" buttonSave="Save" onChange="saveSection('alternateDesigns', arguments[0]);" autosave="false">
+			<div id="alternateDesigns">
 				<?php echo ($this->alternateDesigns == '' ? 'No Text Supplied' : $this->alternateDesigns); ?>
-			</p>
+			</div>
 		</blockquote>
 
 		<h3>3. System Interface Description</h3>
 		<blockquote>
-			<p id="systemInterfaceDescription" dojoType="dijit.InlineEditBox" editor="dijit.Editor" renderAsHTML="true" buttonSave="Save" onChange="saveSection('systemInterfaceDescription', arguments[0]);" autosave="false">
+			<div id="systemInterfaceDescription">
 				<?php echo ($this->systemInterfaceDescription == '' ? 'No Text Supplied' : $this->systemInterfaceDescription); ?>
-			</p>
+			</div>
 		</blockquote>
 	</blockquote>
 
 <h2>3. Detailed Description of Components</h2>
 	<blockquote>
-		<h3>Coming Soon</h3>
+		<div id="componentDescription">
+			<?php echo ($this->componentDescription == '' ? 'No Text Supplied' : $this->componentDescription); ?>
+		</div>
 	</blockquote>
 
 <h2>4. User Interface Design</h2>
 	<blockquote>
 		<h3>1. Description of User Interface</h3>
-		<p id="userInterfaceDescription" dojoType="dijit.InlineEditBox" editor="dijit.Editor" renderAsHTML="true" buttonSave="Save" onChange="saveSection('userInterfaceDescription', arguments[0]);" autosave="false">
+		<div id="userInterfaceDescription">
 			<?php echo ($this->userInterfaceDescription == '' ? 'No Text Supplied' : $this->userInterfaceDescription); ?>
-		</p>
+		</div>
 	</blockquote>
 
 <h2>5. Additional Material</h2>
 	<blockquote>
-		<p id="additionalMaterial" dojoType="dijit.InlineEditBox" editor="dijit.Editor" renderAsHTML="true" buttonSave="Save" onChange="saveSection('additionalMaterial', arguments[0]);" autosave="false">
+		<div id="additionalMaterial">
 			<?php echo ($this->additionalMaterial == '' ? 'No Text Supplied' : $this->additionalMaterial); ?>
-		</p>
+		</div>
 	</blockquote>
-	
+
 
 <h2>Signatures</h2>
 <div id="signatures">
 </div>
 
 <div id="addSig">
-<label for="newSig">Name:</label><input type="text" name="newSig" id="newSig" dojoType="dijit.form.TextBox">
-<button dojoType="dijit.form.Button" onClick="addSignature();">Add Signature</button>
+<label for="newSig">Name:</label><input type="text" name="newSig" id="newSig">
+<button onClick="addSignature('sdd');">Add Signature</button>
 </div>
 
