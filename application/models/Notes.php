@@ -28,7 +28,9 @@ class Notes extends Zend_Db_Table_Abstract
 
 	public function fetchNotes($pid)
 	{
-		$select	= $this->select()->join(array('nt' => 'nt_NotesText'), 'nt.noteId = id')
+		$select	= $this->select()->from(array('n' => $this->_name))
+								 ->join(array('nt' => 'nt_NotesText'), 'nt.noteId = n.id')
+								 ->where('n.projectId = ?', $pid)
 								 ->setIntegrityCheck(false);
 
 		return $this->fetchAll($select);
