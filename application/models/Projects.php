@@ -8,6 +8,7 @@ class Projects extends Zend_Db_Table_Abstract
 	{
 		$identity		= Zend_Auth::getInstance()->getIdentity();
 		$data['author']	= $identity->id;
+		$data['slug']	= $this->_generateSlug($data['name']);
 
 		if( $this->insert($data) ) {
 			$projectId = $this->getAdapter()->lastInsertId();
@@ -23,6 +24,13 @@ class Projects extends Zend_Db_Table_Abstract
 		return $up->fetchUserProjects($uid);
 	}
 
+	public function fetchFiles($pid)
+	{
+		$f	= new Files();
+
+		return $f->fetchFilesByProject($pid);
+	}
+
 	public function fetchOwner($pid)
 	{
 		$select	= $this->select()->from($this, 'author')
@@ -30,5 +38,21 @@ class Projects extends Zend_Db_Table_Abstract
 
 		$row	= $this->fetchRow($select);
 		return $row->author;
+	}
+
+	public function fetchSlug($pid) {
+		$select	= $this->select()->from($this, 'slug')
+								 ->where('id = ?', $pid);
+
+		$row	= $this->fetchRow($select);
+		return $row->slug;
+	}
+
+	protected function _generateSlug($name)
+	{
+		$badData	= array(' ', ',', '.', '!', '?', '@', '#', '$', '%', '^', '&', '*', '(', ')', '+', '=', '{', '}', '[', ']', ':', ';', '\\', '|');
+		$goodData	= array('-', '',  '',  '',  '',  '',  '',  '',  '',  '',  '',  '',  '',  '',  '',  '',  '',  '',  '',  '',  '',  '',  '',   '');
+
+		return strtolower(str_replace($badData, $goodData, $name));
 	}
 }

@@ -1,0 +1,101 @@
+<script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/bpm/bpm.jquery.zebra-stripe.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$('.stripe').bpm_stripe();
+
+	$('#addCommentButton').click(function() {
+		 $.ajax({
+			data:   	{
+				file:		<?php echo $this->id; ?>,
+				comment:	$('#newComment').val()
+			},
+			dataType:   'json',
+			success:    function(rsp, status) {
+				if(rsp.status == 1) {
+					window.location = '<?php echo $this->baseUrl(); ?>/files/stats/file/<?php echo $this->id; ?>';
+				} else {
+					alert('There was a problem adding the note. Please contact tech support.');
+				}
+			},
+			type:       'POST',
+			url:        '<?php echo $this->baseUrl();?>/files/addcomment/'
+		});
+	});
+});
+</script>
+
+<h1><?php echo $this->title; ?></h1>
+
+<h2>File Data</h2>
+<table class="stripe" width="100%">
+	<tbody>
+		<tr>
+			<th width="15%">Title:</th>
+			<td><?php echo $this->title; ?> (<a href="<?php echo $this->baseUrl(); ?>/files/view/file/<?php echo $this->id ?>">View</a>) </td>
+		</tr>
+		<tr>
+			<th>Filename:</th>
+			<td><?php echo $this->filename; ?></td>
+		</tr>
+		<tr>
+			<th>File Type:</th>
+			<td><?php echo $this->MimeType($this->mimetype); ?></td>
+		</tr>
+		<tr>
+			<th>File Size:</th>
+			<td><?php echo $this->FileSize($this->size); ?></td>
+		</tr>
+		<tr>
+			<th>Current Revision:</th>
+			<td><?php echo $this->revision; ?></td>
+		</tr>
+		<tr>
+			<th>Current Author:</th>
+			<td><a href="mailto:<?php echo $this->email; ?>"><?php echo $this->name; ?></a></td>
+		</tr>
+	</tbody>
+</table>
+
+<h2>Comments</h2>
+<table class="stripe" width="100%">
+	<thead>
+		<tr>
+			<th>Author</th>
+			<th>Comment</th>
+			<th>Date Added</th>
+			<th>Revision</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach($this->comments as $comment): ?>
+			<tr>
+				<td><?php echo $comment->name; ?></td>
+				<td><?php echo $comment->comment; ?></td>
+				<td align="center"><?php echo date('m/d/Y h:ia', strtotime($comment->dateAdded)); ?></td>
+				<td align="center"><?php echo $comment->revision; ?></td>
+			</tr>
+		<?php endforeach; ?>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="4" align="right"><b>Add New Comment:</b> <input style="width: 500px" type="text" name="newComment" id="newComment"> <button id="addCommentButton">Add</button></td>
+		</tr>
+	</tfoot>
+</table>
+
+<h2>Revisions</h2>
+<table class="stripe" width="100%">
+	<thead>
+		<tr>
+			<th>Revision</th>
+			<th>Date Added</th>
+			<th>Uploaded By</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
+	<tfoot>
+	</tfoot>
+</table>

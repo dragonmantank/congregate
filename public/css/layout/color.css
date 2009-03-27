@@ -11,6 +11,10 @@ table {
 	border:	1px solid #356AA0;
 }
 
+td {
+	border:	1px solid #b6cbe0;
+}
+
 #hd, #ft {
 	background-color:	#356AA0;
 }

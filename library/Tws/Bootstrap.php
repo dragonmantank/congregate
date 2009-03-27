@@ -4,7 +4,7 @@
  * Bootstrap object to simplify the bootstrapping process for Zend Framework
  *
  * This object allows an object-oriented interface for building the bootstrap
- * process for Zend Framework. 
+ * process for Zend Framework.
  *
  * @author Chris Tankersley
  * @copyright 2008 Chris Tankersley
@@ -50,14 +50,14 @@ class Tws_Bootstrap
     /**
      * Adds a new custom route to the router
      *
-     * @param string $name Name of the 
+     * @param string $name Name of the
      * @param Zend_Controller_Router_Route $route Route
      */
     public function addRoute($name, Zend_Controller_Router_Route $route)
     {
         $this->_router->addRoute($name, $route);
     }
-    
+
     /**
      * Appends a path to the already defined include path
      *
@@ -65,8 +65,8 @@ class Tws_Bootstrap
      */
     static public function appendIncludePath($path)
     {
-    	set_include_path( 
-    		get_include_path() . 
+    	set_include_path(
+    		get_include_path() .
     		$path . PATH_SEPARATOR
     	);
     }
@@ -78,7 +78,7 @@ class Tws_Bootstrap
     {
         $this->_frontController->dispatch();
     }
-    
+
 	/**
      * Prepends a path to the already defined include path
      *
@@ -87,14 +87,14 @@ class Tws_Bootstrap
     static public function prependIncludePath($path)
     {
     	set_include_path(
-    		$path . PATH_SEPARATOR .  
+    		$path . PATH_SEPARATOR .
     		get_include_path()
     	);
     }
 
     /**
      * Registers a plugin with the front controller
-     * 
+     *
      * @param string $plugin Name of the plugin class
      */
     public function registerPlugin($plugin)
