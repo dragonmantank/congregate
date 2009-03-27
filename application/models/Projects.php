@@ -55,4 +55,18 @@ class Projects extends Zend_Db_Table_Abstract
 
 		return strtolower(str_replace($badData, $goodData, $name));
 	}
+
+	public function getRequiredSignatures($pid)
+	{
+		$psig	= new ProjectSignatures();
+
+		return $psig->fetchRequiredSignatures($pid);
+	}
+
+	public function isMember($uid, $pid)
+	{
+		$up	= new UserProjects();
+
+		return $up->isMember($uid, $pid);
+	}
 }

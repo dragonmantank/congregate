@@ -31,6 +31,13 @@ class Users extends Zend_Db_Table_Abstract
 		return $this->fetchRow($select);
 	}
 
+	public function isAdmin($gid)
+	{
+		$g	= new Groups();
+
+		return ($g->getLevel($gid) <= 1 ? true : false);
+	}
+
 	public function isValidConfirmation($email, $conf)
 	{
 		$select	= $this->select()->where('status = -1')

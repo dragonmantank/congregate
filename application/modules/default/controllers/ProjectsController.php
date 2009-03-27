@@ -32,9 +32,17 @@ class ProjectsController extends Zend_Controller_Action
 
 	public function loadAction()
 	{
-		$projectId				= $this->_request->getParam('project');
-		$_SESSION['projectId']	= $projectId;
+		$projectId	= $this->_request->getParam('project');
+		$user		= Zend_Auth::getInstance()->getIdentity();
+		$p			= new Projects();
+		$u			= new Users();
 
-		$this->_forward('index', 'sdd', 'default');
+		if( ($p->isMember($user->id, $projectId)) || ($u->isAdmin($user->primaryGroup)) ) {
+			$_SESSION['projectId']	= $projectId;
+
+			$this->_forward('index', 'sdd', 'default');
+		} else {
+			$this->_forward('index', 'index', 'default');
+		}
 	}
 }

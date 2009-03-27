@@ -12,6 +12,7 @@ class ConfigurationController extends Zend_Controller_Action
 		$this->view->teamMembers	= $up->getMembers($_SESSION['projectId']);
 		$this->view->name			= $project->name;
 		$this->view->description	= $project->description;
+		$this->view->requiredSigs	= $p->getRequiredSignatures($project->id);
 	}
 
 	public function init()

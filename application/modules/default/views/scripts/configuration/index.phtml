@@ -118,6 +118,24 @@ $(document).ready(function() {
 	</tfoot>
 </table>
 
+<h2>Required Signatures</h2>
+<table class="stripe" id="signatures">
+	<tbody>
+		<?php $previousSection = ''; foreach($this->requiredSigs as $sig): ?>
+			<?php if($sig->sectionName != $previousSection): $previousSection = $sig->sectionName; ?>
+				<tr>
+					<th><?php echo $sig->sectionName; ?></th>
+					<th><img src="<?php echo $this->baseUrl(); ?>/images/famfamfam_silk/add.png"></th>
+				</tr>
+			<?php endif; ?>
+			<tr>
+				<td><?php echo $sig->name ?></td>
+				<td><img src="<?php echo $this->baseUrl(); ?>/images/famfamfam_silk/delete.png"></td>
+			</tr>
+		<?php endforeach; ?>
+	</tbody>
+</table>
+
 <div id="addNewTeamMemberDialog" title="Add New Team Member" class="left">
 	<form>
 		<fieldset>
