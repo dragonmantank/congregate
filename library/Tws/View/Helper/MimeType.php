@@ -8,6 +8,9 @@ class Tws_View_Helper_MimeType
 			case 'application/octet-stream':
 				$human	= 'Executable Program';
 				break;
+			case 'application/x-javascript':
+				$human	= 'JavaScript File';
+				break;
 			case 'application/zip':
 				$human	= 'Zip File';
 				break;
