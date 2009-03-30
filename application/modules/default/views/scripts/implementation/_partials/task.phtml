@@ -1,43 +1,27 @@
 <tr>
 	<td valign="top">
-		<div  dojoType="dijit.InlineEditBox" onChange="saveSection('feature', '<?php echo $this->id; ?>', arguments[0]);">
-			<?php echo $this->feature; ?>
-		</div>
+		<div id="feature_<?php echo $this->id; ?>" class="edit"><?php echo $this->feature; ?></div>
 	</td>
 	<td valign="top" align="center">
-		<div dojoType="dijit.InlineEditBox" onChange="saveSection('priority', '<?php echo $this->id; ?>', arguments[0]);">
-			<?php echo $this->priority; ?>
-		</div>
+		<div id="priority_<?php echo $this->id; ?>" class="edit"><?php echo $this->priority; ?></div>
 	</td>
 	<td valign="top">
-		<div dojoType="dijit.InlineEditBox" editor="dijit.form.Textarea" onChange="saveSection('task', '<?php echo $this->id; ?>', arguments[0]);">
-			<?php echo $this->task; ?>
-		</div>
+		<div id="task_<?php echo $this->id; ?>" class="edit_area"><?php echo $this->task; ?></div>
 	</td>
 	<td valign="top" align="center"><?php echo $this->estimateOrig; ?></td>
 	<td valign="top" align="center">
-		<div id="estimateCurrent_<?php echo $this->id; ?>" dojoType="dijit.InlineEditBox" onChange="saveSection('estimateCurrent', '<?php echo $this->id; ?>', arguments[0]);">
-			<?php echo $this->estimateCurrent; ?>
-		</div>
+		<div id="estimateCurrent_<?php echo $this->id; ?>" class="edit"><?php echo $this->estimateCurrent; ?></div>
 	</td>
 	<td valign="top" align="center">
-		<div id="elapsed_<?php echo $this->id; ?>" dojoType="dijit.InlineEditBox" onChange="saveSection('elapsed', '<?php echo $this->id; ?>', arguments[0]);">
-			<?php echo $this->elapsed; ?>
-		</div>
+		<div id="elapsed_<?php echo $this->id; ?>" class="edit"><?php echo $this->elapsed; ?></div>
 	</td>
 	<td valign="top" align="center">
-		<div id="remaining_<?php echo $this->id; ?>">
-			<?php echo $this->remaining; ?>
-		</div>
+		<div id="remaining_<?php echo $this->id; ?>"><?php echo $this->remaining; ?></div>
 	</td>
 	<td valign="top" align="center">
-		<div id="status_<?php echo $this->id; ?>">
-			<?php echo ($this->status ? 'Complete' : 'Incomplete'); ?>
-		</div>
+		<div id="status_<?php echo $this->id; ?>"><?php echo ($this->status ? 'Complete' : 'Incomplete'); ?></div>
 	</td>
 	<td valign="top">
-		<div dojoType="dijit.InlineEditBox" onChange="saveSection('completedBy', '<?php echo $this->id; ?>', arguments[0]);">
-			<?php echo $this->completedBy; ?>
-		</div>
+		<div id="completedBy_<?php echo $this->id; ?>" class="edit"><?php echo $this->completedBy; ?></div>
 	</td>
 </tr>

@@ -6,7 +6,7 @@ class ImplementationController extends Zend_Controller_Action
 	{
 		$this->_helper->layout->disableLayout();
 		$this->_helper->viewRenderer->setNoRender(true);
-		
+
 		if($_POST) {
 			$data	= array(
 				'feature'		=> $this->_request->getParam('feature'),
@@ -15,7 +15,7 @@ class ImplementationController extends Zend_Controller_Action
 				'task'			=> $this->_request->getParam('task'),
 				'projectId'		=> $_SESSION['projectId'],
 			);
-		
+
 			try {
 				$task		= new Tasks();
 				$task->add($data);
@@ -25,11 +25,11 @@ class ImplementationController extends Zend_Controller_Action
 				$status		= 0;
 				$message	= $e->getMessage();
 			}
-			
+
 			echo json_encode(array('status' => $status, 'message' => $message));
 		}
 	}
-	
+
 	public function indexAction()
 	{
 		$projectId	= $_SESSION['projectId'];
@@ -37,7 +37,7 @@ class ImplementationController extends Zend_Controller_Action
 		$select		= $tasks->select()->where('projectId = ?', $projectId)->order(array('priority ASC', 'task ASC'));
 		$this->view->tasks	= $tasks->fetchAll($select);
 	}
-	
+
 	public function init()
 	{
 		$this->_helper->layout->setLayout('project-layout');
@@ -45,20 +45,20 @@ class ImplementationController extends Zend_Controller_Action
 			$this->_redirect('/');
 		}
 	}
-	
+
 	public function updatecellAction()
 	{
 		$this->_helper->layout->disableLayout();
 		$this->_helper->viewRenderer->setNoRender(true);
-		
+
 		if($_POST) {
-			$section	= $this->_request->getParam('section');
-			$id			= $this->_request->getParam('id');
-			$text		= $this->_request->getParam('text');
+			$element			= $this->_request->getParam('id');
+			list($section, $id)	= explode('_', $element);
+			$text				= $this->_request->getParam('value');
 
 			$tasks		= new Tasks();
 			$task		= $tasks->fetchRow($tasks->select()->where('id = ?', $id));
-			
+
 			$task->{$section}	= $text;
 			switch($section) {
 				case 'completedBy';
@@ -70,6 +70,8 @@ class ImplementationController extends Zend_Controller_Action
 					break;
 			}
 			$task->save();
+
+			echo $text;
 		}
 	}
 }

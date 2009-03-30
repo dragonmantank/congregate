@@ -1,72 +1,86 @@
+<script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/bpm/bpm.jquery.zebra-stripe.js"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/jquery/jquery.jeditable-1.6.0.min.js"></script>
+
 <script type="text/javascript">
-	dojo.require('dojo.parser');
-	dojo.require('dijit.form.Button');
-	dojo.require('dijit.form.TextBox');
-	dojo.require('dijit.form.Textarea');
-	dojo.require('dijit.Dialog');
-	dojo.require('dijit.InlineEditBox');
-	loadSignatures();
-	
-	function addSignature() {
-		dojo.xhrPost({
-			url:		'<?php echo $this->baseUrl(); ?>/signatures/add/',
-			handleAs:	'json',
-			error: function(data, ioArgs) {
-				alert('There was an error adding the signature');
-			},
-			load: function(data, ioArgs) {
-				loadSignatures();
-				dojo.byId('newSig').value = '';
-			},
-			content: {
-				name: 	dojo.byId('newSig').value,
-				type:	'implementation'
+function addSignature(section) {
+	$.ajax({
+		data:   { name:	$('#newSig').val() },
+		dataType:   'json',
+		success:    function(rsp, status) {
+			loadSignatures(section);
+			$('#newSig').val("");
+		},
+		type:       'POST',
+		url:        '<?php echo $this->baseUrl(); ?>/signatures/add/type/' + section
+	});
+}
+
+function loadSignatures(section) {
+	$('#signatures').load('<?php echo $this->baseUrl(); ?>/signatures/generate/type/' + section);
+}
+
+$(document).ready(function() {
+	$('.stripe').bpm_stripe();
+
+	loadSignatures('implementation');
+
+	$('#addTaskButton').click(function() {
+		$('#addTaskDialog').dialog('open');
+	});
+
+	$('.edit').editable('<?php echo $this->baseUrl(); ?>/implementation/updatecell', {
+		indicator:	'Saving...',
+		tooltip:	'Click to Edit...',
+		callback:	function(value, settings) {
+			window.location = "<?php echo $this->baseUrl(); ?>/implementation";
+		}
+	});
+
+	$('.edit_area').editable('<?php echo $this->baseUrl(); ?>/implementation/updatecell', {
+		indicator:	'Saving...',
+		tooltip:	'Click to Edit...',
+		type:		'textarea',
+		submit:		'OK',
+		cancel:		'Cancel'
+	});
+
+	$('#addTaskDialog').dialog({
+		bgiframe:	true,
+		autoOpen:	false,
+		modal:		true,
+		width:		400,
+		buttons:	{
+			'Save': function() {
+				$.ajax({
+					data:		{
+						feature:		$('#feature').val(),
+						priority:		$('#priority').val(),
+						estimateOrig:	$('#estimateOrig').val(),
+						task:			$('#task').val()
+					},
+					dataType:	'json',
+					error:		function(rq, status, error) {
+						alert('There was a problem adding you as a user: ' + error);
+					},
+					success:	function(rsp, status) {
+						if(rsp.status == 1) {
+							window.location = "<?php echo $this->baseUrl(); ?>/implementation";
+						} else {
+							alert('There was a problem adding the task: ' + rsp.message);
+						}
+					},
+					type:		'POST',
+					url:		'<?php echo $this->baseUrl(); ?>/implementation/addtask'
+				});
 			}
-		});
-	}
-	
-	function loadSignatures() {
-		dojo.xhrGet({
-			url:	'<?php echo $this->baseUrl(); ?>/signatures/generate/type/implementation',
-			load:	function(data, ioArgs) {
-				dojo.byId('signatures').innerHTML = data;
-			}
-		});
-		
-	}
-	
-	function saveSection(section, id, text) {
-		dojo.xhrPost({
-				url: '<?php echo $this->baseUrl(); ?>/implementation/updatecell/',
-				handleAs: 'json',
-				load: function(data, ioArgs) {
-					switch(section) {
-						case 'completedBy':
-							dojo.byId('status_' + id).innerHTML = (text == '' ? 'Incomplete' : 'Complete');
-							break;
-						case 'estimateCurrent':
-						case 'elapsed':
-							var est = dojo.byId('estimateCurrent_' + id).innerHTML;
-							var elap = dojo.byId('elapsed_' + id).innerHTML;
-							dojo.byId('remaining_' + id).innerHTML = est - elap;
-							break;
-					}
-				},
-				error: function(data, ioArgs) {
-					alert('There was an error');
-				},
-				content: {
-					'section': section,
-					'id': id,
-					'text': text
-				}
-			});
-	}
+		}
+	});
+});
 </script>
 
 <h1>Tasks for Implementation</h1>
 
-<table>
+<table class="stripe" width="100%">
 	<thead>
 		<tr>
 			<th>Feature</th>
@@ -91,7 +105,7 @@
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="9" align="right"><button dojoType="dijit.form.Button" onClick="dijit.byId('addTask').show();" style="float: right">Add Task</button></td>
+			<td colspan="9" align="right"><button id="addTaskButton">Add Task</button></td>
 		</tr>
 	</tfoot>
 </table>
@@ -101,42 +115,21 @@
 </div>
 
 <div id="addSig">
-<label for="newSig">Name:</label><input type="text" name="newSig" id="newSig" dojoType="dijit.form.TextBox">
-<button dojoType="dijit.form.Button" onClick="addSignature();">Add Signature</button>
+<label for="newSig">Name:</label><input type="text" name="newSig" id="newSig">
+<button onClick="addSignature('implementation');">Add Signature</button>
 </div>
 
-<div id="addTask" title="Add New Task" dojoType="dijit.Dialog" style="text-align: left">
+<div id="addTaskDialog" title="Add New Task" class="left">
 	<form method="POST" id="addTaskForm">
-	<dl>
-		<dt>Feature:</dt>
-			<dd><input dojoType="dijit.form.TextBox" id="feature" name="feature"></dd>
-		<dt>Priority:</dt>
-			<dd><input dojoType="dijit.form.TextBox" id="priority" name="priority"></dd>
-		<dt>Original Estimate:</dt>
-			<dd><input dojoType="dijit.form.TextBox" id="estimateOrig" name="estimateOrig"></dd>
-		<dt>Task:</dt>
-			<dd><textarea dojoType="dijit.form.Textarea" id="task" name="task" style="width: 300px; height: 100px"></textarea></dd>
-	</dl>
-	
-	<button dojoType="dijit.form.Button" style="float: right">
-		Save Task
-		<script type="dojo/method" event="onClick">
-			dojo.xhrPost({
-				url: '<?php echo $this->baseUrl(); ?>/implementation/addtask/',
-				handleAs: 'json',
-				load: function(data, ioArgs) {
-					alert(data.message);
-
-					if(data.status == 1) {
-						window.location = "<?php echo $this->baseUrl(); ?>/implementation/";
-					}
-				},
-				error: function(data, ioArgs) {
-					alert('There was an error');
-				},
-				form: 'addTaskForm'
-			});
-		</script>
-	</button>
-		</form>
+		<dl>
+			<dt>Feature:</dt>
+				<dd><input id="feature" name="feature"></dd>
+			<dt>Priority:</dt>
+				<dd><input id="priority" name="priority"></dd>
+			<dt>Original Estimate:</dt>
+				<dd><input id="estimateOrig" name="estimateOrig"></dd>
+			<dt>Task:</dt>
+				<dd><textarea id="task" name="task" style="width: 300px; height: 100px"></textarea></dd>
+		</dl>
+	</form>
 </div>
