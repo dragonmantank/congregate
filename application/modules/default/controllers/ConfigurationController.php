@@ -18,6 +18,17 @@ class ConfigurationController extends Zend_Controller_Action
 	public function init()
 	{
 		$this->_helper->layout->setLayout('project-layout');
+
+		$projectId	= $_SESSION['projectId'];
+		$user		= Zend_Auth::getInstance()->getIdentity();
+		$p			= new Projects();
+		$u			= new Users();
+
+		if( ($user->id != $p->fetchOwner($projectId)) ) {
+			if( !($u->isAdmin($user->primaryGroup)) ) {
+				$this->_forward('index', 'restricted');
+			}
+		}
 	}
 
 	public function saveAction()
