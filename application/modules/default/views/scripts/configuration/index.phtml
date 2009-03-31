@@ -83,58 +83,65 @@ $(document).ready(function() {
 
 <h1>Project Configuration</h1>
 
-<h2>Project Details</h2>
-<form method="post" action="<?php echo $this->baseUrl(); ?>/configuration/save">
-<dl>
-	<dt>Project Name:</dt>
-		<dd><input type="text" name="name" id="name" value="<?php echo $this->name; ?>" style="width: 300px"></dd>
-	<dt>Project Description:</dt>
-		<dd><textarea name="description" id="description" style="width: 300px; height: 200px;"><?php echo $this->description; ?></textarea></dd>
-</dl>
-</form>
+<div>
+	<h2>Project Details</h2>
+	<form method="post" action="<?php echo $this->baseUrl(); ?>/configuration/save">
+	<dl>
+		<dt>Project Name:</dt>
+			<dd><input type="text" name="name" id="name" value="<?php echo $this->name; ?>" style="width: 300px"></dd>
+		<dt>Project Description:</dt>
+			<dd><textarea name="description" id="description" style="width: 300px; height: 200px;"><?php echo $this->description; ?></textarea></dd>
+	</dl>
+	<input type="submit" value="Update Project">
+	</form>
+</div>
 
-<h2>Team Members</h2>
-<table class="stripe" id="teamMembers">
-	<thead>
-		<tr>
-			<th>Name</th>
-			<th>E-Mail Address</th>
-			<th>Remove</th>
-		</tr>
-	</thead>
-	<tbody>
-		<?php foreach($this->teamMembers as $member): ?>
+<div>
+	<h2>Team Members</h2>
+	<table class="stripe" id="teamMembers">
+		<thead>
 			<tr>
-				<td><a href="mailto:<?php echo $member->email; ?>"><?php echo $member->name; ?></a></td>
-				<td><a href="mailto:<?php echo $member->email; ?>"><?php echo $member->email; ?></a></td>
-				<td class="center"><a href="#" onClick="removeTeamMember(<?php echo $member->id ?>)"><img src="<?php echo $this->baseUrl(); ?>/images/famfamfam_silk/delete.png"></a></td>
+				<th>Name</th>
+				<th>E-Mail Address</th>
+				<th>Remove</th>
 			</tr>
-		<?php endforeach; ?>
-	</tbody>
-	<tfoot>
-		<tr>
-			<td colspan="3" class="right"><button id="addTeamMemberButton" name="addTeamMemberButton">New Team Member</button></td>
-		</tr>
-	</tfoot>
-</table>
-
-<h2>Required Signatures</h2>
-<table class="stripe" id="signatures">
-	<tbody>
-		<?php $previousSection = ''; foreach($this->requiredSigs as $sig): ?>
-			<?php if($sig->sectionName != $previousSection): $previousSection = $sig->sectionName; ?>
+		</thead>
+		<tbody>
+			<?php foreach($this->teamMembers as $member): ?>
 				<tr>
-					<th><?php echo $sig->sectionName; ?></th>
-					<th><img src="<?php echo $this->baseUrl(); ?>/images/famfamfam_silk/add.png"></th>
+					<td><a href="mailto:<?php echo $member->email; ?>"><?php echo $member->name; ?></a></td>
+					<td><a href="mailto:<?php echo $member->email; ?>"><?php echo $member->email; ?></a></td>
+					<td class="center"><a href="#" onClick="removeTeamMember(<?php echo $member->id ?>)"><img src="<?php echo $this->baseUrl(); ?>/images/famfamfam_silk/delete.png"></a></td>
 				</tr>
-			<?php endif; ?>
+			<?php endforeach; ?>
+		</tbody>
+		<tfoot>
 			<tr>
-				<td><?php echo $sig->name ?></td>
-				<td><img src="<?php echo $this->baseUrl(); ?>/images/famfamfam_silk/delete.png"></td>
+				<td colspan="3" class="right"><button id="addTeamMemberButton" name="addTeamMemberButton">New Team Member</button></td>
 			</tr>
-		<?php endforeach; ?>
-	</tbody>
-</table>
+		</tfoot>
+	</table>
+</div>
+
+<div>
+	<h2>Required Signatures</h2>
+	<table class="stripe" id="signatures">
+		<tbody>
+			<?php $previousSection = ''; foreach($this->requiredSigs as $sig): ?>
+				<?php if($sig->sectionName != $previousSection): $previousSection = $sig->sectionName; ?>
+					<tr>
+						<th><?php echo $sig->sectionName; ?></th>
+						<th><img src="<?php echo $this->baseUrl(); ?>/images/famfamfam_silk/add.png"></th>
+					</tr>
+				<?php endif; ?>
+				<tr>
+					<td><?php echo $sig->name ?></td>
+					<td><img src="<?php echo $this->baseUrl(); ?>/images/famfamfam_silk/delete.png"></td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+</div>
 
 <div id="addNewTeamMemberDialog" title="Add New Team Member" class="left">
 	<form>
