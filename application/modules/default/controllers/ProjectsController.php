@@ -39,8 +39,33 @@ class ProjectsController extends Zend_Controller_Action
 
 		if( ($p->isMember($user->id, $projectId)) || ($u->isAdmin($user->primaryGroup)) ) {
 			$_SESSION['projectId']	= $projectId;
+			$project	= $p->find($projectId)->current();
 
-			$this->_forward('index', 'sdd', 'default');
+			switch($project->status) {
+				case 2:
+					$controller	= 'sdd';
+					break;
+				case 3:
+					$controller	= 'design';
+					break;
+				case 4:
+					$controller	= 'implementation';
+					break;
+				case 5:
+					$controller	= 'debugging';
+					break;
+				case 6:
+					$controller	= 'installation';
+					break;
+				case 7:
+					$controller	= 'maintenance';
+					break;
+				default:
+					$controller	= 'sdd';
+					break;
+			}
+
+			$this->_forward('index', $controller, 'default');
 		} else {
 			$this->_forward('index', 'index', 'default');
 		}

@@ -20,18 +20,23 @@ class SignaturesController extends Zend_Controller_Action
 
 		$signatures->insert($data);
 		$project = $projects->fetchRow($projects->select()->where('id = ?', $projectId));
-		if($project->status == 1 && $type == 'sdd') {
+		if($project->status == 1 && $type == 'approval') {
 			$project->status = 2;
 			$project->save();
 		}
 
-		if($project->status == 2 && $type == 'design') {
+		if($project->status == 2 && $type == 'sdd') {
 			$project->status = 3;
 			$project->save();
 		}
 
-		if($project->status == 3 && $type == 'implementation') {
+		if($project->status == 3 && $type == 'design') {
 			$project->status = 4;
+			$project->save();
+		}
+
+		if($project->status == 4 && $type == 'implementation') {
+			$project->status = 5;
 			$project->save();
 		}
 

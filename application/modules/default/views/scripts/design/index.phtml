@@ -1,8 +1,28 @@
 <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/bpm/bpm.jquery.zebra-stripe.js"></script>
 
 <script type="text/javascript">
+function addSignature(section) {
+	$.ajax({
+		data:   { name:	$('#newSig').val() },
+		dataType:   'json',
+		success:    function(rsp, status) {
+			loadSignatures('sdd');
+			$('#newSig').val("");
+		},
+		type:       'POST',
+		url:        '<?php echo $this->baseUrl(); ?>/signatures/add/type/' + section
+	});
+}
+
+function loadSignatures(section) {
+	$('#signatures').load('<?php echo $this->baseUrl(); ?>/signatures/generate/type/' + section);
+}
+
 $(document).ready(function() {
 	$('#fileTable').bpm_stripe();
+
+	loadSignatures('design');
+
 	$('#addFile').click(function() {
 		$('#addFileDialog').dialog('open');
 	});
@@ -65,8 +85,8 @@ $(document).ready(function() {
 </div>
 
 <div id="addSig">
-<label for="newSig">Name:</label><input type="text" name="newSig" id="newSig" dojoType="dijit.form.TextBox">
-<button dojoType="dijit.form.Button" onClick="addSignature();">Add Signature</button>
+<label for="newSig">Name:</label><input type="text" name="newSig" id="newSig">
+<button onClick="addSignature('design');">Add Signature</button>
 </div>
 
 <div id="addFileDialog" class="left" title="Add New File">

@@ -10,6 +10,7 @@ class ProjectSignatures extends Zend_Db_Table_Abstract
 								 ->join(array('u' => 'u_Users'), 'u.id = psig.signatureId', array('name', 'email'))
 								 ->join(array('ps' => 'ps_ProjectSections'), 'ps.id = psig.sectionId', array('sectionName' => 'name'))
 								 ->order('psig.sectionId ASC')
+								 ->where('psig.projectId = ?', $pid)
 								 ->setIntegrityCheck(false);
 
 		return $this->fetchAll($select);
