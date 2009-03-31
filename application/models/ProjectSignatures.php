@@ -11,7 +11,7 @@ class ProjectSignatures extends Zend_Db_Table_Abstract
 								 ->join(array('ps' => 'ps_ProjectSections'), 'ps.id = psig.sectionId', array('sectionName' => 'name'))
 								 ->order('psig.sectionId ASC')
 								 ->setIntegrityCheck(false);
-echo $select->assemble();
+
 		return $this->fetchAll($select);
 	}
 }

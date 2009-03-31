@@ -48,6 +48,13 @@ class Projects extends Zend_Db_Table_Abstract
 		return $row->slug;
 	}
 
+	public function fetchTeamMembers($pid)
+	{
+		$up	= new UserProjects();
+
+		return $up->getMembers($pid);
+	}
+
 	protected function _generateSlug($name)
 	{
 		$badData	= array(' ', ',', '.', '!', '?', '@', '#', '$', '%', '^', '&', '*', '(', ')', '+', '=', '{', '}', '[', ']', ':', ';', '\\', '|');

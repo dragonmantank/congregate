@@ -1,0 +1,54 @@
+<h1>Report New Bug</h1>
+
+<form method="POST">
+<dl class="form">
+	<dt>Category:</dt>
+		<dd>
+			<select name="categoryId" id="categoryId">
+				<?php foreach($this->categories as $cat): ?>
+					<option value="<?php echo $cat->id ?>"><?php echo $cat->name ?></option>
+				<?php endforeach; ?>
+			</select>
+		</dd>
+	<dt>Severity:</dt>
+		<dd>
+			<select name="severityId" id="severityId">
+				<?php foreach($this->severities as $sev): ?>
+					<option value="<?php echo $sev->id ?>"><?php echo $sev->name ?></option>
+				<?php endforeach; ?>
+			</select>
+		</dd>
+	<dt>Priority:</dt>
+		<dd>
+			<select name="priorityId" id="priorityId">
+				<?php foreach($this->priorities as $pri): ?>
+					<option value="<?php echo $pri->id ?>"><?php echo $pri->name ?></option>
+				<?php endforeach; ?>
+			</select>
+		</dd>
+	<dt>Reproducible?</dt>
+		<dd>
+			<select name="reproducibility" id="reproducibility">
+				<option value="1">Yes</option>
+				<option value="0">No</option>
+			</select>
+		</dd>
+	<dt>Assign To:</dt>
+		<dd>
+			<select name="assignedTo" id="assignedTo">
+				<?php foreach($this->teamMembers as $member): ?>
+					<option value="<?php echo $member->id ?>"><?php echo $member->name ?></option>
+				<?php endforeach; ?>
+			</select>
+		</dd>
+	<dt>Summary:</dt>
+		<dd><input type="text" id="summary" name="summary" style="width: 400px"></dd>
+	<dt>Description:</dt>
+		<dd><textarea id="summary" name="summary" style="width: 400px; height: 200px"></textarea></dd>
+	<dt>Steps to Reproduce:</dt>
+		<dd><textarea id="steps" name="steps" style="width: 400px; height: 200px"></textarea></dd>
+	<dt>Additional Info:</dt>
+		<dd><textarea id="additionalInfo" name="additionalInfo" style="width: 400px; height: 200px"></textarea></dd>
+</dl>
+<input type="submit" id="submit" value="Report Bug">
+</form>

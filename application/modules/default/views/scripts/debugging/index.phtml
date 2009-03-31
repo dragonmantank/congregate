@@ -1,45 +1,42 @@
+<script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/bpm/bpm.jquery.zebra-stripe.js"></script>
+
 <script type="text/javascript">
-	dojo.require('dijit.form.Button');
-	dojo.require('dijit.form.TextBox');
-	loadSignatures();
-	
-	function addSignature() {
-		dojo.xhrPost({
-			url:		'<?php echo $this->baseUrl(); ?>/signatures/add/',
-			handleAs:	'json',
-			error: function(data, ioArgs) {
-				alert('There was an error adding the signature');
-			},
-			load: function(data, ioArgs) {
-				loadSignatures();
-				dojo.byId('newSig').value = '';
-			},
-			content: {
-				name: 	dojo.byId('newSig').value,
-				type:	'debugging'
-			}
-		});
-	}
-	
-	function loadSignatures() {
-		dojo.xhrGet({
-			url:	'<?php echo $this->baseUrl(); ?>/signatures/generate/type/debugging',
-			load:	function(data, ioArgs) {
-				dojo.byId('signatures').innerHTML = data;
-			}
-		});
-		
-	}
+$(document).ready(function() {
+	$('.stripe').bpm_stripe();
+});
 </script>
+
 <h1>Debugging Phase of '<?php echo $this->projectName; ?>'</h1>
 
-<p>
-At this time, this section just allows you to sign off that the Debugging procedure has been finished. Eventually documents and testing reports will be able to be uploaded and reviewed from here.
-</p>
-
-<p>
-For the time being, once all Debugging process has been finished offline, please sign off on this section to move on to Installation.
-</p>
+<table width="100%" class="stripe">
+	<thead>
+		<tr>
+			<th>Bug ID</th>
+			<th>Category</th>
+			<th>Severity</th>
+			<th>Status</th>
+			<th>Assigned To</th>
+			<th>Summary</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach($this->bugs as $bug): ?>
+			<tr>
+				<td align="center"><a href="<?php echo $this->baseUrl(); ?>/debugging/view/id/<?php echo $bug->id; ?>"><?php echo str_pad($bug->id, 5, '0', STR_PAD_LEFT); ?></a></td>
+				<td><?php echo $bug->categoryName; ?></td>
+				<td><?php echo $bug->severityName; ?></td>
+				<td><?php echo $bug->status ?></td>
+				<td><a href="mailto:<?php echo $bug->assignedEmail; ?>"><?php echo $bug->assignedName ?></a></td>
+				<td><?php echo $bug->summary ?></td>
+			</tr>
+		<?php endforeach; ?>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="6" align="right"><a href="<?php echo $this->baseUrl(); ?>/debugging/addbug">Report New Bug</a></td>
+		</tr>
+	</tfoot>
+</table>
 
 <h2>Signatures</h2>
 <div id="signatures">

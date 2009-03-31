@@ -1,7 +1,6 @@
 @CHARSET "ISO-8859-1";
 
 th {
-	background-image:	url('/images/layout/th-heading.png');
 	background-color:	#356AA0;
 	height:				22px;
 	color:				white;
@@ -72,3 +71,6 @@ ul li div.noteTitle {
 	background-color:	#E6E6E6;
 }
 
+dl.form dt {
+
+}

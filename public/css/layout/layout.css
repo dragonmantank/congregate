@@ -89,3 +89,8 @@ ul li div.noteTitle {
 ul.expandable li {
 	margin:	5px;
 }
+
+dl.form dt {
+	float:		left;
+	width:		150px;
+}
