@@ -1,6 +1,25 @@
 <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/bpm/bpm.jquery.zebra-stripe.js"></script>
 
 <script type="text/javascript">
+function removeSig(id) {
+	$.ajax({
+		data:		{ sid: id },
+		dataType:	'json',
+		error:		function(rq, status, error) {
+			alert('There was a problem removing the signature: ' + error);
+		},
+		success:	function(rsp, status) {
+			if(rsp.status == 1) {
+				window.location	= '<?php echo $this->baseUrl(); ?>/configuration';
+			} else {
+				alert('Signature was not removed: ' + rsp.message);
+			}
+		},
+		type:		'POST',
+		url:		'<?php echo $this->baseUrl(); ?>/signatures/removereq/'
+	});
+}
+
 function removeTeamMember(id) {
 	$.ajax({
 		data:		{ uid: id },
@@ -136,7 +155,7 @@ $(document).ready(function() {
 				<?php endif; ?>
 				<tr>
 					<td><?php echo $sig->name ?></td>
-					<td><img src="<?php echo $this->baseUrl(); ?>/images/famfamfam_silk/delete.png"></td>
+					<td><a href="javascript:removeSig('<?php echo $sig->id; ?>');"><img src="<?php echo $this->baseUrl(); ?>/images/famfamfam_silk/delete.png"></a></td>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>

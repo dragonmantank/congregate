@@ -58,4 +58,37 @@ class SignaturesController extends Zend_Controller_Action
 			echo $row->signature . '<br>';
 		}
 	}
+
+	public function removereqAction()
+	{
+		$this->_helper->layout->disableLayout();
+		$this->_helper->viewRenderer->setNoRender(true);
+
+		$projectId	= $_SESSION['projectId'];
+		$user		= Zend_Auth::getInstance()->getIdentity();
+		$p			= new Projects();
+		$u			= new Users();
+		$psig		= new ProjectSignatures();
+
+		$sid		= $this->_request->getParam('sid');
+		$sig		= $psig->find($sid)->current();
+		$pOwner		= $p->fetchOwner($projectId);
+
+		if( ($user->id != $pOwner) ) {
+			if( !($u->isAdmin($user->primaryGroup)) ) {
+				$this->_forward('index', 'restricted');
+			}
+		}
+
+		if($sig->signatureId == $pOwner) {
+			$status		= 0;
+			$message	= 'Cannot remove signature of project author.';
+		} else {
+			$sig->delete();
+			$status		= 1;
+			$message	= 'Signature was removed';
+		}
+
+		echo json_encode(array('status' => $status, 'message' => $message));
+	}
 }
