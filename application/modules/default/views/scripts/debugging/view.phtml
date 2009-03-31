@@ -1,0 +1,133 @@
+<script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/bpm/bpm.jquery.zebra-stripe.js"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/jquery/jquery.jeditable-1.6.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$('.stripe').bpm_stripe();
+
+	$('#status').editable('<?php echo $this->baseUrl(); ?>/debugging/updatesection/section/status', {
+		data:	" {'New':'New','Feedback':'Feedback','Acknowledged':'Acknowledged','Confirmed':'Confirmed','Resolved':'Resolved','Closed':'Closed','selected':'<?php echo $this->status; ?>'} ",
+		type:	'select',
+		submit:	'OK',
+		submitdata:	{
+			bid:	'<?php echo $this->id; ?>'
+		}
+	});
+
+	$('#addNoteButton').click(function() {
+		$('#addNoteDialog').dialog('open');
+	});
+
+	$('#addNoteDialog').dialog({
+		bgiframe:	true,
+		autoOpen:	false,
+		modal:		true,
+		width:		400,
+		buttons:	{
+			'Add Note': function() {
+				$.ajax({
+					data:		{
+						note:	$('#newNote').val(),
+						id:		<?php echo $this->id; ?>
+					},
+					dataType:	'json',
+					error:		function(rq, status, error) {
+						alert('There was a problem adding the note: ' + error);
+					},
+					success:	function(rsp, status) {
+						if(rsp.status == 1) {
+							window.location = '<?php echo $this->baseUrl(); ?>/debugging/view/id/<?php echo $this->id; ?>';
+						} else {
+							alert('There was a problem adding the note: ' + rsp.message);
+						}
+					},
+					type:		'POST',
+					url:		'<?php echo $this->baseUrl(); ?>/debugging/addnote'
+				});
+			}
+		}
+	});
+});
+</script>
+
+<h1>BUG <?php echo str_pad($this->id, 5, '0', STR_PAD_LEFT); ?>: <?php echo $this->summary ?></h1>
+
+<table width="100%">
+	<thead>
+		<tr>
+			<th width="150px">ID</th>
+			<th>Category</th>
+			<th>Severity</th>
+			<th>Reproducible?</th>
+			<th>Date Submitted</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td align="center"><?php echo str_pad($this->id, 5, '0', STR_PAD_LEFT); ?></td>
+			<td><?php echo $this->categoryName; ?></td>
+			<td align="center"><?php echo $this->severityName; ?></td>
+			<td align="center"><?php echo ($this->reproducibility ? 'Yes' : 'No'); ?></td>
+			<td align="center"><?php echo date('m/d/Y h:ia', strtotime($this->dateCreated)); ?></td>
+		</tr>
+		<tr>
+			<td colspan="5" height="10px"></td>
+		</tr>
+		<tr>
+			<th>Reporter:</th>
+			<td colspan="4"><?php echo $this->reporterName; ?></td>
+		</tr>
+		<tr>
+			<th>Assigned To:</th>
+			<td colspan="4"><?php echo $this->assignedName; ?></td>
+		</tr>
+		<tr>
+			<th>Priority:</th>
+			<td><?php echo $this->priorityName; ?></td>
+			<th>Status:</th>
+			<td colspan="2" id="status"><?php echo $this->status; ?></td>
+		</tr>
+		<tr>
+			<td colspan="5" height="10px"></td>
+		</tr>
+		<tr>
+			<th>Summary:</th>
+			<td colspan="4"><?php echo $this->summary; ?></td>
+		</tr>
+		<tr>
+			<th>Description:</th>
+			<td colspan="4"><?php echo $this->description; ?></td>
+		</tr>
+		<tr>
+			<th>Additional Informnation:</th>
+			<td colspan="4"><?php echo $this->additionalInfo; ?></td>
+		</tr>
+	</tbody>
+</table>
+
+<h2>Notes</h2>
+<table width="100%" class="stripe">
+	<tbody>
+		<?php if(count($this->notes)): ?>
+			<?php foreach($this->notes as $note): ?>
+				<tr>
+					<th width="150px"><?php echo $note->authorName; ?><br /><?php echo date('m/d/Y h:ia', strtotime($note->dateCreated)); ?></th>
+					<td><?php echo $note->note; ?></td>
+				</tr>
+			<?php endforeach; ?>
+		<?php else: ?>
+			<tr>
+				<td colspan="2" align="center"><b>There are no notes on this bug.</b></td>
+			</tr>
+		<?php endif; ?>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="2" align="right"><button id="addNoteButton">Add New Note</button></td>
+		</tr>
+	</tfoot>
+</table>
+
+<div id="addNoteDialog" title="Add New Note" class="left">
+<textarea name="newNote" id="newNote" style="width: 350px; height: 150px"></textarea>
+</div>
