@@ -1,6 +1,11 @@
 <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/bpm/bpm.jquery.zebra-stripe.js"></script>
 
 <script type="text/javascript">
+function addSig(section) {
+	$('#section').val(section);
+
+	$('#addReqSigDialog').dialog('open');
+}
 function removeSig(id) {
 	$.ajax({
 		data:		{ sid: id },
@@ -96,6 +101,35 @@ $(document).ready(function() {
 			}
 		}
 	});
+
+	$('#addReqSigDialog').dialog({
+		bgiframe:	true,
+		autoOpen:	false,
+		modal:		true,
+		buttons:	{
+			'Add Signature': function() {
+				$.ajax({
+					data:		{
+						section:	$('#section').val(),
+						uid:		$('#uid').val()
+					},
+					dataType:	'json',
+					error:		function(rq, status, error) {
+						alert('There was a problem adding the signature: ' + rq);
+					},
+					success:	function(rsp, status) {
+						if(rsp.status == 1) {
+							window.location	= '<?php echo $this->baseUrl(); ?>/configuration';
+						} else {
+							alert('There was a problem adding the signature: ' + rsp.message);
+						}
+					},
+					type:		'POST',
+					url:		'<?php echo $this->baseUrl(); ?>/signatures/addreq/'
+				});
+			}
+		}
+	});
 });
 
 </script>
@@ -150,7 +184,7 @@ $(document).ready(function() {
 				<?php if($sig->sectionName != $previousSection): $previousSection = $sig->sectionName; ?>
 					<tr>
 						<th><?php echo $sig->sectionName; ?></th>
-						<th><img src="<?php echo $this->baseUrl(); ?>/images/famfamfam_silk/add.png"></th>
+						<th><a href="javascript:addSig('<?php echo $sig->sectionId; ?>');"><img src="<?php echo $this->baseUrl(); ?>/images/famfamfam_silk/add.png"></a></th>
 					</tr>
 				<?php endif; ?>
 				<tr>
@@ -174,4 +208,25 @@ $(document).ready(function() {
 			<input type="hidden" name="existingId" id="existingId" value="" />
 		</fieldset>
 	</form>
+</div>
+
+<div id="addReqSigDialog" title="Add Required Signature" class="left">
+	<dl>
+		<dt>Section:</dt>
+			<dd>
+				<select id="section" name="section">
+					<?php foreach($this->sections as $sec): ?>
+						<option value="<?php echo $sec->id ?>"><?php echo $sec->name ?></option>
+					<?php endforeach; ?>
+				</select>
+			</dd>
+		<dt>Team Member:</dt>
+			<dd>
+				<select id="uid" name="uid">
+					<?php foreach($this->teamMembers as $member): ?>
+						<option value="<?php echo $member->id ?>"><?php echo $member->name; ?></option>
+					<?php endforeach; ?>
+				</select>
+			</dd>
+	</dl>
 </div>

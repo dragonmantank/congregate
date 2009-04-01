@@ -43,6 +43,29 @@ class SignaturesController extends Zend_Controller_Action
 		echo json_encode(array('status' => 1));
 	}
 
+	public function addreqAction()
+	{
+		$this->_helper->layout->disableLayout();
+		$this->_helper->viewRenderer->setNoRender(true);
+
+		$psig		= new ProjectSignatures();
+
+		$pid		= $_SESSION['projectId'];
+		$uid		= $this->_request->getParam('uid');
+		$section	= $this->_request->getParam('section');
+
+		if( !$psig->exists($pid, $uid, $section) ) {
+			$psig->add($pid, $uid, $section);
+			$status		= 1;
+			$message	= 'Signature was added successfully';
+		} else {
+			$status		= 0;
+			$message	= 'Signature is already required for this section';
+		}
+
+		echo json_encode(array('status' => $status, 'message' => $message));
+	}
+
 	public function generateAction()
 	{
 		$this->_helper->layout->disableLayout();

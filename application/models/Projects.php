@@ -48,6 +48,13 @@ class Projects extends Zend_Db_Table_Abstract
 		return $row->slug;
 	}
 
+	public function fetchSections()
+	{
+		$ps	= new ProjectSections();
+
+		return $ps->fetchAll();
+	}
+
 	public function fetchTeamMembers($pid)
 	{
 		$up	= new UserProjects();

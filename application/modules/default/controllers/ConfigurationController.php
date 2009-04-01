@@ -13,6 +13,7 @@ class ConfigurationController extends Zend_Controller_Action
 		$this->view->name			= $project->name;
 		$this->view->description	= $project->description;
 		$this->view->requiredSigs	= $p->getRequiredSignatures($project->id);
+		$this->view->sections		= $p->fetchSections();
 	}
 
 	public function init()
