@@ -1,0 +1,26 @@
+<h1>Project Administration</h1>
+
+<table class="stripe" width="100%">
+	<thead>
+		<tr>
+			<th>Project</th>
+			<th>Status</th>
+			<th>Author</th>
+			<th>Date Created</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php if(count($this->projects)): ?>
+			<?php foreach($this->projects as $project): ?>
+				<tr>
+					<td><a href="<?php echo $this->baseUrl(); ?>/projects/load/project/<?php echo $project->id; ?>"><?php echo $project->name; ?></a></td>
+					<td><?php echo $project->statusName; ?></td>
+					<td><?php echo $project->authorName; ?></td>
+					<td align="right"><?php echo date('m/d/Y', strtotime($project->dateCreated)); ?></td>
+					<td align="center"><img src="<?php echo $this->baseUrl(); ?>/images/famfamfam_silk/delete.png"></td>
+				</tr>
+			<?php endforeach; ?>
+		<?php endif; ?>
+	</tbody>
+</table>

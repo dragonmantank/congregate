@@ -23,6 +23,16 @@ class Users extends Zend_Db_Table_Abstract
 		return $uid;
 	}
 
+	public function fetchAllUsers()
+	{
+		$select	= $this->select()->from(array('u' => $this->_name))
+								 ->join(array('g' => 'g_Groups'), 'u.primaryGroup = g.id', array('groupName' => 'name'))
+								 ->order('u.name ASC')
+								 ->setIntegrityCheck(false);
+
+		return $this->fetchAll($select);
+	}
+
 	public function fetchByEmail($email)
 	{
 		$select	= $this->select()->where('status = -1')

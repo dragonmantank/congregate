@@ -1,0 +1,55 @@
+<h1>Users and Groups Administration</h1>
+
+<h2>Users</h2>
+
+<table class="stripe" width="100%">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>E-mail</th>
+			<th>Group</th>
+			<th>Date Created</th>
+			<th>Status</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php if(count($this->users)): ?>
+			<?php foreach($this->users as $user): ?>
+				<tr>
+					<td><a href="<?php echo $this->baseUrl(); ?>/projects/load/project/<?php echo $user->id; ?>"><?php echo $user->name; ?></a></td>
+					<td><?php echo $user->email; ?></td>
+					<td><?php echo $user->groupName; ?></td>
+					<td align="right"><?php echo date('m/d/Y', strtotime($user->dateCreated)); ?></td>
+					<td><?php echo $user->status; ?></td>
+					<td align="center"><img src="<?php echo $this->baseUrl(); ?>/images/famfamfam_silk/delete.png"></td>
+				</tr>
+			<?php endforeach; ?>
+		<?php endif; ?>
+	</tbody>
+</table>
+
+<h2>Groups</h2>
+
+<table class="stripe" width="100%">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Level</th>
+			<th>Date Created</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php if(count($this->groups)): ?>
+			<?php foreach($this->groups as $group): ?>
+				<tr>
+					<td><a href="<?php echo $this->baseUrl(); ?>/projects/load/project/<?php echo $group->id; ?>"><?php echo $group->name; ?></a></td>
+					<td align="right"><?php echo $group->level; ?></td>
+					<td align="right"><?php echo date('m/d/Y', strtotime($group->dateCreated)); ?></td>
+					<td align="center"><img src="<?php echo $this->baseUrl(); ?>/images/famfamfam_silk/delete.png"></td>
+				</tr>
+			<?php endforeach; ?>
+		<?php endif; ?>
+	</tbody>
+</table>

@@ -11,10 +11,33 @@ class Projects extends Zend_Db_Table_Abstract
 		$data['slug']	= $this->_generateSlug($data['name']);
 
 		if( $this->insert($data) ) {
-			$projectId = $this->getAdapter()->lastInsertId();
+			$projectId	= $this->getAdapter()->lastInsertId();
 			$up			= new UserProjects();
 			$up->insert(array('userId' => $identity->id, 'projectId' => $projectId));
+
+			$psig	= new ProjectSignatures();
+			foreach($this->fetchSections() as $section) {
+				$psig->add($projectId, $data['author'], $section->id);
+			}
 		}
+	}
+
+	public function addSignature($pid, $signature, $section)
+	{
+		$signatures	= new Signatures();
+
+		$signatures->add($pid, $signature, $section);
+	}
+
+	public function fetchAllProjects()
+	{
+		$select	= $this->select()->from(array('p' => $this->_name))
+								 ->join(array('u' => 'u_Users'), 'p.author = u.id', array('authorName' => 'name', 'authorEmail' => 'email'))
+								 ->join(array('ps' => 'ps_ProjectSections'), 'p.status = ps.id', array('statusName' => 'name'))
+								 ->order('p.name ASC')
+								 ->setIntegrityCheck(false);
+
+		return $this->fetchAll($select);
 	}
 
 	public function fetchAllByUser($uid)
