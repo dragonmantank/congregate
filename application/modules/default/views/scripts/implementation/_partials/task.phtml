@@ -22,6 +22,12 @@
 		<div id="status_<?php echo $this->id; ?>"><?php echo ($this->status ? 'Complete' : 'Incomplete'); ?></div>
 	</td>
 	<td valign="top">
+		<?php echo date('m/d/Y', strtotime($this->dateCreated)); ?>
+	</td>
+	<td valign="top">
+		<?php echo ($this->status ? date('m/d/Y', strtotime($this->dateCompleted)) : ''); ?>
+	</td>
+	<td valign="top">
 		<div id="completedBy_<?php echo $this->id; ?>" class="edit"><?php echo $this->completedBy; ?></div>
 	</td>
 </tr>

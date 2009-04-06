@@ -62,7 +62,8 @@ class ImplementationController extends Zend_Controller_Action
 			$task->{$section}	= $text;
 			switch($section) {
 				case 'completedBy';
-					$task->status = ($text == '' ? 0 : 1);
+					$task->status 			= ($text == '' ? 0 : 1);
+					$task->dateCompleted	= ($text == '' ? '0000-00-00 00:00:00' : date('Y-m-d h:i:s'));
 					break;
 				case 'estimateCurrent':
 				case 'elapsed':

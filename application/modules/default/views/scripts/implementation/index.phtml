@@ -91,6 +91,8 @@ $(document).ready(function() {
 			<th>Elapsed</th>
 			<th>Remaining</th>
 			<th>Status</th>
+			<th>Date Added</th>
+			<th>Date Completed</th>
 			<th>Completed By</th>
 		</tr>
 	</thead>
@@ -99,13 +101,13 @@ $(document).ready(function() {
 			<?php echo $this->partialLoop('implementation/_partials/task.phtml', $this->tasks); ?>
 		<?php else: ?>
 			<tr>
-				<td colspan="9" align="center"><b>There are no tasks for this project.</b></td>
+				<td colspan="11" align="center"><b>There are no tasks for this project.</b></td>
 			</tr>
 		<?php endif; ?>
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="9" align="right"><button id="addTaskButton">Add Task</button></td>
+			<td colspan="11" align="right"><button id="addTaskButton">Add Task</button></td>
 		</tr>
 	</tfoot>
 </table>
