@@ -28,6 +28,11 @@ function authenticateUser() {
 }
 
 $(document).ready(function() {
+	$('#login').click(function() {
+		authenticateUser();
+		return false;
+	});
+
 	$('#authWaiting').dialog({
 		bgiframe:	true,
 		autoOpen:	false,
@@ -82,14 +87,15 @@ $(document).ready(function() {
 
 
 <div style="width: 200px; margin-left: auto; margin-right: auto;" class="panel">
+	<form id="loginForm" method="POST" action="javascript:return false;">
 	<dl class="form">
 		<dt>Username:</dt>
 			<dd><input type="text" id="username" name="username" style="width: 200px"></dd>
 		<dt>Password:</dt>
 			<dd><input type="password" id="password" name="password" style="width: 200px"></dd>
-		<dt></dt>
-			<dd><button onClick="authenticateUser()"  id="submit" name="submit">Log In</button></dd>
 	</dl>
+	<input type="submit" id="login" value="Log In" style="float: right; clear: both">
+	</form>
 
 	<p>
 	<a href="#" id="registerNewUser">Register New User</a>
