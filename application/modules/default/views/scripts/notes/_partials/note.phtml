@@ -1,0 +1,8 @@
+<li>
+	<p class="message_head">
+		<?php echo $this->noteTitle; ?> <span class="noteInfo">(<?php echo $this->authorName; ?>, <?php echo date('m/d/Y', strtotime($this->dateAdded)); ?>)</span>
+	</p>
+	<p class="message_body">
+		<?php echo $this->noteText; ?>
+	</p>
+</li>

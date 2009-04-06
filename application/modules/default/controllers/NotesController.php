@@ -28,6 +28,7 @@ class NotesController extends Zend_Controller_Action
 
 		$this->view->projectName	= $project->name;
 		$this->view->notes			= $notes;
+		$this->view->sections		= $projects->fetchSections();
 	}
 
 	public function init()

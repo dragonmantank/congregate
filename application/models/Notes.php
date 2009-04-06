@@ -8,7 +8,7 @@ class Notes extends Zend_Db_Table_Abstract
 	{
 		$data['projectId']	= $projectId;
 		$data['userId']		= Zend_Auth::getInstance()->getIdentity()->id;
-		$data['section']	= $section;
+		$data['sectionId']	= $section;
 
 		$noteId	= $this->insert($data);
 
@@ -29,7 +29,8 @@ class Notes extends Zend_Db_Table_Abstract
 	public function fetchNotes($pid)
 	{
 		$select	= $this->select()->from(array('n' => $this->_name))
-								 ->join(array('nt' => 'nt_NotesText'), 'nt.noteId = n.id')
+								 ->join(array('nt' => 'nt_NotesText'), 'nt.noteId = n.id', array('noteTitle' => 'title','noteText' => 'text', 'lastUpdated' => 'dateAdded', 'textAuthor' => 'author'))
+								 ->join(array('u' => 'u_Users'), 'nt.author = u.id', array('authorName' => 'name', 'authorEmail' => 'email'))
 								 ->where('n.projectId = ?', $pid)
 								 ->setIntegrityCheck(false);
 

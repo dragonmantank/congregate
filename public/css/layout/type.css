@@ -84,3 +84,7 @@ ul p.message_head {
 ul li div.noteTitle {
 	font-weight:	bold;
 }
+
+.noteInfo {
+	font-size:	8pt;
+}
