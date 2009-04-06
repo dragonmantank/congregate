@@ -3,25 +3,28 @@
 <script type="text/javascript">
 function addSignature(section) {
 	$.ajax({
-		data:   { name:	$('#newSig').val() },
+		data:   {
+			name:		$('#newSig').val(),
+			'section':	section
+		},
 		dataType:   'json',
 		success:    function(rsp, status) {
 			loadSignatures('sdd');
 			$('#newSig').val("");
 		},
 		type:       'POST',
-		url:        '<?php echo $this->baseUrl(); ?>/signatures/add/type/' + section
+		url:        '<?php echo $this->baseUrl(); ?>/signatures/add/'
 	});
 }
 
 function loadSignatures(section) {
-	$('#signatures').load('<?php echo $this->baseUrl(); ?>/signatures/generate/type/' + section);
+	$('#signatures').load('<?php echo $this->baseUrl(); ?>/signatures/generate/type/3');
 }
 
 $(document).ready(function() {
 	$('#fileTable').bpm_stripe();
 
-	loadSignatures('design');
+	loadSignatures('Design');
 
 	$('#addFile').click(function() {
 		$('#addFileDialog').dialog('open');
@@ -86,7 +89,7 @@ $(document).ready(function() {
 
 <div id="addSig">
 <label for="newSig">Name:</label><input type="text" name="newSig" id="newSig">
-<button onClick="addSignature('design');">Add Signature</button>
+<button onClick="addSignature('Design');">Add Signature</button>
 </div>
 
 <div id="addFileDialog" class="left" title="Add New File">

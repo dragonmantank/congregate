@@ -26,7 +26,7 @@ class Projects extends Zend_Db_Table_Abstract
 	{
 		$signatures	= new Signatures();
 
-		$signatures->add($pid, $signature, $section);
+		return $signatures->add($pid, $signature, $section);
 	}
 
 	public function fetchAllProjects()
@@ -105,5 +105,12 @@ class Projects extends Zend_Db_Table_Abstract
 		$up	= new UserProjects();
 
 		return $up->isMember($uid, $pid);
+	}
+
+	public function moveForward($pid)
+	{
+		$project	= $this->find($pid)->current();
+		$project->status++;
+		$project->save();
 	}
 }

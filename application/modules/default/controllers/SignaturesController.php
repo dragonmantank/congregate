@@ -8,7 +8,7 @@ class SignaturesController extends Zend_Controller_Action
 		$this->_helper->viewRenderer->setNoRender(true);
 
 		$projectId	= $_SESSION['projectId'];
-		$type		= $this->_request->getParam('type');
+		$type		= $this->_request->getParam('section');
 		$name		= $this->_request->getParam('name');
 		$projects	= new Projects();
 
@@ -53,9 +53,10 @@ class SignaturesController extends Zend_Controller_Action
 
 		$projectId	= $_SESSION['projectId'];
 		$type		= $this->_request->getParam('type');
+		$ps			= new ProjectSections();
 
 		$signatures	= new Signatures();
-		$sigs		= $signatures->fetchAll($signatures->select()->where('projectId = ?', $projectId)->where('type = ?', $type));
+		$sigs		= $signatures->fetchAll($signatures->select()->where('projectId = ?', $projectId)->where('section = ?', $type));
 
 		foreach($sigs as $row) {
 			echo $row->signature . '<br>';
