@@ -22,6 +22,21 @@ $(document).ready(function() {
 			url:        '<?php echo $this->baseUrl();?>/files/addcomment/'
 		});
 	});
+
+	$('#addRevButton').click(function() {
+		$('#addFileDialog').dialog('open');
+	});
+
+	$('#addFileDialog').dialog({
+		bgiframe:	true,
+		autoOpen:	false,
+		modal:		true,
+		buttons:	{
+			'Upload': function() {
+				$('#addFileForm').submit();
+			}
+		}
+	});
 });
 </script>
 
@@ -97,5 +112,20 @@ $(document).ready(function() {
 	<tbody>
 	</tbody>
 	<tfoot>
+		<tr>
+			<td colspan="4" align="right"><button id="addRevButton">Add New Version</button></td>
+		</tr>
 	</tfoot>
 </table>
+
+<div id="addFileDialog" class="left" title="Add New Revision">
+	<form id="addFileForm" method="POST" enctype="multipart/form-data" action="<?php echo $this->baseUrl(); ?>/files/addrevision">
+	<dl>
+		<dt>Title:</dt>
+			<dd><input type="text" name="title" id="title" value="<?php echo $this->title; ?>" READONLY></dd>
+		<dt>File:</dt>
+			<dd><input type="file" name="file" id="file"></dd>
+	</dl>
+	<input type="hidden" name="fid" id="fid" value="<?php echo $this->id; ?>">
+	</form>
+</div>
