@@ -72,7 +72,10 @@ $(document).ready(function() {
 				<td align="center"><?php echo date('m/d/Y', strtotime($file->dateAdded)); ?></td>
 				<td align="center"><?php echo $file->revision; ?></td>
 				<td><a href="mailto:<?php echo $file->email; ?>"><?php echo $file->name; ?></a></td>
-				<td align="center"><a href="<?php echo $this->baseUrl();?>/files/view/file/<?php echo $file->id?>">View</a> : Download</td>
+				<td align="center">
+					<a href="<?php echo $this->baseUrl();?>/files/view/file/<?php echo $file->detailId?>/type/browser">View</a> :
+					<a href="<?php echo $this->baseUrl(); ?>/files/view/file/<?php echo $file->detailId ?>/type/download" target="_new">Download</a>
+				</td>
 			</tr>
 		<?php endforeach; ?>
 	</tbody>

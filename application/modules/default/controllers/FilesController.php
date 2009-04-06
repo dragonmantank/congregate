@@ -46,5 +46,15 @@ class FilesController extends Zend_Controller_Action
 
 		$this->view->assign($file->toArray());
 		$this->view->comments	= $f->fetchComments($fid);
+		$this->view->revisions	= $f->fetchAllVersions($fid);
+	}
+
+	public function viewAction()
+	{
+		$this->_helper->layout->disableLayout();
+		$this->_helper->viewRenderer->setNoRender(true);
+
+		$files	= new Files();
+		$files->viewFile($this->_request->getParam('file'), $this->_request->getParam('type'));
 	}
 }

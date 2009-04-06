@@ -92,6 +92,18 @@ class Files extends Zend_Db_Table_Abstract
 		$fc->insert($data);
 	}
 
+	public function fetchAllVersions($fid)
+	{
+		$select	= $this->select()->from(array('f' => $this->_name))
+								 ->join(array('fd' => 'fd_FilesDetail'), 'f.id = fd.fileId', array('detailId' => 'id', 'fileId', 'fsFilename', 'mimetype', 'size', 'dateAdded', 'author'))
+								 ->join(array('u' => 'u_Users'), 'fd.author = u.id', array('name', 'email'))
+								 ->where('f.id = ?', $fid)
+								 ->order('fd.dateAdded DESC')
+								 ->setIntegrityCheck(false);
+
+		return $this->fetchAll($select);
+	}
+
 	public function fetchComments($fid)
 	{
 		$fc	= new FilesComments();
@@ -138,5 +150,30 @@ class Files extends Zend_Db_Table_Abstract
 
 		$row	= $this->fetchRow($select);
 		return $row->projectId;
+	}
+
+	public function viewFile($detailId, $type = 'browser')
+	{
+		$select	= $this->select()->from(array('fd' => 'fd_FilesDetail'), array('detailId' => 'id', 'fileId', 'fsFilename', 'mimetype', 'size', 'dateAdded', 'author'))
+								 ->join(array('f' => 'f_Files'), 'fd.fileId = f.id')
+								 ->join(array('u' => 'u_Users'), 'fd.author = u.id', array('name', 'email'))
+								 ->where('fd.id = ?', $detailId)
+								 ->order('fd.dateAdded DESC')
+								 ->setIntegrityCheck(false);
+
+		$file		= $this->fetchRow($select);
+		$fullPath	= INSTALL_PATH . '/data/' .$file->directory . '/' . $file->fsFilename;
+		$disposition	= ($type == 'browser' ? 'inline' : 'attachment');
+
+		header("Pragma: public");
+	    header("Expires: 0");
+	    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+	    header("Cache-Control: private", false);
+	    header("Content-Type: ".$file->mimetype);
+	    header("Content-Disposition: " . $disposition . "; filename=\"".$file->filename."\";");
+	    header("Content-Transfer-Encoding: binary");
+	    header("Content-Length: ".filesize($fullPath));
+	    readfile($fullPath);
+	    die();
 	}
 }
