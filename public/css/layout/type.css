@@ -26,6 +26,10 @@ th {
 	font-weight:	bold;
 }
 
+ul li {
+	list-style:	disc;
+}
+
 #hd h1 {
 	font-weight:	bold;
 	line-height:	40px;
@@ -62,6 +66,10 @@ th {
 
 #navigation a:hover {
 	text-decoration:	underline;
+}
+
+#navigation ul li {
+	list-style:	none;
 }
 
 blockquote {
