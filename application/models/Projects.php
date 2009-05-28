@@ -28,6 +28,17 @@ class Projects extends Zend_Db_Table_Abstract
 
 		return $signatures->add($pid, $signature, $section);
 	}
+	
+	public function emailMembers($pid, $message, $title)
+	{
+		$u	= new Users();
+		$up	= new UserProjects();
+		$members	= $up->getMembers($pid);
+		
+		foreach($members as $member) {
+			$u->sendEmail($member->email, $member->name, $message, $title);
+		}
+	}
 
 	public function fetchAllProjects()
 	{

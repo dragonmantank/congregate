@@ -23,6 +23,10 @@ class DesignController extends Zend_Controller_Action
 
 		try {
 			$f->add($data);
+			$project	= $p->find($_SESSION['projectId'])->current();
+			$message	= "Document '" . $_POST['title'] . "' has been uploaded to project '" . $project->name . "'";
+			$title		= "New Document Added to Project '" . $project->name . "'";
+			$p->emailMembers($_SESSION['projectId'], $message, $title);
 		} catch (Exception $e) {
 			$flashMessenger	= $this->_helper->FlashMessenger;
 			$flashMessenger->addMessage($e->getMessage());
