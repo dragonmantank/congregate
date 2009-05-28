@@ -6,7 +6,14 @@ class UserProjects extends Zend_Db_Table_Abstract
 
 	public function addUser($uid, $pid)
 	{
-		return $this->insert(array('userId' => $uid, 'projectId' => $pid));
+		$u	= new Users();
+		$user	= $u->find($uid)->current();
+		if( $this->insert(array('userId' => $uid, 'projectId' => $pid)) ) {
+			$u->sendEmail($user->email, $user->name, 'You have been added as a team member to a new project.', 'BiffPM - New Project');
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public function fetchUserProjects($uid)

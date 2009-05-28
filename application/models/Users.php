@@ -68,15 +68,23 @@ class Users extends Zend_Db_Table_Abstract
 
 		return $this->update($data, 'id = ' . $id . ' AND status = -1');
 	}
+	
+	public function sendEmail($email, $name, $message, $subject) 
+	{
+		$mail	= new Zend_Mail();
+		$mail->setBodyText($message);
+		$mail->setFrom('noreply@domain.com', 'Biff Project Manager');
+		$mail->addTo($email, $name);
+		$mail->setSubject($subject);
+		
+		$mail->send();
+	}
 
 	public function sendRegistration($email, $name, $challenge)
 	{
-		$mail	= new Zend_Mail();
-		$mail->setBodyText("<< This message is automatically generated >>\n\nYou have been added added as a Team Member in BPM. Please visit the website and click on 'Register New User' and use the following invite code:\n\n$challenge");
-		$mail->setFrom('noreply@domain.com', 'BPM Registration');
-		$mail->addto($email, $name);
-		$mail->setSubject('BPM Registration');
+		$message	= "<< This message is automatically generated >>\n\nYou have been added added as a Team Member in BPM. Please visit the website and click on 'Register New User' and use the following invite code:\n\n$challenge";
+		$subject	= 'BPM Registration';
 
-		$mail->send();
+		$this->_sendEmail($email, $name, $message, $subject);
 	}
 }
