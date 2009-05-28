@@ -10,7 +10,7 @@ class Users extends Zend_Db_Table_Abstract
 			'password'		=> md5(time()),
 			'name'			=> $name,
 			'email'			=> $email,
-			'primaryGroup'	=> 99,
+			'primaryGroup'	=> 3,
 			'status'		=> -1,
 			'challenge'		=> substr(md5(time()), 0, 10),
 		);
