@@ -1,1 +1,36 @@
-<?php echo $this->layout()->content; ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+ "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<?php echo $this->headTitle(); ?>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl(); ?>/css/yui/reset-fonts-grids.css">
+    <link rel="stylesheet" href="<?php echo $this->baseUrl(); ?>/css/yui/base-min.css">
+    <link rel="stylesheet" href="<?php echo $this->baseUrl(); ?>/css/layout.css">
+
+</head>
+<body>
+<div id="doc3" class="yui-t7">
+	<div id="hd">
+		<div style="float: right; color: white">
+			<a href="<?php echo $this->baseUrl(); ?>/admin">Admin</a> |
+			<a href="<?php echo $this->baseUrl(); ?>/auth/index/logout">Log Out</a>
+		</div>
+		<h1><a href="<?php echo $this->baseUrl(); ?>">Congregate Project Manager</a></h1>
+	</div>
+    <div id="main-nav">
+        <ul>
+            <li>My Home</li>
+            <li>My Projects</li>
+
+        </ul>
+    </div>
+	<div id="bd">
+		<div class="yui-g" id="content">
+			<!-- YOUR DATA GOES HERE -->
+			<?php echo $this->layout()->content; ?>
+		</div>
+	</div>
+	<div id="ft"><p>Copyright 2009 <a href="http://ctankersley.com">Chris Tankersley</a></p></div>
+</div>
+</body>
+</html>
