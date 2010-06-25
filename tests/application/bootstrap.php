@@ -22,9 +22,9 @@ $application = new Zend_Application(
     APPLICATION_PATH . '/configs/application.ini'
 );
 
+$application->getBootstrap()->bootstrap("AutoLoad");
+$application->getBootstrap()->bootstrap("RegisterNamespaces");
 $application->getBootstrap()->bootstrap("doctrine");
 
 $cli = new Doctrine_Cli($application->getOption('doctrine'));
-@$cli->run(array("doctrine", "create-db"));
-@$cli->run(array("doctrine", "create-tables"));
-@$cli->run(array("doctrine", "load-data"));
+@$cli->run(array("doctrine", "rebuild-db", "force"));

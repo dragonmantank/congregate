@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 
 define('ROOT_PATH', dirname(dirname(__FILE__)));
 define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
-define('APPLICATION_ENV', 'docrtineCLI');
+define('APPLICATION_ENV', 'doctrineCLI');
 
 
 //Ensure library/ is on include_path
