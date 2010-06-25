@@ -23,3 +23,23 @@ User:
     dateActivated: timestamp
     status: tinyint
     challenge: string(50)
+
+Project:
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    name: string(255)
+    description: text
+    status: tinyint
+    author: integer
+    dateCreated: timestamp
+    dateApproved: timestamp
+    dateDeclined: timestamp
+    dateCompleted: timestamp
+  actAs:
+    Sluggable:
+      unique: true
+      fields: [id, name]
+      canUpdate: true
