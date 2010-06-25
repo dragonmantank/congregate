@@ -1,0 +1,11 @@
+Model_User:
+  Root_User:
+    username: root@domain.com
+    password: start123
+    name: Root User
+    email: root@domain.com
+    primaryGroup: 1
+    dateCreated: 2010-01-01 00:00:00
+    dateActivated: 2010-01-01 00:00:00
+    status: 1
+    challenge: 0000

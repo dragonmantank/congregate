@@ -1,0 +1,25 @@
+options:
+  type: INNODB
+  collate: utf8_general_ci
+  charset: utf8
+
+User:
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    username:
+      type: string(255)
+      unique: true
+    password: string(255)
+    name: string(255)
+    email:
+      type: string(255)
+      unique: true
+    primaryGroup: integer
+    dateCreated: 
+      type: timestamp
+    dateActivated: timestamp
+    status: tinyint
+    challenge: string(50)

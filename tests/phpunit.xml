@@ -1,0 +1,21 @@
+<phpunit bootstrap="./application/bootstrap.php" colors="true">
+    <testsuite name="Application">
+        <directory>./application</directory>
+    </testsuite>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">../application</directory>
+            <exclude>
+                <directory suffix=".php">../library/Zend</directory>
+                <directory suffix=".phtml">../application/views</directory>
+                <directory>../bin</directory>
+                <file>../application/Bootstrap.php</file>
+            </exclude>
+        </whitelist>
+    </filter>
+
+    <logging>
+        <log type="coverage-html" target="./log/report" charset="UTF-8" />
+        <log type="testdox" target="./log/testdox.html" />
+    </logging>
+</phpunit>
