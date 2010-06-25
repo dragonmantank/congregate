@@ -1,7 +1,7 @@
 Model_User:
   Root_User:
     username: root@domain.com
-    password: start123
+    password: 0f94abd78df6bb422c635c8786b3e4f09a576224
     name: Root User
     email: root@domain.com
     primaryGroup: 1

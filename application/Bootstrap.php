@@ -33,7 +33,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         $fc = $this->getResource('frontController');
 
-        // $fc->registerPlugin( new Manuscript_Controller_Plugin_Auth() );
+        $fc->registerPlugin( new Tws_Controller_Plugin_Auth() );
         $fc->registerPlugin( new Tws_Controller_Plugin_ModuleLayout() );
 
         return $fc;
