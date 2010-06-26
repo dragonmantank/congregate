@@ -2,7 +2,7 @@
 
 <ul>
     <?php foreach($this->projects as $project): ?>
-        <li><a href="<?php echo $this->baseUrl();?>/project/load/<?php echo $project['slug']; ?>"><?php echo $project['name']; ?></a></li>
+        <li><a href="<?php echo $this->baseUrl();?>/project/load/index/project/<?php echo $project['slug']; ?>"><?php echo $project['name']; ?></a></li>
     <?php endforeach; ?>
     <li><a href="<?php echo $this->baseUrl(); ?>/project/create">Create New Project</a></li>
 </ul>
