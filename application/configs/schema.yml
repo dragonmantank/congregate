@@ -3,6 +3,35 @@ options:
   collate: utf8_general_ci
   charset: utf8
 
+Project:
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    name: string(255)
+    description: text
+    status: tinyint
+    authorId: integer
+    dateCreated: timestamp
+    dateApproved: timestamp
+    dateDeclined: timestamp
+    dateCompleted: timestamp
+  actAs:
+    Sluggable:
+      unique: true
+      fields: [id, name]
+      canUpdate: true
+  relations:
+    User:
+      local: authorId
+      foreign: id
+    Users:
+      class: User
+      local: projectId
+      foreign: userId
+      refClass: UserProjects
+
 User:
   columns:
     id:
@@ -23,23 +52,18 @@ User:
     dateActivated: timestamp
     status: tinyint
     challenge: string(50)
+  relations:
+    Projects:
+      class: Project
+      local: userId
+      foreign: projectId
+      refClass: UserProjects
 
-Project:
+UserProjects:
   columns:
-    id:
-      type: integer
-      primary: true
-      autoincrement: true
-    name: string(255)
-    description: text
-    status: tinyint
-    author: integer
-    dateCreated: timestamp
-    dateApproved: timestamp
-    dateDeclined: timestamp
-    dateCompleted: timestamp
-  actAs:
-    Sluggable:
-      unique: true
-      fields: [id, name]
-      canUpdate: true
+      id:
+        type: integer
+        primary: true
+        autoincrement: true
+      userId: integer
+      projectId: integer

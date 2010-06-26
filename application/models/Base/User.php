@@ -15,6 +15,8 @@
  * @property timestamp $dateActivated
  * @property tinyint $status
  * @property string $challenge
+ * @property Doctrine_Collection $Projects
+ * @property Doctrine_Collection $Project
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -74,6 +76,13 @@ abstract class Model_Base_User extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        
+        $this->hasMany('Model_Project as Projects', array(
+             'refClass' => 'Model_UserProjects',
+             'local' => 'userId',
+             'foreign' => 'projectId'));
+
+        $this->hasMany('Model_Project as Project', array(
+             'local' => 'id',
+             'foreign' => 'authorId'));
     }
 }

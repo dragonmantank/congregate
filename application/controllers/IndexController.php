@@ -10,7 +10,11 @@ class IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        // action body
+        $user = Doctrine_Core::getTable('Model_User')->findOneById(Zend_Auth::getInstance()->getIdentity()->id);
+        //$projects = $user->fetchProjects();
+        $projects = $user->projects;
+        
+        $this->view->projects = $projects[0]['Projects'];
     }
 
 

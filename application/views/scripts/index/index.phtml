@@ -1,6 +1,9 @@
 <h1>My Home</h1>
 
 <ul>
+    <?php foreach($this->projects as $project): ?>
+        <li><a href="<?php echo $this->baseUrl();?>/project/load/<?php echo $project['id']; ?>"><?php echo $project['name']; ?></a></li>
+    <?php endforeach; ?>
     <li><a href="<?php echo $this->baseUrl(); ?>/project/create">Create New Project</a></li>
 </ul>
 

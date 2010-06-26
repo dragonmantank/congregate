@@ -9,11 +9,13 @@
  * @property string $name
  * @property text $description
  * @property tinyint $status
- * @property integer $author
+ * @property integer $authorId
  * @property timestamp $dateCreated
  * @property timestamp $dateApproved
  * @property timestamp $dateDeclined
  * @property timestamp $dateCompleted
+ * @property Model_User $User
+ * @property Doctrine_Collection $Users
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -40,7 +42,7 @@ abstract class Model_Base_Project extends Doctrine_Record
         $this->hasColumn('status', 'tinyint', null, array(
              'type' => 'tinyint',
              ));
-        $this->hasColumn('author', 'integer', null, array(
+        $this->hasColumn('authorId', 'integer', null, array(
              'type' => 'integer',
              ));
         $this->hasColumn('dateCreated', 'timestamp', null, array(
@@ -64,6 +66,15 @@ abstract class Model_Base_Project extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
+        $this->hasOne('Model_User as User', array(
+             'local' => 'authorId',
+             'foreign' => 'id'));
+
+        $this->hasMany('Model_User as Users', array(
+             'refClass' => 'Model_UserProjects',
+             'local' => 'projectId',
+             'foreign' => 'userId'));
+
         $sluggable0 = new Doctrine_Template_Sluggable(array(
              'unique' => true,
              'fields' => 
