@@ -13,7 +13,7 @@ class Admin_UsersController extends Zend_Controller_Action
                 $user->username = $form->getValue('email');
                 $user->name = $form->getValue('name');
                 $user->email = $form->getValue('email');
-                $user->password = $form->getValue('password');
+                $user->password = sha1($form->getValue('password'));
                 $user->primaryGroup = 1;
                 $user->dateCreated = date('Y-m-d H:i:s');
                 $user->status = -1;

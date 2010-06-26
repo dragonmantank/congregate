@@ -25,7 +25,7 @@ class Model_User extends Model_Base_User
     {
         $user = Doctrine_Core::getTable('Model_User')->findOneByUsername($username);
         if($user) {
-            if($user->password == sha1(sha1($password))) {
+           if($user->password == sha1($password)) {
                 return $user;
             } else {
                 throw new Exception(self::AUTH_WRONG_PASSWORD);
@@ -34,10 +34,5 @@ class Model_User extends Model_Base_User
             throw new Exception(self::AUTH_NOT_FOUND);
         }
         
-    }
-
-    public function setPassword($password)
-    {
-        return $this->_set('password', sha1($password));
     }
 }
