@@ -15,18 +15,6 @@ class Model_User extends Model_Base_User
     const AUTH_WRONG_PASSWORD = 1;
     const AUTH_NOT_FOUND = 2;
 
-    public function fetchProjects()
-    {
-        $q = Doctrine_Query::create();
-        $q->from('Model_UserProjects up')
-          ->leftJoin('Model_User u ON up.id = u.id')
-          ->leftJoin('u.Projects p');
-
-        $projects = $q->fetchArray();
-Zend_Debug::dump($projects);
-        return $projects;
-    }
-
     /**
      *
      * @param <type> $username

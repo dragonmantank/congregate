@@ -27,9 +27,8 @@ Project:
       local: authorId
       foreign: id
     Users:
+      foreignAlias: Projects
       class: User
-      local: projectId
-      foreign: userId
       refClass: UserProjects
 
 User:
@@ -52,12 +51,6 @@ User:
     dateActivated: timestamp
     status: tinyint
     challenge: string(50)
-  relations:
-    Projects:
-      class: Project
-      local: userId
-      foreign: projectId
-      refClass: UserProjects
 
 UserProjects:
   columns:
@@ -65,5 +58,10 @@ UserProjects:
         type: integer
         primary: true
         autoincrement: true
-      userId: integer
-      projectId: integer
+      user_id: integer
+      project_id: integer
+  relations:
+    Project:
+      foreignAlias: UserProjects
+    User:
+      foreignAlias: UserProjects

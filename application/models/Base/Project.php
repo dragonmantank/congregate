@@ -16,6 +16,7 @@
  * @property timestamp $dateCompleted
  * @property Model_User $User
  * @property Doctrine_Collection $Users
+ * @property Doctrine_Collection $UserProjects
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -72,8 +73,12 @@ abstract class Model_Base_Project extends Doctrine_Record
 
         $this->hasMany('Model_User as Users', array(
              'refClass' => 'Model_UserProjects',
-             'local' => 'projectId',
-             'foreign' => 'userId'));
+             'local' => 'project_id',
+             'foreign' => 'user_id'));
+
+        $this->hasMany('Model_UserProjects as UserProjects', array(
+             'local' => 'id',
+             'foreign' => 'project_id'));
 
         $sluggable0 = new Doctrine_Template_Sluggable(array(
              'unique' => true,
