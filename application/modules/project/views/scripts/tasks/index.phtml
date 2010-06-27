@@ -1,0 +1,33 @@
+<h1>Tasks</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Task</th>
+            <th>Deadline</th>
+            <th>Assigned To</th>
+            <th>Current Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if(count($this->tasks)): ?>
+            <?php foreach($this->tasks as $task): ?>
+                <tr>
+                    <td><a href="<?php echo $this->baseUrl(); ?>/project/tasks/view/task/<?php echo $task->id; ?>"><?php echo $task->title; ?></a></td>
+                    <td><?php echo $task->deadline; ?></td>
+                    <td><?php echo $task->Author->name; ?></td>
+                    <td><?php echo $task->status; ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="4" align="center"><b>There are no tasks</b></td>
+            </tr>
+        <?php endif; ?>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4" align="right"><a href="<?php echo $this->baseUrl(); ?>/project/tasks/create">Add New Task</a></td>
+        </tr>
+    </tfoot>
+</table>

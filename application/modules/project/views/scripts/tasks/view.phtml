@@ -1,0 +1,48 @@
+<h1><?php echo $this->task->title; ?></h1>
+
+<div>
+    <?php echo $this->task->description; ?>
+</div>
+
+<hr />
+
+<div style="text-align: right">
+    <p>
+        Created by <?php echo $this->task->Author->name; ?> on <?php echo $this->task->dateAdded; ?>
+    </p>
+
+    <p>
+        This task is due on <?php echo $this->task->deadline; ?>
+        and has <?php echo (strtotime($this->task->deadline) - strtotime($this->task->dateAdded)) / 86400; ?> days left.
+    </p>
+</div>
+
+<h2>Notes</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Note</th>
+            <th>Added By</th>
+            <th>Added On</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if(count($this->task->Notes)): ?>
+            <?php foreach($this->task->Notes as $note): ?>
+                <tr>
+                    <td><?php echo $note->note; ?></td>
+                    <td><?php echo $note->Author->name; ?></td>
+                    <td><?php echo $note->dateAdded; ?></td>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="3" align="center">There are no notes</td>
+            </tr>
+        <?php endif; ?>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" align="right"><a href="<?php echo $this->baseUrl(); ?>/project/tasks/addnote/">Add New Note</a></td>
+        </tr>
+    </tfoot>
+</table>

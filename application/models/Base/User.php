@@ -18,6 +18,8 @@
  * @property Doctrine_Collection $Project
  * @property Doctrine_Collection $Projects
  * @property Doctrine_Collection $UserProjects
+ * @property Doctrine_Collection $Task
+ * @property Doctrine_Collection $TaskNote
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -89,5 +91,13 @@ abstract class Model_Base_User extends Doctrine_Record
         $this->hasMany('Model_UserProjects as UserProjects', array(
              'local' => 'id',
              'foreign' => 'user_id'));
+
+        $this->hasMany('Model_Task as Task', array(
+             'local' => 'id',
+             'foreign' => 'author_id'));
+
+        $this->hasMany('Model_TaskNote as TaskNote', array(
+             'local' => 'id',
+             'foreign' => 'author_id'));
     }
 }

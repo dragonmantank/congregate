@@ -9,3 +9,28 @@ Model_User:
     dateActivated: 2010-01-01 00:00:00
     status: 1
     challenge: 0000
+
+Model_Project:
+  Sample_Project:
+    name: "Test Project"
+    description: "This is a sample project that is auto-generated"
+    status: 1
+    authorId: 1
+    dateCreated: 2010-06-26 00:00:00
+    dateApproved: 2010-06-26 00:00:00
+
+Model_UserProjects:
+  Sample_Project_Link:
+    user_id: 1
+    project_id: 1
+
+Model_Task:
+  Sample_Task:
+    project_id: 1
+    title: "Sample Task"
+    description: "This is an auto-generated task. Please work with me here."
+    dateAdded: "2010-06-26"
+    deadline: "2010-06-30"
+    author_id: 1
+    assignedTo: 1
+    status: 0
