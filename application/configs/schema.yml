@@ -108,3 +108,45 @@ TaskNote:
       local: task_id
       foreign: id
       foreignAlias: Notes
+
+Bug:
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    project_id: integer
+    title: string(255)
+    description: string
+    reproduction: string
+    additionalInfo: string
+    author_id: integer
+    assigned_id: integer
+    dateCreated: timestamp
+    dateClosed: timestamp
+    status_id: integer
+  relations:
+    Project:
+      local: project_id
+      foreign: id
+      foreignAlias: Bugs
+    Author:
+      class: User
+      local: author_id
+      foreign: id
+    Assignee:
+      class: User
+      local: assigned_id
+      foreign: id
+    Status:
+      class: BugStatus
+      local: status_id
+      foreign: id
+
+BugStatus:
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    title: string(255)

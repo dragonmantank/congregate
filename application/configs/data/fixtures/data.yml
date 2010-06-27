@@ -34,3 +34,17 @@ Model_Task:
     author_id: 1
     assignedTo: 1
     status: 0
+
+Model_BugStatus:
+  Entered:
+    title: Entered
+  Acknowledged:
+    title: Acknowledged
+  Confirmed:
+    title: Confirmed
+  Closed_WontFix:
+    title: "Closed - Won't Fix"
+  Closed_Fixed:
+    title: "Closed - Fixed"
+  On_Hold:
+    title: "On Hold"
