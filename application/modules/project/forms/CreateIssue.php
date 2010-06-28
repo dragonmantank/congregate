@@ -1,6 +1,6 @@
 <?php
 
-class Project_Form_CreateBug extends Zend_Form
+class Project_Form_CreateIssue extends Zend_Form
 {
     public function init()
     {

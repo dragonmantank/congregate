@@ -109,7 +109,7 @@ TaskNote:
       foreign: id
       foreignAlias: Notes
 
-Bug:
+Issue:
   columns:
     id:
       type: integer
@@ -129,7 +129,7 @@ Bug:
     Project:
       local: project_id
       foreign: id
-      foreignAlias: Bugs
+      foreignAlias: Issues
     Author:
       class: User
       local: author_id
@@ -139,11 +139,11 @@ Bug:
       local: assigned_id
       foreign: id
     Status:
-      class: BugStatus
+      class: IssueStatus
       local: status_id
       foreign: id
 
-BugStatus:
+IssueStatus:
   columns:
     id:
       type: integer

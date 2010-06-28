@@ -20,7 +20,7 @@
  * @property Doctrine_Collection $UserProjects
  * @property Doctrine_Collection $Task
  * @property Doctrine_Collection $TaskNote
- * @property Doctrine_Collection $Bug
+ * @property Doctrine_Collection $Issue
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -101,7 +101,7 @@ abstract class Model_Base_User extends Doctrine_Record
              'local' => 'id',
              'foreign' => 'author_id'));
 
-        $this->hasMany('Model_Bug as Bug', array(
+        $this->hasMany('Model_Issue as Issue', array(
              'local' => 'id',
              'foreign' => 'author_id'));
     }

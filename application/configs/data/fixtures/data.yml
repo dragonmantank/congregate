@@ -35,13 +35,15 @@ Model_Task:
     assignedTo: 1
     status: 0
 
-Model_BugStatus:
+Model_IssueStatus:
   Entered:
     title: Entered
   Acknowledged:
     title: Acknowledged
   Confirmed:
     title: Confirmed
+  Feedback:
+    title: Feedback
   Closed_WontFix:
     title: "Closed - Won't Fix"
   Closed_Fixed:

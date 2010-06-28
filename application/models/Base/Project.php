@@ -18,7 +18,7 @@
  * @property Doctrine_Collection $Users
  * @property Doctrine_Collection $UserProjects
  * @property Doctrine_Collection $Tasks
- * @property Doctrine_Collection $Bugs
+ * @property Doctrine_Collection $Issues
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -86,7 +86,7 @@ abstract class Model_Base_Project extends Doctrine_Record
              'local' => 'id',
              'foreign' => 'project_id'));
 
-        $this->hasMany('Model_Bug as Bugs', array(
+        $this->hasMany('Model_Issue as Issues', array(
              'local' => 'id',
              'foreign' => 'project_id'));
 

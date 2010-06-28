@@ -1,0 +1,42 @@
+<h1>View Issue: <?php echo $this->issue->title; ?></h1>
+
+<table>
+    <tbody>
+        <tr>
+            <th>Issue ID:</th>
+            <td><?php echo str_pad($this->issue->id, 6, '0', STR_PAD_LEFT); ?></td>
+        </tr>
+        <tr>
+            <th>Title:</th>
+            <td><?php echo $this->issue->title; ?></td>
+        </tr>
+        <tr>
+            <th>Description:</th>
+            <td><?php echo $this->issue->description; ?></td>
+        </tr>
+        <tr>
+            <th>How to Reproduce:</th>
+            <td><?php echo $this->issue->reproduction; ?></td>
+        </tr>
+        <tr>
+            <th>Additional Info:</th>
+            <td><?php echo $this->issue->additionalInfo; ?></td>
+        </tr>
+        <tr>
+            <th>Assigned To:</th>
+            <td><?php echo $this->issue->Assignee->name; ?></td>
+        </tr>
+        <tr>
+            <th>Reported By:</th>
+            <td><?php echo $this->issue->Author->name; ?></td>
+        </tr>
+        <tr>
+            <th>Reported On:</th>
+            <td><?php echo $this->issue->dateCreated; ?></td>
+        </tr>
+        <tr>
+            <th>Current Status:</th>
+            <td><?php echo $this->issue->Status->title; ?></td>
+        </tr>
+    </tbody>
+</table>
