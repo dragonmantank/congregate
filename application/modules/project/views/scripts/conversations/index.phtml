@@ -1,0 +1,31 @@
+<h1>Conversations</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Date Added</th>
+            <th>Last Updated</th>
+    </thead>
+    <tbody>
+        <?php if(count($this->conversations)): ?>
+            <?php foreach($this->conversations as $conversation): ?>
+                <tr>
+                    <td><a href="<?php echo $this->baseUrl(); ?>/project/conversations/view/conversation/<?php echo $conversation->id; ?>"><?php echo $conversation->title; ?></a></td>
+                    <td><?php echo $conversation->Author->name; ?></td>
+                    <td><?php echo $conversation->dateAdded; ?></td>
+                    <td><?php echo $conversation->lastUpdated; ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="4" align="center"><b>There are no conversations</b></td>
+            </tr>
+        <?php endif; ?>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4" align="right"><a href="<?php echo $this->baseUrl(); ?>/project/conversations/create">Create New Conversation</a></td>
+    </tfoot>
+</table>

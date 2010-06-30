@@ -1,0 +1,22 @@
+<h1>View Conversation: <?php echo $this->conversation->title; ?></h1>
+
+<?php echo $this->form; ?>
+
+<hr />
+
+<?php foreach($this->conversation->ConversationPosts as $post): ?>
+    <div>
+        <?php echo $post->remark; ?>
+    </div>
+
+    <hr />
+
+    <div style="text-align: right">
+        <p>
+            Created by <?php echo $post->Author->name; ?> on <?php echo $post->dateAdded; ?>
+        </p>
+    </div>
+
+    <hr />
+    <hr />
+<?php endforeach; ?>

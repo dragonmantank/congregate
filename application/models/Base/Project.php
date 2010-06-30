@@ -19,6 +19,7 @@
  * @property Doctrine_Collection $UserProjects
  * @property Doctrine_Collection $Tasks
  * @property Doctrine_Collection $Issues
+ * @property Doctrine_Collection $Conversations
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -87,6 +88,10 @@ abstract class Model_Base_Project extends Doctrine_Record
              'foreign' => 'project_id'));
 
         $this->hasMany('Model_Issue as Issues', array(
+             'local' => 'id',
+             'foreign' => 'project_id'));
+
+        $this->hasMany('Model_Conversation as Conversations', array(
              'local' => 'id',
              'foreign' => 'project_id'));
 

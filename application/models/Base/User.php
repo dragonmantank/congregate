@@ -21,6 +21,8 @@
  * @property Doctrine_Collection $Task
  * @property Doctrine_Collection $TaskNote
  * @property Doctrine_Collection $Issue
+ * @property Doctrine_Collection $Conversation
+ * @property Doctrine_Collection $ConversationPost
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -102,6 +104,14 @@ abstract class Model_Base_User extends Doctrine_Record
              'foreign' => 'author_id'));
 
         $this->hasMany('Model_Issue as Issue', array(
+             'local' => 'id',
+             'foreign' => 'author_id'));
+
+        $this->hasMany('Model_Conversation as Conversation', array(
+             'local' => 'id',
+             'foreign' => 'author_id'));
+
+        $this->hasMany('Model_ConversationPost as ConversationPost', array(
              'local' => 'id',
              'foreign' => 'author_id'));
     }

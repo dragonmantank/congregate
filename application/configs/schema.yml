@@ -150,3 +150,44 @@ IssueStatus:
       primary: true
       autoincrement: true
     title: string(255)
+
+Conversation:
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    title: string(255)
+    author_id: integer
+    dateAdded: timestamp
+    lastUpdated: timestamp
+    project_id: integer
+  relations:
+    Project:
+      local: project_id
+      foreign: id
+      foreignAlias: Conversations
+    Author:
+      local: author_id
+      foreign: id
+      class: User
+
+ConversationPost:
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    conversation_id: integer
+    author_id: integer
+    remark: string
+    dateAdded: timestamp
+  relations:
+    Conversation:
+      local: conversation_id
+      foreign: id
+      foreignAlias: ConversationPosts
+    Author:
+      local: author_id
+      foreign: id
+      class: User
