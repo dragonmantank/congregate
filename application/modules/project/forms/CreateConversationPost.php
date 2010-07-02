@@ -8,6 +8,7 @@ class Project_Form_CreateConversationPost extends Zend_Form
         $submit = new Zend_Form_Element_Submit('submit');
 
         $remark->setLabel('Remark:')
+               ->setAttrib('class', 'elastic')
                ->setRequired();
 
         $submit->setLabel('Add Remark');
