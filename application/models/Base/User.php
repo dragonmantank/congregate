@@ -23,6 +23,8 @@
  * @property Doctrine_Collection $Issue
  * @property Doctrine_Collection $Conversation
  * @property Doctrine_Collection $ConversationPost
+ * @property Doctrine_Collection $File
+ * @property Doctrine_Collection $FileDetail
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -112,6 +114,14 @@ abstract class Model_Base_User extends Doctrine_Record
              'foreign' => 'author_id'));
 
         $this->hasMany('Model_ConversationPost as ConversationPost', array(
+             'local' => 'id',
+             'foreign' => 'author_id'));
+
+        $this->hasMany('Model_File as File', array(
+             'local' => 'id',
+             'foreign' => 'author_id'));
+
+        $this->hasMany('Model_FileDetail as FileDetail', array(
              'local' => 'id',
              'foreign' => 'author_id'));
     }

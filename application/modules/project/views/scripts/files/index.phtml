@@ -1,0 +1,35 @@
+<h1>Files</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Mimetype</th>
+            <th>File Size</th>
+            <th>Date Added</th>
+            <th>Uploaded By</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if(count($this->files)): ?>
+            <?php foreach($this->files as $file): ?>
+                <tr>
+                    <td><?php echo $file->title; ?></td>
+                    <td><?php echo $file->FileDetail->mimetype; ?></td>
+                    <td><?php echo $file->FileDetail->size; ?></td>
+                    <td><?php echo $file->FileDetail->dateAdded; ?></td>
+                    <td><?php echo $file->Author->name; ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="5" align="center"><b>There are no files uploaded</b></td>
+            </tr>
+        <?php endif; ?>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5" align="right"><a href="<?php echo $this->baseUrl(); ?>/project/files/upload">Upload New File</a></td>
+        </tr>
+    </tfoot>
+</table>

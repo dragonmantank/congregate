@@ -46,7 +46,7 @@ User:
       type: string(255)
       unique: true
     primaryGroup: integer
-    dateCreated: 
+    dateCreated:
       type: timestamp
     dateActivated: timestamp
     status: tinyint
@@ -191,3 +191,51 @@ ConversationPost:
       local: author_id
       foreign: id
       class: User
+
+File:
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    directory: string(255)
+    author_id: integer
+    revision: integer
+    title: string(255)
+    fileDetail_id: integer
+  relations:
+    Author:
+      local: author_id
+      foreign: id
+      class: User
+    Revisions:
+      local: id
+      foreign: file_id
+      class: FileDetail
+      cascade: [delete]
+    FileDetail:
+      local: fileDetail_id
+      foreign: id
+      cascade: [delete]
+
+FileDetail:
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    file_id: integer
+    filename: string(255)
+    fsFilename: string(255)
+    mimetype: string(255)
+    size: integer
+    dateAdded: timestamp
+    author_id: integer
+  relations:
+    Author:
+      local: author_id
+      foreign: id
+      class: User
+    File:
+      local: file_id
+      foreign: id
