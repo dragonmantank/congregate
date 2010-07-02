@@ -14,11 +14,14 @@ class Project_Form_CreateIssue extends Zend_Form
               ->setRequired(true);
 
         $description->setLabel('Description:')
-                    ->setRequired(true);
+                    ->setRequired(true)
+                    ->setAttrib('class', 'elastic');
 
-        $reproduction->setLabel('Steps to Reproduce:');
+        $reproduction->setLabel('Steps to Reproduce:')
+                     ->setAttrib('class', 'elastic');
 
-        $additionalInfo->setLabel('Any Additional Info:');
+        $additionalInfo->setLabel('Any Additional Info:')
+                       ->setAttrib('class', 'elastic');
 
         $submit->setLabel('Submit');
 

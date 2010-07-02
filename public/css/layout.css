@@ -1,3 +1,41 @@
 textarea.elastic {
     height: 50px;
 }
+
+#navigation {
+    background-color: #0086d2;
+    height: 35px;
+}
+
+#navigation ul {
+    margin: 0px 0px 0px 10px;
+    height: 35px;
+}
+
+#navigation ul li {
+    padding: 0px 10px 0px 0px;
+    display: inline;
+    line-height: 35px;
+    height: 35px;
+}
+
+#navigation a {
+    color: white;
+    line-height: 35px;
+    height: 35px;
+    font-weight: bold;
+}
+
+#navigation a:hover {
+    background-color: #9abbea;
+    height: 34px;
+}
+
+#bd {
+    clear: both;
+}
+
+#ft {
+    border-top: 1px solid black;
+    text-align: right;
+}

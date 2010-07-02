@@ -12,7 +12,8 @@ class Project_Form_CreateConversation extends Zend_Form
               ->setRequired();
 
         $remark->setLabel('Remark:')
-               ->setRequired();
+               ->setRequired()
+               ->setAttrib('class', 'elastic');
 
         $submit->setLabel('Create Conversation');
 

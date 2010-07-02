@@ -12,6 +12,7 @@ class Project_Form_ProjectSettings extends Zend_Form
              ->setRequired();
 
         $description->setLabel('Project Description:')
+                    ->setAttrib('class', 'elastic')
                     ->setRequired();
 
         $submit->setLabel('Save Settings');

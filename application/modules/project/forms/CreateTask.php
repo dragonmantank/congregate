@@ -13,7 +13,8 @@ class Project_Form_CreateTask extends Zend_Form
               ->setRequired(true);
 
         $description->setLabel('Task Description:')
-                    ->setRequired(true);
+                    ->setRequired(true)
+                    ->setAttrib('class', 'elastic');
 
         $deadline->setLabel('Deadline:')
                  ->setRequired(true);
