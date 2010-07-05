@@ -8,3 +8,13 @@
 </ul>
 
 <h2>What's Going On</h2>
+
+<?php foreach($this->messages as $message): ?>
+    <div class="user-message">
+        <div class="message">
+            <a href="<?php echo $this->baseUrl().'/'.$message->Message->url; ?>"><?php echo $message->Message->message; ?></a>
+        </div>
+        <div class="meta">
+            Created on <?php echo $message->Message->dateAdded; ?>
+        </div>
+<?php endforeach; ?>

@@ -13,6 +13,7 @@ class IndexController extends Zend_Controller_Action
         $user = Zend_Auth::getInstance()->getIdentity();
 
         $this->view->projects = $user->Projects;
+        $this->view->messages = $user->UserMessages;
     }
 
 

@@ -25,6 +25,7 @@
  * @property Doctrine_Collection $ConversationPost
  * @property Doctrine_Collection $File
  * @property Doctrine_Collection $FileDetail
+ * @property Doctrine_Collection $UserMessages
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -124,5 +125,9 @@ abstract class Model_Base_User extends Doctrine_Record
         $this->hasMany('Model_FileDetail as FileDetail', array(
              'local' => 'id',
              'foreign' => 'author_id'));
+
+        $this->hasMany('Model_UserMessages as UserMessages', array(
+             'local' => 'id',
+             'foreign' => 'user_id'));
     }
 }

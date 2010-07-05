@@ -14,7 +14,7 @@
  * @property timestamp $dateAdded
  * @property integer $author_id
  * @property Model_User $Author
- * @property Model_File $File
+ * @property Doctrine_Collection $File
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -68,8 +68,8 @@ abstract class Model_Base_FileDetail extends Doctrine_Record
              'local' => 'author_id',
              'foreign' => 'id'));
 
-        $this->hasOne('Model_File as File', array(
-             'local' => 'file_id',
-             'foreign' => 'id'));
+        $this->hasMany('Model_File as File', array(
+             'local' => 'id',
+             'foreign' => 'fileDetail_id'));
     }
 }

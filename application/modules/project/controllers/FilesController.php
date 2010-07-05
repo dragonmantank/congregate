@@ -20,13 +20,6 @@ class Project_FilesController extends Zend_Controller_Action
                 $upload = new Zend_File_Transfer_Adapter_Http();
                 $fileInfo = $upload->getFileInfo();
 
-//                $detail->filename = $fileInfo['file']['name'];
-//                $detail->fsFilename = sha1(rand().time().$detail->filename);
-//                $detail->mimetype = $fileInfo['file']['type'];
-//                $detail->size = $fileInfo['file']['size'];
-//                $detail->dateAdded = date('Y-m-d H:i:s');
-//                $detail->author_id = Zend_Auth::getInstance()->getIdentity();
-
                 $file->FileDetail->filename = $fileInfo['file']['name'];
                 $file->FileDetail->fsFilename = sha1(rand().time().$file->FileDetail->filename);
                 $file->FileDetail->mimetype = $fileInfo['file']['type'];
@@ -38,13 +31,19 @@ class Project_FilesController extends Zend_Controller_Action
                 $file->author_id = Zend_Auth::getInstance()->getIdentity();
                 $file->revision = 1;
                 $file->title = $form->getValue('title');
-                //$file->fileDetail_id = $file->FileDetail;
 
                 $upload->addFilter('Rename', APPLICATION_PATH.'/../data/documents/'.$file->FileDetail->fsFilename);
                 if($upload->receive()) {
                     $file->save();
                     $file->FileDetail->file_id = $file->id;
                     $file->FileDetail->save();
+
+                    Model_Message::addMessage(
+                        Zend_Auth::getInstance()->getIdentity()->name.' uploaded a new File, '.$file->title,
+                        'project/filess/view/file/'.$file->id,
+                        Zend_Auth::getInstance()->getIdentity(),
+                        $_SESSION['CurrentProject']['project']);
+
                     $this->_redirect('project/files');
                 } else {
                     echo 'We blew up.';

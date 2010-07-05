@@ -25,6 +25,12 @@ class Project_ConversationsController extends Zend_Controller_Action
                 $post->dateAdded = date('Y-m-d H:i:s');
                 $post->save();
 
+                Model_Message::addMessage(
+                        $author->name.' created a new Conversation, '.$conversation->title,
+                        'project/conversations/view/conversation/'.$conversation->id,
+                        $author,
+                        $_SESSION['CurrentProject']['project']);
+
                 $this->_redirect('project/conversations');
             }
         }
@@ -54,6 +60,12 @@ class Project_ConversationsController extends Zend_Controller_Action
                 $post->remark = $form->getValue('remark');
                 $post->dateAdded = date('Y-m-d H:i:s');
                 $post->save();
+
+                Model_Message::addMessage(
+                        $author->name.' responded to Conversation, '.$conversation->title,
+                        'project/conversations/view/conversation/'.$conversation->id,
+                        $author,
+                        $_SESSION['CurrentProject']['project']);
 
                 $this->_redirect('project/conversations/view/conversation/'.$conversation->id);
             }

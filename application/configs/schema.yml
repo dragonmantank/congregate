@@ -208,14 +208,15 @@ File:
       local: author_id
       foreign: id
       class: User
-    Revisions:
-      local: id
-      foreign: file_id
-      class: FileDetail
-      cascade: [delete]
     FileDetail:
       local: fileDetail_id
       foreign: id
+      cascade: [delete]
+    Revisions:
+      class: FileDetail
+      local: id
+      foreign: file_id
+      type: many
       cascade: [delete]
 
 FileDetail:
@@ -236,6 +237,31 @@ FileDetail:
       local: author_id
       foreign: id
       class: User
-    File:
-      local: file_id
-      foreign: id
+
+Message:
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    author_id: integer
+    message: string(255)
+    url: string(255)
+    dateAdded: timestamp
+
+UserMessages:
+  columns:
+      id:
+        type: integer
+        primary: true
+        autoincrement: true
+      user_id: integer
+      message_id: integer
+      project_id: integer
+  relations:
+    Message:
+      foreignAlias: UserMessages
+    User:
+      foreignAlias: UserMessages
+    Project:
+      foreignAlias: ProjectMessages

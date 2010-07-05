@@ -20,6 +20,12 @@ class Project_IssuesController extends Zend_Controller_Action
                 $issue->status_id = Doctrine_Core::getTable('Model_IssueStatus')->findOneByTitle('Entered');
                 $issue->save();
 
+                Model_Message::addMessage(
+                        Zend_Auth::getInstance()->getIdentity()->name.' created a new Issue, '.$issue->title,
+                        'project/issues/view/issue/'.$issue->id,
+                        Zend_Auth::getInstance()->getIdentity(),
+                        $_SESSION['CurrentProject']['project']);
+
                 $this->_redirect('project/issues');
             }
         }

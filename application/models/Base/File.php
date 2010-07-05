@@ -12,8 +12,8 @@
  * @property string $title
  * @property integer $fileDetail_id
  * @property Model_User $Author
- * @property Model_FileDetail $Revisions
  * @property Model_FileDetail $FileDetail
+ * @property Doctrine_Collection $Revisions
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -60,16 +60,16 @@ abstract class Model_Base_File extends Doctrine_Record
              'local' => 'author_id',
              'foreign' => 'id'));
 
-        $this->hasOne('Model_FileDetail as Revisions', array(
-             'local' => 'id',
-             'foreign' => 'file_id',
+        $this->hasOne('Model_FileDetail as FileDetail', array(
+             'local' => 'fileDetail_id',
+             'foreign' => 'id',
              'cascade' => array(
              0 => 'delete',
              )));
 
-        $this->hasOne('Model_FileDetail as FileDetail', array(
-             'local' => 'fileDetail_id',
-             'foreign' => 'id',
+        $this->hasMany('Model_FileDetail as Revisions', array(
+             'local' => 'id',
+             'foreign' => 'file_id',
              'cascade' => array(
              0 => 'delete',
              )));

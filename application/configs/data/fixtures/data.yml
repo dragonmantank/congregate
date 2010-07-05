@@ -50,3 +50,16 @@ Model_IssueStatus:
     title: "Closed - Fixed"
   On_Hold:
     title: "On Hold"
+
+Model_Message:
+  Sample_Task_Message:
+    author_id: 1
+    message: "Chris Tankersley created a new Task, Sample Task"
+    url: "project/tasks/view/task/1"
+    dateAdded: "2010-05-06 12:12:43"
+
+Model_UserMessages:
+  Sample_Task_Message_1:
+    user_id: 1
+    message_id: 1
+    project_id: 1
