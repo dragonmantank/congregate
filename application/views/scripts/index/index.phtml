@@ -1,3 +1,16 @@
+<script type="text/javascript">
+    function deleteMessage(id)
+    {
+        $.ajax({
+            dataType: "json",
+            success: function(data, sts, rq) {
+                $('#message-'+id).fadeOut();
+            },
+            url: "<?php echo $this->baseUrl(); ?>/messages/delete/messageId/"+id
+        });
+    }
+</script>
+
 <h1>My Home</h1>
 
 <ul>
@@ -10,11 +23,12 @@
 <h2>What's Going On</h2>
 
 <?php foreach($this->messages as $message): ?>
-    <div class="user-message">
+    <div class="user-message" id="message-<?php echo $message->id; ?>">
         <div class="message">
             <a href="<?php echo $this->baseUrl().'/'.$message->Message->url; ?>"><?php echo $message->Message->message; ?></a>
         </div>
         <div class="meta">
-            Created on <?php echo $message->Message->dateAdded; ?>
+            Created on <?php echo $message->Message->dateAdded; ?> <a href="javascript:deleteMessage(<?php echo $message->id; ?>);">(X)</a>
         </div>
+    </div>
 <?php endforeach; ?>

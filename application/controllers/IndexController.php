@@ -10,6 +10,8 @@ class IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
+        $_SESSION['CurrentProject'] = null;
+        
         $user = Zend_Auth::getInstance()->getIdentity();
 
         $this->view->projects = $user->Projects;
