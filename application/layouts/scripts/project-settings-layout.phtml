@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+ "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <?php echo $this->headTitle(); ?>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl(); ?>/css/yui/reset-fonts-grids.css">
+    <link rel="stylesheet" href="<?php echo $this->baseUrl(); ?>/css/yui/base-min.css">
+    <link rel="stylesheet" href="<?php echo $this->baseUrl(); ?>/css/layout.css">
+
+     <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/jquery/jquery-1.4.2.min.js"></script>
+     <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/js/jquery/jquery.elastic.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.elastic').elastic();
+        });
+    </script>
+</head>
+<body>
+<div id="doc3" class="yui-t1">
+    <div id="hd">
+        <div style="float: right; color: white">
+            <a href="<?php echo $this->baseUrl(); ?>/admin/">Admin Home</a> |
+            <a href="<?php echo $this->baseUrl(); ?>/auth/index/logout">Log Out</a>
+        </div>
+
+        <h1><a href="<?php echo $this->baseUrl(); ?>/">Congregate Project Manager</a></h1>
+    </div>
+
+    <div id="navigation">
+        <!-- Navigation -->
+        <ul>
+            <li><a href="<?php echo $this->baseUrl(); ?>/project/">Project Home</a></li>
+            <li><a href="<?php echo $this->baseUrl(); ?>/project/conversations">Conversations</a></li>
+            <li><a href="<?php echo $this->baseUrl(); ?>/project/files">Files</a></li>
+            <li><a href="<?php echo $this->baseUrl(); ?>/project/issues">Issues</a></li>
+            <li><a href="<?php echo $this->baseUrl(); ?>/project/settings">Project Settings</a></li>
+            <li><a href="<?php echo $this->baseUrl(); ?>/project/tasks">Tasks</a></li>
+        </ul>
+    </div>
+    
+    <div id="bd">
+        <div id="yui-main">
+            <div class="yui-b">
+                <div class="yui-g">
+                   <!-- YOUR DATA GOES HERE -->
+                   <?php echo $this->layout()->content; ?>
+                </div>
+            </div>
+	</div>
+	<div class="yui-b">
+            <!-- YOUR NAVIGATION GOES HERE -->
+            <ul>
+                <li><a href="<?php echo $this->baseUrl(); ?>/project/settings/">Project Settings</a></li>
+                <li><a href="<?php echo $this->baseUrl(); ?>/project/settings/members">Team Members</a></li>
+                <li><a href="<?php echo $this->baseUrl(); ?>/project/settings/archive">Archive Project</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div id="ft">Copyright 2009-2010 Chris Tankersley</div>
+</div>
+</body>
+</html>

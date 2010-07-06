@@ -1,0 +1,29 @@
+<h1>Team Members</h1>
+
+<table class="data">
+    <thead>
+        <tr>
+            <th>Gravatar</th>
+            <th>Name</th>
+            <th>E-Mail</th>
+            <th>Is Admin?</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($this->members as $member): ?>
+            <tr>
+                <td width="70" style="text-align: center"><img src="http://www.gravatar.com/avatar/<?php md5($member->email); ?>?s=65&d=identicon" /></td>
+                <td><?php echo $member->name; ?></td>
+                <td><?php echo $member->email; ?></td>
+                <td></td>
+                <td>Remove</td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5" align="right">Add New Team Member</td>
+        </tr>
+    </tfoot>
+</table>
