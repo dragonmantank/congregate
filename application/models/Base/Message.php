@@ -10,6 +10,7 @@
  * @property string $message
  * @property string $url
  * @property timestamp $dateAdded
+ * @property Model_User $Author
  * @property Doctrine_Collection $UserMessages
  * 
  * @package    ##PACKAGE##
@@ -50,6 +51,10 @@ abstract class Model_Base_Message extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
+        $this->hasOne('Model_User as Author', array(
+             'local' => 'author_id',
+             'foreign' => 'id'));
+
         $this->hasMany('Model_UserMessages as UserMessages', array(
              'local' => 'id',
              'foreign' => 'message_id'));

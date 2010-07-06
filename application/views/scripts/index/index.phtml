@@ -24,11 +24,18 @@
 
 <?php foreach($this->messages as $message): ?>
     <div class="user-message" id="message-<?php echo $message->id; ?>">
-        <div class="message">
-            <a href="<?php echo $this->baseUrl().'/'.$message->Message->url; ?>"><?php echo $message->Message->message; ?></a>
-        </div>
-        <div class="meta">
-            Created on <?php echo $message->Message->dateAdded; ?> <a href="javascript:deleteMessage(<?php echo $message->id; ?>);">(X)</a>
+        <div class="container">
+            <div class="author">
+                <img src="http://www.gravatar.com/avatar/<?php md5($message->Message->Author->email); ?>?s=65&d=identicon" /><br />
+            </div>
+
+            <div class="meta">
+                Created on <?php echo $message->Message->dateAdded; ?> <a href="javascript:deleteMessage(<?php echo $message->id; ?>);">(X)</a>
+            </div>
+
+            <div class="message">
+                <a href="<?php echo $this->baseUrl().'/'.$message->Message->url; ?>"><?php echo $message->Message->message; ?></a>
+            </div>
         </div>
     </div>
 <?php endforeach; ?>

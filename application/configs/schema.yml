@@ -248,6 +248,11 @@ Message:
     message: string(255)
     url: string(255)
     dateAdded: timestamp
+  relations:
+    Author:
+      local: author_id
+      foreign: id
+      class: User
 
 UserMessages:
   columns:
