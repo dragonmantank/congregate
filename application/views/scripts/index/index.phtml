@@ -26,7 +26,7 @@
     <div class="user-message" id="message-<?php echo $message->id; ?>">
         <div class="container">
             <div class="author">
-                <img src="http://www.gravatar.com/avatar/<?php md5($message->Message->Author->email); ?>?s=65&d=identicon" /><br />
+                <img src="http://www.gravatar.com/avatar/<?php echo md5($message->Message->Author->email); ?>?s=65&d=identicon" /><br />
             </div>
 
             <div class="meta">

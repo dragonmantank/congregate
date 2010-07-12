@@ -7,6 +7,6 @@ class Project_IndexController extends Zend_Controller_Action
         $project = $_SESSION['CurrentProject']['project'];
 
         $this->view->project = $project;
-        $this->view->messages = $project->ProjectMessages;
+        $this->view->messages = $project->fetchMessagesByUser(Zend_Auth::getInstance()->getIdentity()->id);
     }
 }

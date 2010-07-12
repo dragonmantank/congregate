@@ -13,7 +13,7 @@
     <tbody>
         <?php foreach($this->members as $member): ?>
             <tr>
-                <td width="70" style="text-align: center"><img src="http://www.gravatar.com/avatar/<?php md5($member->email); ?>?s=65&d=identicon" /></td>
+                <td width="70" style="text-align: center"><img src="http://www.gravatar.com/avatar/<?php echo md5($member->email); ?>?s=65&d=identicon" /></td>
                 <td><?php echo $member->name; ?></td>
                 <td><?php echo $member->email; ?></td>
                 <td></td>

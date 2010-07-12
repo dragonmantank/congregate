@@ -12,5 +12,16 @@
  */
 class Model_Project extends Model_Base_Project
 {
+    public function fetchMessagesByUser($uid)
+    {
+        $messages = array();
 
+        foreach($this->ProjectMessages as $message) {
+            if($message->user_id == $uid) {
+                $messages[] = $message;
+            }
+        }
+
+        return $messages;
+    }
 }
